@@ -17,4 +17,5 @@ return array(
     $vendorDir . '/phpunit/dbunit',
     $vendorDir . '/symfony/yaml',
     $vendorDir . '/phpunit/phpunit-selenium',
+    $vendorDir . '/phpunit/php-invoker',
 );
