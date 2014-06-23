@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="phpunit.bootstrap.php"
+    processIsolation="false"
+    verbose="true"
+    strict="false"
+    colors="true">
+    <testsuites>
+        <testsuite name="Library">
+            <!-- テストケースがあるディレクトリを列挙する -->
+            <directory>test</directory>
+            <!-- <directory>MyProject2</directory> -->
+            <!-- <directory>MyProject3</directory> -->
+            <!-- <directory>MyProject4</directory> -->
+        </testsuite>
+    </testsuites>
+</phpunit>
