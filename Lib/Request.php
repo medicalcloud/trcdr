@@ -52,7 +52,7 @@ class Request {
         }
     }
 
-    public function virtualMethod($method) {
+    public function virtualMethod() {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             if(isset($_POST['_method'])){
                 return $_POST['_method'];
