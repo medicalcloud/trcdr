@@ -2,7 +2,7 @@
 #require_once("../../Lib/Model.php");
 ?>
 Model.find_all(item);
-
-
-list_view
-
+<html>
+<head><title>Item List</title></head>
+list of items
+</html>
