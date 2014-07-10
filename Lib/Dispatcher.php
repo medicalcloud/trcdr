@@ -21,9 +21,9 @@ class Dispatcher {
         $req = new Request();
         if ($req->isGet()) {
             if ($req->isForMember()) {
-                $this->dispatch_to("show");
+                $this->dispatch_to("show_one");
             } else {
-                $this->dispatch_to("list");
+                $this->dispatch_to("show_many");
             }
         } elseif($req->isPost()) {
             if ($req->isForCollection()) {
@@ -35,11 +35,11 @@ class Dispatcher {
             if ($req->isForMember()) {
                 $this->dispatch_to("update");
             } else {
-                redirect_to('index.php');
-            }       
+                $this->redirect_to('index.php');
+            }
         } elseif($req->isDelete()) {
             if ($req->isForMember()) {
-                $this->dispatch_to("delete");
+                $this->dispatch_to("remove");
             } else {
                 $this->redirect_to('index.php');
             }
@@ -49,11 +49,11 @@ class Dispatcher {
     }
 
     public function work_as_generic_edit(){
-        $this->work_as_generic_get_for_member('edit');
+        $this->work_as_generic_get_for_member('edit_form');
     }
 
     public function work_as_generic_new(){
-        $this->work_as_generic_get_for_collection('new');
+        $this->work_as_generic_get_for_collection('new_form');
     }
 
     public function work_as_generic_get_for_member($action_name){

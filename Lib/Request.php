@@ -1,7 +1,7 @@
 <?php
 class Request {
     public function isGet() {
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        if ($this->methodComp($_SERVER['REQUEST_METHOD'], 'GET')) {
             return true;
         } else {
             return false;
@@ -9,7 +9,7 @@ class Request {
     }
 
     public function isPost() {
-        if ($this->virtualMethod() === 'POST') {
+        if ($this->methodComp($this->virtualMethod(), 'POST')) {
             return true;
         } else {
             return false;
@@ -17,9 +17,9 @@ class Request {
     }
 
     public function isPut() {
-        if ($this->virtualMethod() === 'PUT') {
+        if ($this->methodComp($this->virtualMethod(), 'PUT')) {
             return true;
-        } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+        } elseif ($this->methodComp($_SERVER['REQUEST_METHOD'], 'PUT')) {
             return true;
         } else {
             return false;
@@ -27,9 +27,9 @@ class Request {
     }
 
     public function isDelete() {
-        if ($this->virtualMethod() === 'DELETE') {
+        if ($this->methodComp($this->virtualMethod(), 'DELETE')) {
             return true;
-        } elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+        } elseif ($this->methodComp($_SERVER['REQUEST_METHOD'], 'DELETE')) {
             return true;
         } else {
             return false;
@@ -53,7 +53,7 @@ class Request {
     }
 
     public function virtualMethod() {
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if($this->methodComp($_SERVER['REQUEST_METHOD'], 'POST')) {
             if(isset($_POST['_method'])){
                 return $_POST['_method'];
             } else {
@@ -62,6 +62,10 @@ class Request {
         } else { 
             return $_SERVER['REQUEST_METHOD'];
         }
+    }
+
+    function methodComp($str1, $str2){
+        return strcasecmp($str1,$str2) === 0;
     }
 }
 
