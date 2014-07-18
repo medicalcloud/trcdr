@@ -2,85 +2,84 @@
 require_once(_TR_LIBPATH."Request.php");
 class Dispatcher {
     
-    private $model_name;
+    private $modelName;
     
-    public function __construct($model_name){
-            
-        $this->model_name = $model_name;
+    public function __construct($modelName){
+        $this->modelName = $modelName;
     }
 
     public function getModelName(){
-        return $this->model_name;
+        return $this->modelName;
     }
 
-    public function setModelName($model_name){
-        $this->model_name = $model_name;
+    public function setModelName($modelName){
+        $this->modelName = $modelName;
     }
 
-    public function work_as_generic_index(){
+    public function workAsGenericIndex(){
         $req = new Request();
         if ($req->isGet()) {
             if ($req->isForMember()) {
-                $this->dispatch_to("show_one");
+                $this->dispatchTo("show_one");
             } else {
-                $this->dispatch_to("show_many");
+                $this->dispatchTo("show_many");
             }
         } elseif($req->isPost()) {
             if ($req->isForCollection()) {
-                $this->dispatch_to("create");
+                $this->dispatchTo("create");
             } else {
-                $this->redirect_to('index.php');
+                $this->redirectTo('index.php');
             }
         } elseif($req->isPut()) {
             if ($req->isForMember()) {
-                $this->dispatch_to("update");
+                $this->dispatchTo("update");
             } else {
-                $this->redirect_to('index.php');
+                $this->redirectTo('index.php');
             }
         } elseif($req->isDelete()) {
             if ($req->isForMember()) {
-                $this->dispatch_to("remove");
+                $this->dispatchTo("remove");
             } else {
-                $this->redirect_to('index.php');
+                $this->redirectTo('index.php');
             }
         } else {
-            $this->redirect_to('index.php');
+            $this->redirectTo('index.php');
         }
     }
 
-    public function work_as_generic_edit(){
-        $this->work_as_generic_get_for_member('edit_form');
+    public function workAsGenericEdit(){
+        $this->workAsGenericGetForMember('edit_form');
     }
 
-    public function work_as_generic_new(){
-        $this->work_as_generic_get_for_collection('new_form');
+    public function workAsGenericNew(){
+        $this->workAsGenericGetForCollection('new_form');
     }
 
-    public function work_as_generic_get_for_member($action_name){
+    public function workAsGenericGetForMember($actionName){
         $req = new Request();
         if($req->isGet() && $req->isForMember()) {
-            $this->dispatch_to($action_name);
+            $this->dispatchTo($actionName);
         } else {
-            $this->redirect_to('index.php');
+            $this->redirectTo('index.php');
         }
     }
 
-    public function work_as_generic_get_for_collection($action_name){
+    public function workAsGenericGetForCollection($actionName){
         $req = new Request();
         if($req->isGet() && $req->isForCollection()) {
-            $this->dispatch_to($action_name);
+            $this->dispatchTo($actionName);
         } else {
-            $this->redirect_to('index.php');
+            $this->redirectTo('index.php');
         }
     }
 
 
-    public function dispatch_to($view_name){
-        require(_TR_APPPATH.$this->model_name.'/'.$view_name.'_view.php');
+    public function dispatchTo($viewName){
+        require(_TR_APPPATH.$this->modelName.'/'.$viewName.'_view.php');
     }
 
-    public function redirect_to($path_name){
-        header('Location: '._TR_BASEURL.$this->model_name.'/'.$path_name);
+    public function redirectTo($pathName){
+        header('Location: '._TR_BASEURL.$this->modelName.'/'.$pathName);
     }
 }
 

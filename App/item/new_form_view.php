@@ -1,14 +1,18 @@
 <?php
 require_once("ItemModel.php");
+require_once(_TR_LIBPATH."Helpers.php");
 ?>
 <html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <head><title>New Item</title></head>
 <body><?php
+$form = new Form();
+echo "Name:";
+$form->textbox("name", "");
+echo "<br/>";
+$form->submitButton("Create");
+$form->formEnd();
 ?>
-<form action="index.php" method="post">
-Name:<input type="text" name="name" value=""><br/>
-<input type="submit" value="New">
-</form>
 </body>
 </html>
 

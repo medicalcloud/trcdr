@@ -11,71 +11,84 @@ function tag($string) {
     echo('<'.h($string).'>');
 }
 
-function tag_end($string) {
+function tagEnd($string) {
     echo('</'.h($string).'>');
 }
 
-function link_to_url($string, $url) {
-    echo('<a href="'.$url.'">'.h($string).'</a>');
+function linkToUrl($string, $url) {
+    echo('<a href="'.$url.'" id="link_to_'.$url.'">'.h($string).'</a>');
 }
 
-function link_to_show_one($string, $id) {
-    echo('<a href="index.php?id='.$id.'">'.h($string).'</a>');
+function linkToShowOne($string, $id) {
+    echo('<a href="index.php?id='.$id.'" id="link_to_show_'.$id.'">'.h($string).'</a>');
 }
 
-function link_to_edit($string, $id) {
-    echo('<a href="edit.php?id='.$id.'">'.h($string).'</a>');
+function linkToEdit($string, $id) {
+    echo('<a href="edit.php?id='.$id.'" id="link_to_edit_'.$id.'">'.h($string).'</a>');
 }
 
-function button_to_remove($string, $id) {
+function buttonToRemove($string, $id) {
     echo('<form action="index.php?id='.h($id).'" method="post">');
     echo('<input type="hidden" name="_method" value="delete">');
-    echo('<input type="submit" value="'.$string.'">');
+    echo('<input type="submit" id="button_to_remove_'.$id.'" value="'.$string.'">');
     echo('</form>');
 }
 
 
-function link_to_new($string) {
-    print('<a href="new.php">'.h($string).'</a>');
+function linkToNew($string) {
+    echo('<a href="new.php" id="link_to_new">'.h($string).'</a>');
 }
 
-function link_to_show_many($string) {
-    print('<a href="index.php">'.h($string).'</a>');
+function linkToShowMany($string) {
+    echo('<a href="index.php" id="link_to_show_many">'.h($string).'</a>');
 }
 
 class Table {
     public function __construct() {
-        print('<table>');
+        echo('<table>');
     }
 
     public function tr() {
-        print('<tr>');
+        echo('<tr>');
     }
 
-    public function tr_end() {
-        print('</tr>');
+    public function trEnd() {
+        echo('</tr>');
     }
 
     public function td() {
-        print('<td>');
+        echo('<td>');
     }
 
-    public function td_end() {
-        print('</td>');
+    public function tdEnd() {
+        echo('</td>');
     }
 
-    public function table_end() {
-        print('</table>');
+    public function tableEnd() {
+        echo('</table>');
     }
 }
 
 class Form {
-    public function __construct() {
-        print('<form>');
+    public function __construct($id=null) {
+        if($id === null){
+            echo '<form action="index.php?" method="post">';
+        }else{
+            echo '<form action="index.php?id='.h($id).'" method="post">';
+            echo '<input type="hidden" name="_method" value="put">';
+        }
     }
 
-    public function form_end() {
-        print('</form>');
+    public function textbox($name, $value) {
+        echo '<input type="text" id="'.$name.'" name="'.$name.'" value="'.$value.'">';
+    }
+
+    public function submitButton($buttonLabel) {
+        echo '<input type="submit" id="submit_button" value="'.$buttonLabel.'">';
+    }
+
+    public function formEnd() {
+        echo('</form>');
     }
 }
 

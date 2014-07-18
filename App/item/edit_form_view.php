@@ -3,15 +3,17 @@ require_once("ItemModel.php");
 require_once(_TR_LIBPATH."Helpers.php");
 ?>
 <html>
-<head><title>Edit Item <?php echo($_REQUEST['id']) ?></title></head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head><title>Edit Item <?php ph($_REQUEST['id']) ?></title></head>
 <body><?php
-$item = ItemModel::find_one($_REQUEST['id']);
+$item = ItemModel::findOne($_REQUEST['id']);
+$form = new Form($item->id);
+echo "Name:";
+$form->textbox("name", $item->name);
+echo "<br/>";
+$form->submitButton("Update");
+$form->formEnd();
 ?>
-<form action="index.php?id=<?php ph($item->id); ?>" method="post">
-<input type="hidden" name="_method" value="put">
-Name:<input type="text" name="name" value="<?php ph($item->name); ?>"><br/>
-<input type="submit" value="Update">
-</form>
 </body>
 </html>
 

@@ -1,9 +1,10 @@
 <?php
 require_once("ItemModel.php");
 require_once(_TR_LIBPATH."Helpers.php");
-$items = ItemModel::find_many();
+$items = ItemModel::findMany();
 ?>
 <html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <head><title>Item List</title></head>
 <body>
 <?php 
@@ -12,20 +13,20 @@ foreach ($items as $item) {
     $table->tr();
     $table->td();
     ph($item->id);
-    $table->td_end();
+    $table->tdEnd();
     $table->td();
-    link_to_show_one(h($item->name), $item->id);
-    $table->td_end();
+    linkToShowOne(h($item->name), $item->id);
+    $table->tdEnd();
     $table->td();
-    link_to_edit("Edit", $item->id);
-    $table->td_end();
+    linkToEdit("Edit", $item->id);
+    $table->tdEnd();
     $table->td();
-    button_to_remove("Remove", $item->id);
-    $table->td_end();
-    $table->tr_end();
+    buttonToRemove("Remove", $item->id);
+    $table->tdEnd();
+    $table->trEnd();
 }
-$table->table_end();
-link_to_new("New")
+$table->tableEnd();
+linkToNew("New")
 ?>
 </body>
 </html>

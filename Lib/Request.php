@@ -1,59 +1,33 @@
 <?php
 class Request {
     public function isGet() {
-        if ($this->methodComp($_SERVER['REQUEST_METHOD'], 'GET')) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->methodCmp($_SERVER['REQUEST_METHOD'], 'GET');
     }
 
     public function isPost() {
-        if ($this->methodComp($this->virtualMethod(), 'POST')) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->methodCmp($this->virtualMethod(), 'POST');
     }
 
     public function isPut() {
-        if ($this->methodComp($this->virtualMethod(), 'PUT')) {
-            return true;
-        } elseif ($this->methodComp($_SERVER['REQUEST_METHOD'], 'PUT')) {
-            return true;
-        } else {
-            return false;
-        }
+        return (($this->methodCmp($this->virtualMethod(), 'PUT')) ||
+                 $this->methodCmp($_SERVER['REQUEST_METHOD'], 'PUT'));
     }
 
     public function isDelete() {
-        if ($this->methodComp($this->virtualMethod(), 'DELETE')) {
-            return true;
-        } elseif ($this->methodComp($_SERVER['REQUEST_METHOD'], 'DELETE')) {
-            return true;
-        } else {
-            return false;
-        }
+        return (($this->methodCmp($this->virtualMethod(), 'DELETE')) ||
+               ($this->methodCmp($_SERVER['REQUEST_METHOD'], 'DELETE')));
     }
 
     public function isForMember() {
-        if (isset($_REQUEST['id'])) {
-            return true;
-        } else {
-            return false;
-        }
+        return isset($_REQUEST['id']);
     }
 
     public function isForCollection() {
-        if (!(isset($_REQUEST['id']))) {
-            return true;
-        } else {
-            return false;
-        }
+        return !(isset($_REQUEST['id']));
     }
 
     public function virtualMethod() {
-        if($this->methodComp($_SERVER['REQUEST_METHOD'], 'POST')) {
+        if($this->methodCmp($_SERVER['REQUEST_METHOD'], 'POST')) {
             if(isset($_POST['_method'])){
                 return $_POST['_method'];
             } else {
@@ -64,7 +38,7 @@ class Request {
         }
     }
 
-    function methodComp($str1, $str2){
+    private function methodCmp($str1, $str2){
         return strcasecmp($str1,$str2) === 0;
     }
 }
