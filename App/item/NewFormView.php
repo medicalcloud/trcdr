@@ -1,6 +1,6 @@
 <?php
-require_once("ItemModel.php");
-require_once(_TR_LIBPATH."Helpers.php");
+require_once("ItemController.php");
+ItemController::newForm();
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

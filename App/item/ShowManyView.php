@@ -1,7 +1,6 @@
 <?php
-require_once("ItemModel.php");
-require_once(_TR_LIBPATH."Helpers.php");
-$items = ItemModel::findMany();
+require_once("ItemController.php");
+$items = ItemController::showMany();
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

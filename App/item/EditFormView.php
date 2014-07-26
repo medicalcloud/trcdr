@@ -1,12 +1,11 @@
 <?php
-require_once("ItemModel.php");
-require_once(_TR_LIBPATH."Helpers.php");
+require_once("ItemController.php");
+$item = ItemController::editForm($_REQUEST['id']);
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<head><title>Edit Item <?php ph($_REQUEST['id']) ?></title></head>
+<head><title>Edit Item <?php ph($item->id) ?></title></head>
 <body><?php
-$item = ItemModel::findOne($_REQUEST['id']);
 $form = new Form($item->id);
 echo "Name:";
 $form->textbox("name", $item->name);
