@@ -1,5 +1,5 @@
 <?php
-require_once(_TR_LIBPATH."DBManager.php");
+Pathes::loadLib("DBManager");
 
 class Model {
     protected static $dbh;

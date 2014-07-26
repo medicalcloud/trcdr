@@ -1,5 +1,5 @@
 <?php
-require_once(_TR_LIBPATH."Request.php");
+Pathes::loadLib("Request");
 class Dispatcher {
     
     private $modelName;
@@ -20,25 +20,25 @@ class Dispatcher {
         $req = new Request();
         if ($req->isGet()) {
             if ($req->isForMember()) {
-                $this->dispatchTo("show_one");
+                $this->dispatchTo("ShowOne");
             } else {
-                $this->dispatchTo("show_many");
+                $this->dispatchTo("ShowMany");
             }
         } elseif($req->isPost()) {
             if ($req->isForCollection()) {
-                $this->dispatchTo("create");
+                $this->dispatchTo("Create");
             } else {
                 $this->redirectTo('index.php');
             }
         } elseif($req->isPut()) {
             if ($req->isForMember()) {
-                $this->dispatchTo("update");
+                $this->dispatchTo("Update");
             } else {
                 $this->redirectTo('index.php');
             }
         } elseif($req->isDelete()) {
             if ($req->isForMember()) {
-                $this->dispatchTo("remove");
+                $this->dispatchTo("Remove");
             } else {
                 $this->redirectTo('index.php');
             }
@@ -48,11 +48,11 @@ class Dispatcher {
     }
 
     public function workAsGenericEdit(){
-        $this->workAsGenericGetForMember('edit_form');
+        $this->workAsGenericGetForMember('EditForm');
     }
 
     public function workAsGenericNew(){
-        $this->workAsGenericGetForCollection('new_form');
+        $this->workAsGenericGetForCollection('NewForm');
     }
 
     public function workAsGenericGetForMember($actionName){
@@ -75,11 +75,11 @@ class Dispatcher {
 
 
     public function dispatchTo($viewName){
-        require(_TR_APPPATH.$this->modelName.'/'.$viewName.'_view.php');
+        Pathes::execApp($this->modelName, $viewName.'View');
     }
 
     public function redirectTo($pathName){
-        header('Location: '._TR_BASEURL.$this->modelName.'/'.$pathName);
+        header('Location: '.Pathes::getBaseUrl().$this->modelName.'/'.$pathName);
     }
 }
 

@@ -1,5 +1,5 @@
 <?php
-require_once(_TR_LIBPATH."DBManager.php");
+Pathes::loadLib("DBManager");
 class DBManagerTest extends PHPUnit_Framework_TestCase{
     private $dbman;
     public function setUp(){

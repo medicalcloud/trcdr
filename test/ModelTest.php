@@ -1,5 +1,5 @@
 <?php
-require_once(_TR_LIBPATH."Model.php");
+Pathes::loadLib("Model");
 
 class ModelTest extends PHPUnit_Framework_TestCase{
     private $model;

@@ -1,5 +1,5 @@
 <?php
-require_once(_TR_LIBPATH."Request.php");
+Pathes::loadLib("Request");
 class RequestTest extends PHPUnit_Framework_TestCase{
     private $request;
     public function setUp(){

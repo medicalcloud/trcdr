@@ -1,5 +1,5 @@
 <?php
-Require_once(_TR_LIBPATH."/Dispatcher.php");
+Pathes::loadLib("Dispatcher");
 class DispatcherTest extends PHPUnit_Framework_TestCase{
     private $dispatcher;
     
