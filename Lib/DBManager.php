@@ -1,25 +1,34 @@
 <?php
+
 class DBManager {
     protected static $dbh = [];
+    protected static $DSN = "";
+    protected static $username = "";
+    protected static $password = "";
 
-    public static function getDbh($DSN = _TR_DSN,
-                                  $username = _TR_DB_USERNAME,
-                                  $password = _TR_DB_PASSWORD){
-        if(!(isset(self::$dbh[$DSN]))) {
+
+    public static function addDBParams($DSN, $username, $password){
+        static::$DSN = $DSN;
+        static::$username = $username;
+        static::$password = $password;
+    }
+
+    public static function getDbh(){
+        if(!(isset(self::$dbh[static::$DSN]))) {
             try {
-                self::$dbh[$DSN] = new PDO($DSN, $username, $password);
+                static::$dbh[static::$DSN] = new PDO(static::$DSN, static::$username, static::$password);
             } catch(PDOException $e) {
                 die('Error:'.$e->getMessage());
             }
-            return self::$dbh[$DSN];
+            return static::$dbh[static::$DSN];
         }
     }
 
     public function closeDbh($DSN = null){
         if($DSN === null) {
-            self::$dbh = [];
+            static::$dbh = [];
         }else{
-            unset(self::$dbh[$DSN]);
+            unset(static::$dbh[$DSN]);
         }
     }
 }
