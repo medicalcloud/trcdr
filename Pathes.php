@@ -40,5 +40,10 @@ class Pathes {
     public static function execApp($modelName, $className){
         require(self::$appPath.$modelName.'/'.$className.'.php');
     }
+
+    public static function buildUrl($path){
+        return $baseUrl.$path;
+    }
+
 }
 

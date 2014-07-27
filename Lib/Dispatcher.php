@@ -18,36 +18,45 @@ class Dispatcher {
 
     public function workAsGenericIndex(){
         $req = new Request();
-        if ($req->isGet()) {
-            if ($req->isForMember()) {
-                $this->dispatchTo("ShowOne");
-            } else {
-                $this->dispatchTo("ShowMany");
-            }
-        } elseif($req->isPost()) {
-            if ($req->isForCollection()) {
-                $this->dispatchTo("Create");
-            } else {
+        $method = $req->virtualMethod();
+        switch ($method){
+            case "GET":
+                if ($req->isForMember()) {
+                    $this->dispatchTo("ShowOne");
+                } else {
+                    $this->dispatchTo("ShowMany");
+                }
+                break;
+            case "POST":
+                if ($req->isForCollection()) {
+                    $this->dispatchTo("Create");
+                } else {
+                    $this->redirectTo('index.php');
+                }
+                break;
+            case "PUT":
+                if ($req->isForMember()) {
+                    $this->dispatchTo("Update");
+                } else {
+                    $this->redirectTo('index.php');
+                }
+                break;
+            case "DELETE":
+                if ($req->isForMember()) {
+                    $this->dispatchTo("Remove");
+                } else {
+                    $this->redirectTo('index.php');
+                }
+                break;
+            default:
                 $this->redirectTo('index.php');
-            }
-        } elseif($req->isPut()) {
-            if ($req->isForMember()) {
-                $this->dispatchTo("Update");
-            } else {
-                $this->redirectTo('index.php');
-            }
-        } elseif($req->isDelete()) {
-            if ($req->isForMember()) {
-                $this->dispatchTo("Remove");
-            } else {
-                $this->redirectTo('index.php');
-            }
-        } else {
-            $this->redirectTo('index.php');
+                break;
         }
     }
 
     public function workAsGenericEdit(){
+
+
         $this->workAsGenericGetForMember('EditForm');
     }
 
@@ -79,7 +88,7 @@ class Dispatcher {
     }
 
     public function redirectTo($pathName){
-        header('Location: '.Pathes::getBaseUrl().$this->modelName.'/'.$pathName);
+        header('Location: '.Pathes::buildUrl($this->modelName.'/'.$pathName));
     }
 }
 

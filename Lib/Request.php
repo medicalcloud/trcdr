@@ -1,21 +1,19 @@
 <?php
 class Request {
     public function isGet() {
-        return $this->methodCmp($_SERVER['REQUEST_METHOD'], 'GET');
+        return $this->virtualMethod() === 'GET';
     }
 
     public function isPost() {
-        return $this->methodCmp($this->virtualMethod(), 'POST');
+        return $this->virtualMethod() === 'POST';
     }
 
     public function isPut() {
-        return (($this->methodCmp($this->virtualMethod(), 'PUT')) ||
-                 $this->methodCmp($_SERVER['REQUEST_METHOD'], 'PUT'));
+        return $this->virtualMethod() === 'PUT';
     }
 
     public function isDelete() {
-        return (($this->methodCmp($this->virtualMethod(), 'DELETE')) ||
-               ($this->methodCmp($_SERVER['REQUEST_METHOD'], 'DELETE')));
+        return $this->virtualMethod() === 'DELETE';
     }
 
     public function isForMember() {
@@ -27,19 +25,16 @@ class Request {
     }
 
     public function virtualMethod() {
-        if($this->methodCmp($_SERVER['REQUEST_METHOD'], 'POST')) {
+        $request_method = strtoupper($_SERVER['REQUEST_METHOD']);
+        if($request_method === 'POST') {
             if(isset($_POST['_method'])){
-                return $_POST['_method'];
+                return strtoupper($_POST['_method']);
             } else {
                 return 'POST';
             }
         } else { 
-            return $_SERVER['REQUEST_METHOD'];
+            return $request_method;
         }
-    }
-
-    private function methodCmp($str1, $str2){
-        return strcasecmp($str1,$str2) === 0;
     }
 }
 
