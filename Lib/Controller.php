@@ -3,10 +3,22 @@ Pathes::loadLib("Model");
 Pathes::loadLib("Helpers");
 class Controller {
     protected static $modelclass = "Model.php";
-    public static function showMany(){
+    protected static $count_per_page = 10;
+    public static function showAll(){
         $modelclass = static::$modelclass;
-        return $modelclass::findMany();
+        return $modelclass::findAll();
     }
+
+    public static function showMany(){
+        if(isset($_REQUEST['page'])){
+            $page = $_REQUEST['page'];
+        } else {
+            $page = 1;
+        }
+        $modelclass = static::$modelclass;
+        return $modelclass::findMany($page, static::$count_per_page);
+    }
+
 
     public static function showOne($id){
         $modelclass = static::$modelclass;

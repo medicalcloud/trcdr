@@ -42,8 +42,17 @@ class Model {
         }
     }
 
-    public static function findMany(){
+    public static function findAll(){
         $SQL = 'SELECT * FROM '.static::$tableName;
+        $stt = static::buildSttFromSql($SQL);
+        $stt->execute();
+        return $stt->fetchAll(PDO::FETCH_CLASS, get_called_class());
+    }
+
+    public static function findMany($page, $count_per_page){
+        $from = ($page - 1) * $count_per_page;
+        $to = $page * $count_per_page;
+        $SQL = 'SELECT * FROM '.static::$tableName.' LIMIT '.$from.', '.$to;
         $stt = static::buildSttFromSql($SQL);
         $stt->execute();
         return $stt->fetchAll(PDO::FETCH_CLASS, get_called_class());
