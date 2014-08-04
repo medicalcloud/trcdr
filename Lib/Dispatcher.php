@@ -88,7 +88,7 @@ class Dispatcher {
     }
 
     public function redirectTo($pathName){
-        header('Location: '.Pathes::buildUrl($this->modelName.'/'.$pathName));
+        header ('Location: '.Pathes::buildUrl($this->modelName.'/'.$pathName));
     }
 }
 

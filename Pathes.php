@@ -42,7 +42,7 @@ class Pathes {
     }
 
     public static function buildUrl($path){
-        return $baseUrl.$path;
+        return self::$baseUrl.$path;
     }
 
 }
