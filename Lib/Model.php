@@ -67,9 +67,7 @@ class Model {
     }
 
     public static function create($params){
-        var_dump($_REQUEST);
         $sttName = 'create_'.static::$tableName;
-        echo static::buildSqlForCreate();
         $stt = static::buildSttFromFunction($sttName, static::buildSqlForCreate());
         $stt = static::bindParams($stt, $params);
         $stt->execute();
@@ -77,12 +75,12 @@ class Model {
     }
 
     protected static function buildSqlForCreate() {
-        $p1 = implode(' ', static::$columnNames);
+        $cn_csv = implode(', ', static::$columnNames);
         $placeholders = array_map(
              function($s){return ':'.$s;},
              static::$columnNames);
-        $p2 = implode(' ', $placeholders);
-        $SQL = 'INSERT INTO '.static::$tableName.' ('.$p1.') VALUES ('.$p2.')';
+        $ph_csv = implode(', ', $placeholders);
+        $SQL = 'INSERT INTO '.static::$tableName.' ('.$cn_csv.') VALUES ('.$ph_csv.')';
         return $SQL;
     }
 
@@ -106,7 +104,6 @@ class Model {
     }
 
     protected static function bindParams($stt, $params) {
-        var_dump(static::$columnNames);
         foreach(static::$columnNames as $col) {
             if(isset($params[$col])) {
                 echo "replace".':'.$col.' => '.$params[$col];

@@ -4,6 +4,8 @@ Pathes::loadLib("Helpers");
 class Controller {
     protected static $modelclass = "Model.php";
     protected static $count_per_page = 10;
+    protected static $dirname = "modeldir";
+
     public static function showAll(){
         $modelclass = static::$modelclass;
         return $modelclass::findAll();
@@ -38,21 +40,21 @@ class Controller {
     public static function create($params){
         $modelclass = static::$modelclass;
         $modelclass::create($params);
-        $dispatcher = new Dispatcher('item');
+        $dispatcher = new Dispatcher(static::$dirname);
         $dispatcher->redirectTo("index.php");
     }
 
     public static function update($params){
         $modelclass = static::$modelclass;
         $modelclass::update($params);
-        $dispatcher = new Dispatcher("item");
+        $dispatcher = new Dispatcher(static::$dirname);
         $dispatcher->redirectTo("index.php");
     }
 
     public static function remove($id){
         $modelclass = static::$modelclass;
         $modelclass::remove($id);
-        $dispatcher = new Dispatcher("item");
+        $dispatcher = new Dispatcher(static::$dirname);
         $dispatcher->redirectTo("index.php");
     }
 }
