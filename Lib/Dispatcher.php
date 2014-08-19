@@ -3,9 +3,11 @@ Pathes::loadLib("Request");
 class Dispatcher {
     
     private $modelName;
+    private $request;
     
     public function __construct($modelName){
         $this->modelName = $modelName;
+        $this->request = new Request();
     }
 
     public static function instance_for($modelName){
@@ -21,41 +23,12 @@ class Dispatcher {
     }
 
     public function workAsGenericIndex(){
-        $req = new Request();
-        $method = $req->virtualMethod();
-        switch ($method){
-            case "GET":
-                if ($req->isForMember()) {
-                    $this->dispatchTo("ShowOne");
-                } else {
-                    $this->dispatchTo("ShowMany");
-                }
-                break;
-            case "POST":
-                if ($req->isForCollection()) {
-                    $this->dispatchTo("Create");
-                } else {
-                    $this->redirectTo('index.php');
-                }
-                break;
-            case "PUT":
-                if ($req->isForMember()) {
-                    $this->dispatchTo("Update");
-                } else {
-                    $this->redirectTo('index.php');
-                }
-                break;
-            case "DELETE":
-                if ($req->isForMember()) {
-                    $this->dispatchTo("Remove");
-                } else {
-                    $this->redirectTo('index.php');
-                }
-                break;
-            default:
-                $this->redirectTo('index.php');
-                break;
-        }
+        $this->dispatchIfRequestIs("GET", true, "ShowOne");
+        $this->dispatchIfRequestIs("GET", false, "ShowMany");
+        $this->dispatchIfRequestIs("POST", false, "Create");
+        $this->dispatchIfRequestIs("PUT", true, "Update");
+        $this->dispatchIfRequestIs("DELETE", true, "Remove");
+        $this->redirectTo('index.php');
     }
 
     public function workAsGenericEdit(){
@@ -67,22 +40,29 @@ class Dispatcher {
     }
 
     public function workAsGenericGetForMember($actionName){
-        $req = new Request();
-        if($req->isGet() && $req->isForMember()) {
-            $this->dispatchTo($actionName);
-        } else {
-            $this->redirectTo('index.php');
-        }
+        $this->dispatchIfRequestIs("GET", true, $actionName);
+        $this->redirectTo('index.php');
     }
 
     public function workAsGenericGetForCollection($actionName){
-        $req = new Request();
-        if($req->isGet() && $req->isForCollection()) {
-            $this->dispatchTo($actionName);
-        } else {
-            $this->redirectTo('index.php');
-        }
+        $this->dispatchIfRequestIs("GET", false, $actionName);
+        $this->redirectTo('index.php');
     }
+
+    public function dispatchIfRequestIs($method, $isForMember, $viewName){
+        if($this->request->virtualMethod() === $method &&
+           $this->request->isForMember() === $isForMember){
+               $this->dispatchTo($viewName);
+               die(); 
+        }
+    }    
+
+    public function redirectIfRequestIs($method, $isForMember, $pathName){
+        if($this->request->virtualMethod() === $method &&
+           $this->request->isForMember() === $isForMember){
+               $this->redirectTo($viewName);     
+        }
+    }    
 
 
     public function dispatchTo($viewName){
