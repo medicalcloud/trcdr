@@ -64,5 +64,12 @@ class Session {
     public function isAuthenticated(){
         return $this->get('_authenticated_user_id');
     }
+
+    public function authenticatedOrRedirectTo($modelName, $pathName){
+        if(!($this->isAuthenticated())){
+            $dispatcher = new Dispatcher($modelName);
+            $dispatcher->redirectTo($pathName);
+        }
+    }
 }
 

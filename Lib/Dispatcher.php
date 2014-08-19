@@ -8,6 +8,10 @@ class Dispatcher {
         $this->modelName = $modelName;
     }
 
+    public static function instance_for($modelName){
+        return new Dispatcher($modelName);
+    } 
+
     public function getModelName(){
         return $this->modelName;
     }
@@ -55,8 +59,6 @@ class Dispatcher {
     }
 
     public function workAsGenericEdit(){
-
-
         $this->workAsGenericGetForMember('EditForm');
     }
 
