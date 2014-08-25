@@ -41,7 +41,7 @@ class Session {
         $_SESSION = array();
     }
 
-    public function regenerate($destory = true){
+    public function regenerate($destroy = true){
         if (!$this->sessionIdIsRegenerated) {
             session_regenerate_id($destroy);
             $this->sessionIdIsRegenerated = true;
