@@ -2,21 +2,22 @@
 class Session {
 
     public function __construct(){
+        $this->sessionStarted = false;
         $this->start();
-        $sessionIdIsRegenerated = false;
+        $this->sessionIdIsRegenerated = false;
     }
 
     public function start(){
-        if(!$sessionStarted){
+        if(!$this->sessionStarted){
             session_start();
-            $sessionStarted = true;
+            $this->sessionStarted = true;
         }
     }
 
     public function stop(){
-        if($sessionStarted){
+        if($this->sessionStarted){
             session_destroy();
-            $sessionStarted = false;
+            $this->sessionStarted = false;
         }
  
     }
@@ -41,9 +42,9 @@ class Session {
     }
 
     public function regenerate($destory = true){
-        if (!$sessionIdIsRegenerated) {
+        if (!$this->sessionIdIsRegenerated) {
             session_regenerate_id($destroy);
-            $sessionIdIsRegenerated = true;
+            $this->sessionIdIsRegenerated = true;
         }
     }
 

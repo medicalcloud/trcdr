@@ -23,11 +23,11 @@ class Dispatcher {
     }
 
     public function workAsGenericIndex(){
-        $this->dispatchIfRequestIs("GET", true, "ShowOne");
-        $this->dispatchIfRequestIs("GET", false, "ShowMany");
-        $this->dispatchIfRequestIs("POST", false, "Create");
-        $this->dispatchIfRequestIs("PUT", true, "Update");
-        $this->dispatchIfRequestIs("DELETE", true, "Remove");
+        $this->dispatchIfRequestIs("GET", "Member", "ShowOne");
+        $this->dispatchIfRequestIs("GET", "Collection", "ShowMany");
+        $this->dispatchIfRequestIs("POST", "Collection", "Create");
+        $this->dispatchIfRequestIs("PUT", "Member", "Update");
+        $this->dispatchIfRequestIs("DELETE", "Member", "Remove");
         $this->redirectTo('index.php');
     }
 
@@ -40,26 +40,26 @@ class Dispatcher {
     }
 
     public function workAsGenericGetForMember($actionName){
-        $this->dispatchIfRequestIs("GET", true, $actionName);
+        $this->dispatchIfRequestIs("GET", "Member", $actionName);
         $this->redirectTo('index.php');
     }
 
     public function workAsGenericGetForCollection($actionName){
-        $this->dispatchIfRequestIs("GET", false, $actionName);
+        $this->dispatchIfRequestIs("GET", "Collection", $actionName);
         $this->redirectTo('index.php');
     }
 
-    public function dispatchIfRequestIs($method, $isForMember, $viewName){
-        if($this->request->virtualMethod() === $method &&
-           $this->request->isForMember() === $isForMember){
+    public function dispatchIfRequestIs($method, $target, $viewName){
+        if($this->request->getVirtualMethod() === $method &&
+           $this->request->getTarget() === $target){
                $this->dispatchTo($viewName);
                die(); 
         }
     }    
 
-    public function redirectIfRequestIs($method, $isForMember, $pathName){
-        if($this->request->virtualMethod() === $method &&
-           $this->request->isForMember() === $isForMember){
+    public function redirectIfRequestIs($method, $target, $pathName){
+        if($this->request->getVirtualMethod() === $method &&
+           $this->request->getTarget() === $target){
                $this->redirectTo($viewName);     
         }
     }    
@@ -71,6 +71,7 @@ class Dispatcher {
 
     public function redirectTo($pathName){
         header ('Location: '.Pathes::buildUrl($this->modelName.'/'.$pathName));
+        die();
     }
 }
 

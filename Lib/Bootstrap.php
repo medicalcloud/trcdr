@@ -5,7 +5,6 @@ class Bootstrap {
         Pathes::setLibPath(__DIR__.'/');
         Pathes::loadLib('DBManager');
         Pathes::loadLib('Dispatcher');
-        Pathes::loadLib('Session');
     }
 }
 

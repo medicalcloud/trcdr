@@ -28,7 +28,6 @@ class Controller {
     }
 
     public static function newForm(){
-        $modelclass = static::$modelclass;
         # do nothing
     }
 

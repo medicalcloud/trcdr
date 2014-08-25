@@ -1,30 +1,38 @@
 <?php
 class Request {
     public function isGet() {
-        return $this->virtualMethod() === 'GET';
+        return $this->getVirtualMethod() === 'GET';
     }
 
     public function isPost() {
-        return $this->virtualMethod() === 'POST';
+        return $this->getVirtualMethod() === 'POST';
     }
 
     public function isPut() {
-        return $this->virtualMethod() === 'PUT';
+        return $this->getVirtualMethod() === 'PUT';
     }
 
     public function isDelete() {
-        return $this->virtualMethod() === 'DELETE';
+        return $this->getVirtualMethod() === 'DELETE';
     }
 
-    public function isForMember() {
+    public function targetIsMember() {
         return isset($_REQUEST['id']);
     }
 
-    public function isForCollection() {
+    public function targetIsCollection() {
         return !(isset($_REQUEST['id']));
     }
 
-    public function virtualMethod() {
+    public function getTarget() {
+        if(isset($_REQUEST['id'])){
+            return "Member";
+        } else {
+            return "Collection";
+        }
+    }
+
+    public function getVirtualMethod() {
         $request_method = strtoupper($_SERVER['REQUEST_METHOD']);
         if($request_method === 'POST') {
             if(isset($_POST['_method'])){
