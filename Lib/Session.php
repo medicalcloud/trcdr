@@ -22,11 +22,11 @@ class Session {
  
     }
 
-    public function get($name, $value){
+    public function set($name, $value){
         $_SESSION[$name] = $value;
     }
 
-    public function set($name){
+    public function get($name){
         if (isset($_SESSION[$name])) {
             return $_SESSION[$name];
         }
@@ -63,7 +63,7 @@ class Session {
     }
 
     public function isAuthenticated(){
-        return $this->get('_authenticated_user_id');
+        return (null !== $this->get('_authenticated_user_id'));
     }
 
     public function authenticatedOrRedirectTo($modelName, $pathName){
