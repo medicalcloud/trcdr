@@ -2,9 +2,9 @@
 Pathes::loadLib("Model");
 Pathes::loadLib("Helpers");
 class Controller {
-    protected static $default_modelclass = "Model";
-    protected static $default_count_per_page = 10;
-    protected static $default_dirname = "modeldir";
+    protected static $modelclass = "Model";
+    protected static $count_per_page = 10;
+    protected static $dirname = "modeldir";
     
     public function __construct(){
     }
