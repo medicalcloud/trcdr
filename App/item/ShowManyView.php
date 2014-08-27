@@ -1,6 +1,7 @@
 <?php
 require_once("ItemController.php");
-$items = ItemController::showMany();
+$controller = new ItemController;
+$items = $controller->showMany();
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

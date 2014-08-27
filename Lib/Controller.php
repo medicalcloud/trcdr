@@ -2,16 +2,19 @@
 Pathes::loadLib("Model");
 Pathes::loadLib("Helpers");
 class Controller {
-    protected static $modelclass = "Model.php";
-    protected static $count_per_page = 10;
-    protected static $dirname = "modeldir";
+    protected static $default_modelclass = "Model";
+    protected static $default_count_per_page = 10;
+    protected static $default_dirname = "modeldir";
+    
+    public function __construct(){
+    }
 
-    public static function showAll(){
+    public function showAll(){
         $modelclass = static::$modelclass;
         return $modelclass::findAll();
     }
 
-    public static function showMany(){
+    public function showMany(){
         if(isset($_REQUEST['page'])){
             $page = $_REQUEST['page'];
         } else {
@@ -22,35 +25,45 @@ class Controller {
     }
 
 
-    public static function showOne($id){
+    public function showOne($id){
         $modelclass = static::$modelclass;
-        return $modelclass::findOne($id);
+        $object = $modelclass::findOne($id);
+        if(empty($object)){
+            $dispatcher = new Dispatcher(static::$dirname);
+            $dispatcher->redirectTo('index.php');
+        }
+        return $object;
     }
 
-    public static function newForm(){
+    public function newForm(){
         # do nothing
     }
 
-    public static function editForm($id){
+    public function editForm($id){
         $modelclass = static::$modelclass;
-        return $modelclass::findOne($id);
+        $object = $modelclass::findOne($id);
+        if(empty($object)){
+            $dispatcher = new Dispatcher(static::$dirname);
+            $dispatcher->redirectTo('index.php');
+        }
+        return $object;
     }
 
-    public static function create($params){
+    public function create($params){
         $modelclass = static::$modelclass;
         $modelclass::create($params);
         $dispatcher = new Dispatcher(static::$dirname);
         $dispatcher->redirectTo("index.php");
     }
 
-    public static function update($params){
+    public function update($params){
         $modelclass = static::$modelclass;
         $modelclass::update($params);
         $dispatcher = new Dispatcher(static::$dirname);
         $dispatcher->redirectTo("index.php");
     }
 
-    public static function remove($id){
+    public function remove($id){
         $modelclass = static::$modelclass;
         $modelclass::remove($id);
         $dispatcher = new Dispatcher(static::$dirname);

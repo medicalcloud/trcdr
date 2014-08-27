@@ -50,14 +50,14 @@ class RequestTest extends PHPUnit_Framework_TestCase{
 
     public function testForMember(){
         $_REQUEST['id'] = '5';
-        $this->assertTrue($this->request->isForMember());
-        $this->assertFalse($this->request->isForCollection());
+        $this->assertTrue($this->request->targetIsMember());
+        $this->assertFalse($this->request->targetIsCollection());
  
     }
 
     public function testForCollection(){
         $_REQUEST['id'] = null;
-        $this->assertFalse($this->request->isForMember());
-        $this->assertTrue($this->request->isForCollection());
+        $this->assertFalse($this->request->targetIsMember());
+        $this->assertTrue($this->request->targetIsCollection());
     }
 }

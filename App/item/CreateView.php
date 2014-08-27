@@ -1,4 +1,5 @@
 <?php
 require_once("ItemController.php");
-ItemController::create($_REQUEST);
+$controller = new ItemController;
+$controller->create($_REQUEST);
 

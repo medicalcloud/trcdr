@@ -1,6 +1,7 @@
 <?php
 require_once("ItemController.php");
-$item = ItemController::showOne($_REQUEST['id']);
+$controller = new ItemController();
+$item = $controller->showOne($_REQUEST['id']);
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
