@@ -41,6 +41,10 @@ class Pathes {
         require(self::$appPath.$modelName.'/'.$className.'.php');
     }
 
+    public static function renderPart($partname){
+        Pathes::execApp("layouts", $partname);
+    }
+
     public static function buildUrl($path){
         return self::$baseUrl.$path;
     }

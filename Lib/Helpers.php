@@ -92,3 +92,15 @@ class Form {
     }
 }
 
+function renderPart($partname) {
+    Pathes::renderPart($partname);
+}
+
+function loginToggleLink($session, $userModelName, $login = 'login', $logout = 'logout'){
+    $pDir = Pathes::getBaseUrl().'/'.$userModelName.'/';
+    if($session->isLogedIn()){
+        echo '<a href="'.$pDir.'logout.php">'.$logout.'</a>';
+    }else{
+        echo '<a href="'.$pDir.'login.php">'.$login.'</a>';
+    }
+}
