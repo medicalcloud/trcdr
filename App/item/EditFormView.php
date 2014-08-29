@@ -1,7 +1,7 @@
 <?php
 require_once("ItemController.php");
 $controller = new ItemController();
-$item = $controller->editForm($_REQUEST['id']);
+$item = $controller->editForm();
 ?>
 <?php echo $item->id; ?>
 

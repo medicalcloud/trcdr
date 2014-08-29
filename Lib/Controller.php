@@ -2,15 +2,45 @@
 Pathes::loadLib("Model");
 Pathes::loadLib("Helpers");
 class Controller {
-    protected static $modelclass = "Model";
-    protected static $count_per_page = 10;
-    protected static $dirname = "modeldir";
+    protected $modelclass;
+    protected $dirname;
+    protected $count_per_page = 10;
     
-    public function __construct(){
+    public function __construct($modelclass = "", $dirname = ""){
+        if($modelclass !== ""){
+            $this->modelclass = $modelclass;
+        }
+        if($dirname !== ""){
+            $this->dirname = $dirname;
+        }
+    }
+
+    public function setModelClass($modelclass){
+        $this->modelclass = $modelclass;
+    }
+
+    public function getModelClass(){
+        return $this->modelclass;
+    }
+
+    public function setDirName($dirname){
+        $this->dirname = $dirname;
+    }
+
+    public function getDirName(){
+        return $this->dirname;
+    }
+
+    public function setCountPerPage($count_per_page){
+        $this->count_per_page = $count_per_page;
+    }
+
+    public function getCountPerPage(){
+        return $this->count_per_page;
     }
 
     public function showAll(){
-        $modelclass = static::$modelclass;
+        $modelclass = $this->modelclass;
         return $modelclass::findAll();
     }
 
@@ -20,16 +50,16 @@ class Controller {
         } else {
             $page = 1;
         }
-        $modelclass = static::$modelclass;
-        return $modelclass::findMany($page, static::$count_per_page);
+        $modelclass = $this->modelclass;
+        return $modelclass::findMany($page, $this->count_per_page);
     }
 
-
-    public function showOne($id){
-        $modelclass = static::$modelclass;
+    public function showOne(){
+        $id = $_REQUEST['id'];
+        $modelclass = $this->modelclass;
         $object = $modelclass::findOne($id);
         if(empty($object)){
-            $dispatcher = new Dispatcher(static::$dirname);
+            $dispatcher = new Dispatcher($this->dirname);
             $dispatcher->redirectTo('index.php');
         }
         return $object;
@@ -39,34 +69,38 @@ class Controller {
         # do nothing
     }
 
-    public function editForm($id){
-        $modelclass = static::$modelclass;
+    public function editForm(){
+        $id = $_REQUEST['id'];
+        $modelclass = $this->modelclass;
         $object = $modelclass::findOne($id);
         if(empty($object)){
-            $dispatcher = new Dispatcher(static::$dirname);
+            $dispatcher = new Dispatcher($this->dirname);
             $dispatcher->redirectTo('index.php');
         }
         return $object;
     }
 
-    public function create($params){
-        $modelclass = static::$modelclass;
+    public function create(){
+        $params = $_REQUEST;
+        $modelclass = $this->modelclass;
         $modelclass::create($params);
-        $dispatcher = new Dispatcher(static::$dirname);
+        $dispatcher = new Dispatcher($this->dirname);
         $dispatcher->redirectTo("index.php");
     }
 
-    public function update($params){
-        $modelclass = static::$modelclass;
+    public function update(){
+        $params = $_REQUEST;
+        $modelclass = $this->modelclass;
         $modelclass::update($params);
-        $dispatcher = new Dispatcher(static::$dirname);
+        $dispatcher = new Dispatcher($this->dirname);
         $dispatcher->redirectTo("index.php");
     }
 
-    public function remove($id){
-        $modelclass = static::$modelclass;
+    public function remove(){
+        $id = $_REQUEST['id'];
+        $modelclass = $this->modelclass;
         $modelclass::remove($id);
-        $dispatcher = new Dispatcher(static::$dirname);
+        $dispatcher = new Dispatcher($this->dirname);
         $dispatcher->redirectTo("index.php");
     }
 }
