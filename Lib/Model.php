@@ -66,6 +66,14 @@ class Model {
         return $stt->fetchObject(get_called_class());
     }
 
+    public static function findOneByParam($name, $value){
+        $SQL = 'SELECT * FROM '.static::$tableName.' WHERE '.$name.' = :value';
+        $stt = static::buildSttFromSql($SQL);
+        $stt->bindValue(':value', $value);
+        $stt->execute();
+        return $stt->fetchObject(get_called_class());
+    }
+
     public static function create($params){
         $sttName = 'create_'.static::$tableName;
         $stt = static::buildSttFromFunction($sttName, static::buildSqlForCreate());
