@@ -49,7 +49,7 @@ class Session {
     }
 
     public function logInUser($user_id){
-        $this->set('_authenticated_user_id', $user_id);
+        $this->set('_authenticatedUserId', $user_id);
         $this->regenerate();
     }
 
