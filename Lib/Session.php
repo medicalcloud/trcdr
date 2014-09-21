@@ -54,23 +54,36 @@ class Session {
     }
 
     public function logOutUser(){
-        $this->remove('_authenticated_user_id');
+        $this->remove('_authenticatedUserId');
         $this->stop();
     }
 
     public function getUserId(){
-        return $this->get('_authenticated_user_id');
+        return $this->get('_authenticatedUserId');
     }
 
     public function isLogedIn(){
-        return (null !== $this->get('_authenticated_user_id'));
+        return (null !== $this->get('_authenticatedUserId'));
     }
 
     public function logedInOrRedirectTo($modelName, $pathName){
         if(!($this->isLogedIn())){
+            $this->set('_urlBeforeLogin', $_SERVER['REQUEST_URI']);
             $dispatcher = new Dispatcher($modelName);
             $dispatcher->redirectTo($pathName);
         }
+    }
+
+    public function redirectToUrlBeforeLogin(){
+        $urlBeforeLogin = $this->get('_urlBeforeLogin');
+        if(isset($urlBeforeLogin)){
+            header ('Location: '.$urlBeforeLogin);
+            die;
+        }
+    }
+
+    public function getUrlBeforeLogin(){
+        return $this->get('_urlBeforeLogin');
     }
 }
 
