@@ -97,7 +97,6 @@ class Model {
         $stt = static::buildSttFromFunction($sttName, static::buildSqlForUpdate());
         $stt = static::bindParams($stt, $params);
         $stt->bindValue(':id', $params['id']);
-        $stt->debugDumpParams();
         $stt->execute();
         return null;
     }
@@ -114,8 +113,9 @@ class Model {
     protected static function bindParams($stt, $params) {
         foreach(static::$columnNames as $col) {
             if(isset($params[$col])) {
-                echo "replace".':'.$col.' => '.$params[$col];
                 $stt->bindValue(':'.$col, $params[$col]);
+            }else{
+                $stt->bindValue(':'.$col, '');
             }
         }
         return $stt;
