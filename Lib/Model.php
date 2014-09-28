@@ -77,7 +77,7 @@ class Model {
     public static function create($params){
         $sttName = 'create_'.static::$tableName;
         $stt = static::buildSttFromFunction($sttName, static::buildSqlForCreate());
-        $stt = static::bindParams($stt, $params);
+        $stt = static::bindParams($stt, static::createdColumnNames(), $params);
         $stt->execute();
         return null;
     }
@@ -86,7 +86,7 @@ class Model {
         $cn_csv = implode(', ', static::$columnNames);
         $placeholders = array_map(
              function($s){return ':'.$s;},
-             static::$columnNames);
+             static::createdColumnNames());
         $ph_csv = implode(', ', $placeholders);
         $SQL = 'INSERT INTO '.static::$tableName.' ('.$cn_csv.') VALUES ('.$ph_csv.')';
         return $SQL;
@@ -95,7 +95,7 @@ class Model {
     public static function update($params){
         $sttName = 'update_'.static::$tableName;
         $stt = static::buildSttFromFunction($sttName, static::buildSqlForUpdate());
-        $stt = static::bindParams($stt, $params);
+        $stt = static::bindParams($stt, static::updatedColumnNames(), $params);
         $stt->bindValue(':id', $params['id']);
         $stt->execute();
         return null;
@@ -104,21 +104,38 @@ class Model {
     protected static function buildSqlForUpdate() {
         $value_equal_placeholder_list = array_map(
              function($s){return $s.' = :'.$s;},
-             static::$columnNames);
+             static::updatedColumnNames());
         $piece = implode(', ', $value_equal_placeholder_list);
         $SQL = 'UPDATE '.static::$tableName.' SET '.$piece.' WHERE id=:id';
         return $SQL;
     }
 
-    protected static function bindParams($stt, $params) {
-        foreach(static::$columnNames as $col) {
-            if(isset($params[$col])) {
-                $stt->bindValue(':'.$col, $params[$col]);
+    protected static function bindParams($stt, $columns, $params) {
+        foreach($columns as $column) {
+            if(isset($params[$column])) {
+                $stt->bindValue(':'.$column, $params[$column]);
             }else{
-                $stt->bindValue(':'.$col, '');
+                echo $column.' should be included in $_REQUEST(in Model::bindParams)';
+                die();
             }
         }
         return $stt;
+    }
+
+    protected static function updatedColumnNames(){
+        if(isset(static::$updatedColumnNames)) {
+            return static::$updatedColumnNames;
+        }else{
+            return static::$columnNames;
+        }
+    }
+
+    protected static function createdColumnNames(){
+        if(isset(static::$createdColumnNames)) {
+            return static::$createdColumnNames;
+        }else{
+            return static::$columnNames;
+        }
     }
 
     public static function remove($id){
