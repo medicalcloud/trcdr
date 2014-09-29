@@ -83,7 +83,7 @@ class Model {
     }
 
     protected static function buildSqlForCreate() {
-        $cn_csv = implode(', ', static::$columnNames);
+        $cn_csv = implode(', ', static::createdColumnNames());
         $placeholders = array_map(
              function($s){return ':'.$s;},
              static::createdColumnNames());
