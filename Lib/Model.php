@@ -42,8 +42,11 @@ class Model {
         }
     }
 
-    public static function findAll(){
+    public static function findAll($where = ''){
         $SQL = 'SELECT * FROM '.static::$tableName;
+        if($where != ''){
+            $SQL = $SQL.' WHERE '.$where;
+        }
         $stt = static::buildSttFromSql($SQL);
         $stt->execute();
         return $stt->fetchAll(PDO::FETCH_CLASS, get_called_class());
