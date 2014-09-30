@@ -27,12 +27,19 @@ function linkToEdit($string, $id) {
     echo('<a href="edit.php?id='.$id.'" id="link_to_edit_'.$id.'">'.h($string).'</a>');
 }
 
-function buttonToRemove($string, $id) {
+function buttonToRemove($button_label, $id) {
     echo('<form action="index.php?id='.h($id).'" method="post">');
     echo('<input type="hidden" name="_method" value="delete">');
-    echo('<input type="submit" id="button_to_remove_'.$id.'" value="'.$string.'">');
+    echo('<input type="submit" id="button_to_remove_'.$id.'" value="'.$button_label.'">');
     echo('</form>');
 }
+
+function button($button_label, $url) {
+    echo('<form action="'.$url.'" method="post">');
+    echo('<input type="submit" id="button_to_'.$url.'" value="'.$button_label.'">');
+    echo('</form>');
+}
+
 
 
 function linkToNew($string) {
