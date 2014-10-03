@@ -45,6 +45,7 @@ class Controller {
     }
 
     public function showMany(){
+        global $page;
         if(isset($_REQUEST['page'])){
             $page = $_REQUEST['page'];
         } else {

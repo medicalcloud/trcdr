@@ -90,6 +90,10 @@ class Form {
         echo '<input type="text" id="'.$name.'" name="'.$name.'" value="'.$value.'">';
     }
 
+    public function slider($name, $value, $min, $max, $step) {
+        echo '<input type="range" id="'.$name.'" name="'.$name.'" value="'.$value.'" min="'.$min.'" max="'.$max.'" step="'.$step.'">';
+    }
+
     public function submitButton($buttonLabel) {
         echo '<input type="submit" id="submit_button" value="'.$buttonLabel.'">';
     }
@@ -110,4 +114,16 @@ function loginToggleLink($session, $userModelName, $login = 'login', $logout = '
     }else{
         echo '<a href="'.$pDir.'login.php">'.$login.'</a>';
     }
+}
+
+function backPage($value){
+    global $page;
+    if($page > 1){
+        echo '<a href="index.php?page='.((int)$page - 1).'">'.$value.'</a>';
+    }
+}
+
+function nextPage($value){
+    global $page;
+    echo '<a href="index.php?page='.((int)$page + 1).'">'.$value.'</a>';
 }
