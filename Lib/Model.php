@@ -101,7 +101,7 @@ class Model {
         $stt = static::bindParams($stt, static::updatedColumnNames(), $params);
         $stt->bindValue(':id', $params['id']);
         $stt->execute();
-        return null;
+        return $params['id'];
     }
 
     protected static function buildSqlForUpdate() {
@@ -146,7 +146,17 @@ class Model {
         $stt = static::buildSttFromSql($SQL);
         $stt->bindValue(':id', $id);
         $stt->execute();
-        return null;
+        return $id;
     }
+
+    public static function changeTo($id, $column, $value){
+        $SQL = 'UPDATE '.static::tableName.' SET '.$column.'=:placeholder WHERE id=:id';
+        $stt = static::buildSttFromSql($SQL);
+        $stt->bindValue(':placeholder', $value);
+        $stt->bindValue(':id', $id);
+        $stt->execute();
+        return $id;
+    }
+
 }
 
