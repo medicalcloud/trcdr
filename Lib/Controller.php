@@ -5,7 +5,8 @@ class Controller {
     protected $modelclass;
     protected $dirname;
     protected $count_per_page = 10;
-    
+    private $sess;
+
     public function __construct($modelclass = "", $dirname = ""){
         if($modelclass !== ""){
             $this->modelclass = $modelclass;
@@ -37,6 +38,13 @@ class Controller {
 
     public function getCountPerPage(){
         return $this->count_per_page;
+    }
+
+    public function session(){
+        if(empty($this->sess)){
+            $this->sess = new Session();
+        }
+        return $this->sess;
     }
 
     public function showAll(){
