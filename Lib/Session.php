@@ -48,18 +48,25 @@ class Session {
         }
     }
 
-    public function logInUser($user_id){
-        $this->set('_authenticatedUserId', $user_id);
+    public function logIn($user){
+        $this->set('_authenticatedUserId', $user->id);
+        $this->set('_authenticatedUserClassName', get_class($user));
         $this->regenerate();
     }
 
-    public function logOutUser(){
+    public function logOut(){
         $this->remove('_authenticatedUserId');
+        $this->remove('_authenticatedUserClassName');
         $this->stop();
     }
 
     public function getUserId(){
         return $this->get('_authenticatedUserId');
+    }
+    public function getUser(){
+        $classname = $this->get('_authenticatedUserClassName');
+        $user_id = $this->get('_authenticatedUserId');
+        return $classname::findOne($user_id);
     }
 
     public function isLogedIn(){
