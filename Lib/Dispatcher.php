@@ -53,20 +53,20 @@ class Dispatcher {
         if($this->request->getVirtualMethod() === $method &&
            $this->request->getTarget() === $target){
                $this->dispatchTo($viewName);
-               die(); 
         }
     }    
 
     public function redirectIfRequestIs($method, $target, $pathName){
         if($this->request->getVirtualMethod() === $method &&
            $this->request->getTarget() === $target){
-               $this->redirectTo($viewName);     
+               $this->redirectTo($pathName);
         }
-    }    
+    }
 
 
     public function dispatchTo($viewName){
         Pathes::execApp($this->modelName, $viewName.'View');
+        die();
     }
 
     public function redirectTo($pathName){

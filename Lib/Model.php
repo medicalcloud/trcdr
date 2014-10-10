@@ -21,7 +21,7 @@ class Model {
         return static::$dbh;
     }
 
-    public static function buildSttFromSql($SQL){
+    public static function buildStt($SQL){
         if(isset(static::$cachedStatements[$SQL])) {
             return static::$cachedStatements[$SQL];
         } else {
@@ -31,23 +31,12 @@ class Model {
         }
     }
 
-    public static function buildSttFromFunction($sttName, $buildSqlFunc) {
-        if(isset(static::$cachedStatements[$sttName])) {
-            return static::$cachedStatements;
-        } else {
-            $dbh = static::getDbh();
-            $SQL = $buildSqlFunc;
-            static::$cachedStatements[$sttName] = $dbh->prepare($SQL);
-            return static::$cachedStatements[$sttName];
-        }
-    }
-
     public static function findAll($where = ''){
         $SQL = 'SELECT * FROM '.static::$tableName;
         if($where != ''){
             $SQL = $SQL.' WHERE '.$where;
         }
-        $stt = static::buildSttFromSql($SQL);
+        $stt = static::buildStt($SQL);
         $stt->execute();
         return $stt->fetchAll(PDO::FETCH_CLASS, get_called_class());
     }
@@ -56,14 +45,14 @@ class Model {
         $from = ($page - 1) * $count_per_page;
         $to = $page * $count_per_page;
         $SQL = 'SELECT * FROM '.static::$tableName.' LIMIT '.$from.', '.$to;
-        $stt = static::buildSttFromSql($SQL);
+        $stt = static::buildStt($SQL);
         $stt->execute();
         return $stt->fetchAll(PDO::FETCH_CLASS, get_called_class());
     }
 
     public static function findOne($id){
         $SQL = 'SELECT * FROM '.static::$tableName.' WHERE id = :id';
-        $stt = static::buildSttFromSql($SQL);
+        $stt = static::buildStt($SQL);
         $stt->bindValue(':id', $id);
         $stt->execute();
         return $stt->fetchObject(get_called_class());
@@ -71,46 +60,38 @@ class Model {
 
     public static function findOneByParam($name, $value){
         $SQL = 'SELECT * FROM '.static::$tableName.' WHERE '.$name.' = :value';
-        $stt = static::buildSttFromSql($SQL);
+        $stt = static::buildStt($SQL);
         $stt->bindValue(':value', $value);
         $stt->execute();
         return $stt->fetchObject(get_called_class());
     }
 
     public static function create($params){
-        $sttName = 'create_'.static::$tableName;
-        $stt = static::buildSttFromFunction($sttName, static::buildSqlForCreate());
-        $stt = static::bindParams($stt, static::createdColumnNames(), $params);
-        $stt->execute();
-        return null;
-    }
-
-    protected static function buildSqlForCreate() {
         $cn_csv = implode(', ', static::createdColumnNames());
         $placeholders = array_map(
              function($s){return ':'.$s;},
              static::createdColumnNames());
         $ph_csv = implode(', ', $placeholders);
         $SQL = 'INSERT INTO '.static::$tableName.' ('.$cn_csv.') VALUES ('.$ph_csv.')';
-        return $SQL;
+ 
+        $stt = static::buildStt($SQL);
+        $stt = static::bindParams($stt, static::createdColumnNames(), $params);
+        $stt->execute();
+        return null;
     }
 
     public static function update($params){
-        $sttName = 'update_'.static::$tableName;
-        $stt = static::buildSttFromFunction($sttName, static::buildSqlForUpdate());
-        $stt = static::bindParams($stt, static::updatedColumnNames(), $params);
-        $stt->bindValue(':id', $params['id']);
-        $stt->execute();
-        return $params['id'];
-    }
-
-    protected static function buildSqlForUpdate() {
         $value_equal_placeholder_list = array_map(
              function($s){return $s.' = :'.$s;},
              static::updatedColumnNames());
         $piece = implode(', ', $value_equal_placeholder_list);
         $SQL = 'UPDATE '.static::$tableName.' SET '.$piece.' WHERE id=:id';
-        return $SQL;
+ 
+        $stt = static::buildStt($SQL);
+        $stt = static::bindParams($stt, static::updatedColumnNames(), $params);
+        $stt->bindValue(':id', $params['id']);
+        $stt->execute();
+        return $params['id'];
     }
 
     protected static function bindParams($stt, $columns, $params) {
@@ -143,7 +124,7 @@ class Model {
 
     public static function remove($id){
         $SQL = 'DELETE FROM '.static::$tableName.' WHERE id = :id';
-        $stt = static::buildSttFromSql($SQL);
+        $stt = static::buildStt($SQL);
         $stt->bindValue(':id', $id);
         $stt->execute();
         return $id;
@@ -151,7 +132,7 @@ class Model {
 
     public static function changeTo($id, $column, $value){
         $SQL = 'UPDATE '.static::tableName.' SET '.$column.'=:placeholder WHERE id=:id';
-        $stt = static::buildSttFromSql($SQL);
+        $stt = static::buildStt($SQL);
         $stt->bindValue(':placeholder', $value);
         $stt->bindValue(':id', $id);
         $stt->execute();
