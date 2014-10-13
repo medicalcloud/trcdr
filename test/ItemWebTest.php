@@ -9,8 +9,8 @@ class ItemWebTest extends PHPUnit_Extensions_Selenium2TestCase
     public function testIndex(){
         $this->url('http://127.0.0.1/trcdrlib/item/');
         $this->assertEquals('Item List', $this->title());
-        $this->byId('link_to_show_6')->click();
-        $this->byId('link_to_show_many')->click();
+        $this->byId('linkToShow0')->click();
+        $this->byId('linkToShowMany0')->click();
     }
 
     public function testShow(){
@@ -22,14 +22,14 @@ class ItemWebTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->url('http://127.0.0.1/trcdrlib/item/new.php');
         $this->assertEquals('New Item', $this->title());
         $this->byId('name')->value('テストで作られたアイテム');
-        $this->byId('submit_button')->click();
+        $this->byId('submitButton')->click();
     }
 
     public function testEditAndUpdate(){
         $this->url('http://127.0.0.1/trcdrlib/item/edit.php?id=2');
         $this->assertEquals('Edit Item 2', $this->title());
         $this->byId('name')->value('');
-        $this->byId('submit_button')->click();
+        $this->byId('submitButton')->click();
     }
 
     public function testDeleteItemFromList(){

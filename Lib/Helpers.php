@@ -15,39 +15,65 @@ function tagEnd($string) {
     echo('</'.h($string).'>');
 }
 
-function linkToUrl($string, $url) {
-    echo('<a href="'.$url.'" id="link_to_'.$url.'">'.h($string).'</a>');
+class Links{
+    public function __construct(){
+        $this->counter = 0;
+    }
+    public function p($label, $target){}
 }
 
-function linkToShowOne($string, $id) {
-    echo('<a href="index.php?id='.$id.'" id="link_to_show_'.$id.'">'.h($string).'</a>');
+class LinksToUrl extends Links{
+    public function p($label, $target){ #target = URL
+        echo('<a href="'.$targer.'" id="link'.$this->counter.'">'.h($label).'</a>');
+        $this->counter++;
+    }
 }
 
-function linkToEdit($string, $id) {
-    echo('<a href="edit.php?id='.$id.'" id="link_to_edit_'.$id.'">'.h($string).'</a>');
+class LinksToShowOne extends Links{
+    public function p($label, $target){
+        echo('<a href="index.php?id='.$target.'" id="linkToShow'.$this->counter.'">'.h($label).'</a>');
+        $this->counter++;
+    }
+}
+        
+class LinksToEdit extends Links{
+    public function p($label, $target){
+        echo('<a href="edit.php?id='.$target.'" id="linkToEdit'.$this->counter.'">'.h($label).'</a>');
+        $this->counter++;
+    }
 }
 
-function buttonToRemove($button_label, $id) {
-    echo('<form action="index.php?id='.h($id).'" method="post">');
-    echo('<input type="hidden" name="_method" value="delete">');
-    echo('<input type="submit" id="button_to_remove_'.$id.'" value="'.$button_label.'">');
-    echo('</form>');
+class ButtonsToRemove extends Links{
+    public function p($label, $target){
+        echo('<form action="index.php?id='.h($target).'" method="post">');
+        echo('<input type="hidden" name="_method" value="delete">');
+        echo('<input type="submit" id="buttonToRemove'.$this->counter.'" value="'.$label.'">');
+        echo('</form>');
+        $this->counter++;
+    }
 }
 
-function button($button_label, $url) {
-    echo('<form action="'.$url.'" method="post">');
-    echo('<input type="submit" id="button_to_'.$url.'" value="'.$button_label.'">');
-    echo('</form>');
+class Buttons extends Links{
+    public function p($label, $target){
+        echo('<form action="'.$target.'" method="post">');
+        echo('<input type="submit" id="button'.$this->counter.'" value="'.$label.'">');
+        echo('</form>');
+        $this->counter++;
+    }
 }
 
-
-
-function linkToNew($string) {
-    echo('<a href="new.php" id="link_to_new">'.h($string).'</a>');
+class LinksToNew extends Links{
+    public function p($label, $target = ""){
+        echo('<a href="new.php" id="linkToNew'.$this->counter.'">'.h($label).'</a>');
+        $this->counter++;
+    }
 }
 
-function linkToShowMany($string) {
-    echo('<a href="index.php" id="link_to_show_many">'.h($string).'</a>');
+class LinksToShowMany extends Links{
+    public function p($label, $target = "") {
+        echo('<a href="index.php" id="linkToShowMany'.$this->counter.'">'.h($label).'</a>');
+        $this->counter++;
+    }
 }
 
 class Table {
@@ -95,7 +121,7 @@ class Form {
     }
 
     public function submitButton($buttonLabel) {
-        echo '<input type="submit" id="submit_button" value="'.$buttonLabel.'">';
+        echo '<input type="submit" id="submitButton" value="'.$buttonLabel.'">';
     }
 
     public function formEnd() {

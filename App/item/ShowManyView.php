@@ -8,6 +8,10 @@ $items = $controller->showMany();
 <head><title>Item List</title></head>
 <body>
 <?php 
+$linksToShowOne = new LinksToShowOne();
+$linksToEdit = new LinksToEdit();
+$buttonsToRemove = new ButtonsToRemove();
+
 $table = new Table();
 foreach ($items as $item) {
     $table->tr();
@@ -15,18 +19,19 @@ foreach ($items as $item) {
     ph($item->id);
     $table->tdEnd();
     $table->td();
-    linkToShowOne(h($item->name), $item->id);
+    $linksToShowOne->p(h($item->name), $item->id);
     $table->tdEnd();
     $table->td();
-    linkToEdit("Edit", $item->id);
+    $linksToEdit->p("Edit", $item->id);
     $table->tdEnd();
     $table->td();
-    buttonToRemove("Remove", $item->id);
+    $buttonsToRemove->p("Remove", $item->id);
     $table->tdEnd();
     $table->trEnd();
 }
 $table->tableEnd();
-linkToNew("New")
+$linksToNew = new LinksToNew();
+$linksToNew->p("New");
 ?>
 </body>
 </html>
