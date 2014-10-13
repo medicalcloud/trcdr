@@ -131,7 +131,7 @@ class Model {
     }
 
     public static function changeTo($id, $column, $value){
-        $SQL = 'UPDATE '.static::tableName.' SET '.$column.'=:placeholder WHERE id=:id';
+        $SQL = 'UPDATE '.static::$tableName.' SET '.$column.'=:placeholder WHERE id=:id';
         $stt = static::buildStt($SQL);
         $stt->bindValue(':placeholder', $value);
         $stt->bindValue(':id', $id);
