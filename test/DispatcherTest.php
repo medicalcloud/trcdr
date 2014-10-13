@@ -11,7 +11,4 @@ class DispatcherTest extends PHPUnit_Framework_TestCase{
         $this->dispatcher->setModelName("foo");
         $this->assertEquals("foo", $this->dispatcher->getModelName());
     }
-
-    public function testBar(){
-    }
 }

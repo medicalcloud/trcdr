@@ -10,10 +10,6 @@ class Dispatcher {
         $this->request = new Request();
     }
 
-    public static function instance_for($modelName){
-        return new Dispatcher($modelName);
-    } 
-
     public function getModelName(){
         return $this->modelName;
     }

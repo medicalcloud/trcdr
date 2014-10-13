@@ -7,11 +7,8 @@ class DBManagerTest extends PHPUnit_Framework_TestCase{
     }
 
     public function testGetDbh(){
-        $this->dbman->getDbh();
-    }
-
-    public function testCloseDbh(){
+        $dbh = $this->dbman->getDbh();
+        $this->assertInstanceOf("PDO", $dbh);
         $this->dbman->closeDbh();
     }
-
 }
