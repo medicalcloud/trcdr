@@ -4,8 +4,8 @@ Pathes::loadLib("DBManager");
 class Model {
     protected static $dbh;
     protected static $tableName = 'tablename';
-    #protected static $columnNames = [];
-    protected static $cachedStatements = [];
+    #protected static $columnNames = array();
+    protected static $cachedStatements = array();
     public static function setTableName($tableName){
         static::$tableName = $tableName;
     }

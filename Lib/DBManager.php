@@ -1,7 +1,7 @@
 <?php
 
 class DBManager {
-    protected static $dbh = [];
+    protected static $dbh = array();
     protected static $DSN = "";
     protected static $username = "";
     protected static $password = "";
@@ -26,7 +26,7 @@ class DBManager {
 
     public function closeDbh($DSN = null){
         if($DSN === null) {
-            static::$dbh = [];
+            static::$dbh = array();
         }else{
             unset(static::$dbh[$DSN]);
         }
