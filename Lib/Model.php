@@ -41,10 +41,13 @@ class Model {
         return $stt->fetchAll(PDO::FETCH_CLASS, get_called_class());
     }
 
-    public static function findMany($page, $count_per_page){
+    public static function findMany($page, $count_per_page, $where = ''){
         $from = ($page - 1) * $count_per_page;
         $to = $page * $count_per_page;
         $SQL = 'SELECT * FROM '.static::$tableName.' LIMIT '.$from.', '.$to;
+        if($where != ''){
+            $SQL = $SQL.' WHERE '.$where;
+        }
         $stt = static::buildStt($SQL);
         $stt->execute();
         return $stt->fetchAll(PDO::FETCH_CLASS, get_called_class());
