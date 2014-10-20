@@ -7,6 +7,9 @@ function ph($string) {
     echo(h($string));
 }
 
+function p($string) {
+    echo($string);
+}
 function tag($string) {
     echo('<'.h($string).'>');
 }
