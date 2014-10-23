@@ -68,8 +68,7 @@ class Controller {
         $modelclass = $this->modelclass;
         $object = $modelclass::findOne($id);
         if(empty($object)){
-            $dispatcher = new Dispatcher($this->dirname);
-            $dispatcher->redirectTo('index.php');
+            Pathes::redirectTo($this->dirname.'/index.php');
         }
         return $object;
     }
@@ -83,8 +82,7 @@ class Controller {
         $modelclass = $this->modelclass;
         $object = $modelclass::findOne($id);
         if(empty($object)){
-            $dispatcher = new Dispatcher($this->dirname);
-            $dispatcher->redirectTo('index.php');
+            Pathes::redirectTo($this->dirname.'/index.php');
         }
         return $object;
     }
@@ -93,24 +91,21 @@ class Controller {
         $params = $_REQUEST;
         $modelclass = $this->modelclass;
         $modelclass::create($params);
-        $dispatcher = new Dispatcher($this->dirname);
-        $dispatcher->redirectTo("index.php");
+        Pathes::redirectTo($this->dirname.'/index.php');
     }
 
     public function update(){
         $params = $_REQUEST;
         $modelclass = $this->modelclass;
         $modelclass::update($params);
-        $dispatcher = new Dispatcher($this->dirname);
-        $dispatcher->redirectTo("index.php");
+        Pathes::redirectTo($this->dirname.'/index.php');
     }
 
     public function remove(){
         $id = $_REQUEST['id'];
         $modelclass = $this->modelclass;
         $modelclass::remove($id);
-        $dispatcher = new Dispatcher($this->dirname);
-        $dispatcher->redirectTo("index.php");
+        Pathes::redirectTo($this->dirname.'/index.php');
     }
 }
 

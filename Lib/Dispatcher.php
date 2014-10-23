@@ -24,7 +24,7 @@ class Dispatcher {
         $this->dispatchIfRequestIs("POST", "Collection", "Create");
         $this->dispatchIfRequestIs("PUT", "Member", "Update");
         $this->dispatchIfRequestIs("DELETE", "Member", "Remove");
-        $this->redirectTo('index.php');
+        Pathes::redirectTo($this->modelName.'/'.'index.php');
     }
 
     public function workAsGenericEdit(){
@@ -37,12 +37,12 @@ class Dispatcher {
 
     public function workAsGenericGetForMember($actionName){
         $this->dispatchIfRequestIs("GET", "Member", $actionName);
-        $this->redirectTo('index.php');
+        Pathes::redirectTo($this->modelName.'/'.'index.php');
     }
 
     public function workAsGenericGetForCollection($actionName){
         $this->dispatchIfRequestIs("GET", "Collection", $actionName);
-        $this->redirectTo('index.php');
+        Pathes::redirectTo($this->modelName.'/'.'index.php');
     }
 
     public function dispatchIfRequestIs($method, $target, $viewName){
@@ -55,7 +55,7 @@ class Dispatcher {
     public function redirectIfRequestIs($method, $target, $pathName){
         if($this->request->getVirtualMethod() === $method &&
            $this->request->getTarget() === $target){
-               $this->redirectTo($pathName);
+               Pathes::redirectTo($this->modelName.'/'.$pathName);
         }
     }
 
@@ -65,9 +65,8 @@ class Dispatcher {
         die();
     }
 
-    public function redirectTo($pathName){
-        header ('Location: '.Pathes::buildUrl($this->modelName.'/'.$pathName));
-        die();
-    }
+    #public function redirectTo($pathName){
+    #    Pathes::redirectTo($this->modelName.'/'.$pathName);
+    #}
 }
 

@@ -29,7 +29,7 @@ class Pathes {
         self::$baseUrl = $baseUrl;
     }
 
-    public static function loadLib($libname){
+    public static function loadLib($className){
         require_once(self::$libPath.$libname.'.php');
     }
 
@@ -47,6 +47,15 @@ class Pathes {
 
     public static function buildUrl($path){
         return self::$baseUrl.$path;
+    }
+
+    public static function redirectTo($path){
+        if(preg_match('/^(https?|ftp):(:\/\/)/', $path)){
+            header ('Location: '.$path);
+        }else{
+            header ('Location: '.Pathes::buildUrl($path));
+        }
+        die();
     }
 
 }
