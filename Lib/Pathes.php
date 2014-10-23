@@ -30,7 +30,7 @@ class Pathes {
     }
 
     public static function loadLib($className){
-        require_once(self::$libPath.$libname.'.php');
+        require_once(self::$libPath.$className.'.php');
     }
 
     public static function loadApp($modelName, $className){

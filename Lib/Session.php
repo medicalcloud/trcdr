@@ -73,19 +73,17 @@ class Session {
         return (null !== $this->get('_authenticatedUserId'));
     }
 
-    public function logedInOrRedirectTo($modelName, $pathName){
+    public function logedInOrRedirectTo($path){
         if(!($this->isLogedIn())){
             $this->set('_urlBeforeLogin', $_SERVER['REQUEST_URI']);
-            $dispatcher = new Dispatcher($modelName);
-            $dispatcher->redirectTo($pathName);
+            Pathes::redirectTo($path);
         }
     }
 
     public function redirectToUrlBeforeLogin(){
         $urlBeforeLogin = $this->get('_urlBeforeLogin');
         if(isset($urlBeforeLogin)){
-            header ('Location: '.$urlBeforeLogin);
-            die;
+            Pathes::redirectTo($urlBeforeLogin);
         }
     }
 

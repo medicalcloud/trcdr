@@ -64,9 +64,5 @@ class Dispatcher {
         Pathes::execApp($this->modelName, $viewName.'View');
         die();
     }
-
-    #public function redirectTo($pathName){
-    #    Pathes::redirectTo($this->modelName.'/'.$pathName);
-    #}
 }
 
