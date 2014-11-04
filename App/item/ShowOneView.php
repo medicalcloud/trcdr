@@ -1,19 +1,17 @@
 <?php
-require_once("ItemController.php");
-#$controller = new ItemController();
-#$item = $controller->showOne();
-global $ITEM;
+global $SP;
+$item = $SP->get('item');
 
 $linksToEdit = new LinksToEdit();
 $linksToShowMany = new LinksToShowMany();
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<head><title>Show Item <?php echo($ITEM->id) ?></title></head>
+<head><title>Show Item <?php echo($item->id) ?></title></head>
 <body>
-アイテムID：<?php ph($ITEM->id); ?><br>
-アイテム名：<?php ph($ITEM->name); ?><br>
-<?php $linksToEdit->p("Edit", $ITEM->id); ?><br>
+アイテムID：<?php ph($item->id); ?><br>
+アイテム名：<?php ph($item->name); ?><br>
+<?php $linksToEdit->p("Edit", $item->id); ?><br>
 <?php $linksToShowMany->p("Back"); ?><br>
 </body>
 </html>

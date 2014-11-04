@@ -1,6 +1,7 @@
 <?php
 Pathes::loadLib("Model");
 Pathes::loadLib("Helpers");
+Pathes::loadLib("SharedParams");
 class Controller {
     protected $modelclass;
     protected $dirname;
@@ -40,13 +41,6 @@ class Controller {
         return $this->count_per_page;
     }
 
-    public function session(){
-        if(empty($this->sess)){
-            $this->sess = new Session();
-        }
-        return $this->sess;
-    }
-
     private function render($viewName){
         Pathes::execApp($this->dirname, $viewName."View");
     }
@@ -57,27 +51,29 @@ class Controller {
     }
 
     public function showMany(){
-        global $page;
+        global $SP;
+        $SP = new SharedParams();
         if(isset($_REQUEST['page'])){
             $page = $_REQUEST['page'];
         } else {
             $page = 1;
         }
         $modelclass = $this->modelclass;
-        
-        global $ITEMS;
-        $ITEMS = $modelclass::findMany($page, $this->count_per_page);
+        $SP->set('page', $page);
+        $SP->set('items', $modelclass::findMany($page, $this->count_per_page));
         $this->render("ShowMany");
     }
 
     public function showOne(){
+        global $SP;
+        $SP = new SharedParams();
         $id = $_REQUEST['id'];
         $modelclass = $this->modelclass;
-        global $ITEM;
-        $ITEM = $modelclass::findOne($id);
-        if(empty($ITEM)){
+        $item = $modelclass::findOne($id);
+        if(empty($item)){
             Pathes::redirectTo($this->dirname.'/index.php');
         }
+        $SP->set('item', $item);
         $this->render('ShowOne');
     }
 
@@ -86,13 +82,15 @@ class Controller {
     }
 
     public function editForm(){
+        global $SP;
+        $SP = new SharedParams();
         $id = $_REQUEST['id'];
         $modelclass = $this->modelclass;
-        global $ITEM;
-        $ITEM = $modelclass::findOne($id);
-        if(empty($ITEM)){
+        $item = $modelclass::findOne($id);
+        if(empty($item)){
             Pathes::redirectTo($this->dirname.'/index.php');
         }
+        $SP->set('item', $item);
         $this->render('EditForm');
     }
 

@@ -1,18 +1,16 @@
 <?php
-require_once("ItemController.php");
-#$controller = new ItemController();
-#$item = $controller->editForm();
-global $ITEM;
+global $SP;
+$item = $SP->get('item');
 ?>
-<?php echo $ITEM->id; ?>
+<?php echo $item->id; ?>
 
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<head><title>Edit Item <?php ph($ITEM->id) ?></title></head>
+<head><title>Edit Item <?php ph($item->id) ?></title></head>
 <body><?php
-$form = new Form($ITEM->id);
+$form = new Form($item->id);
 echo "Name:";
-$form->textbox("name", $ITEM->name);
+$form->textbox("name", $item->name);
 echo "<br/>";
 $form->submitButton("Update");
 $form->formEnd();
