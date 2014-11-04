@@ -19,20 +19,20 @@ class Dispatcher {
     }
 
     public function workAsGenericIndex(){
-        $this->dispatchIfRequestIs("GET", "Member", "ShowOne");
-        $this->dispatchIfRequestIs("GET", "Collection", "ShowMany");
-        $this->dispatchIfRequestIs("POST", "Collection", "Create");
-        $this->dispatchIfRequestIs("PUT", "Member", "Update");
-        $this->dispatchIfRequestIs("DELETE", "Member", "Remove");
+        $this->dispatchIfRequestIs("GET", "Member", "showOne");
+        $this->dispatchIfRequestIs("GET", "Collection", "showMany");
+        $this->dispatchIfRequestIs("POST", "Collection", "create");
+        $this->dispatchIfRequestIs("PUT", "Member", "update");
+        $this->dispatchIfRequestIs("DELETE", "Member", "remove");
         Pathes::redirectTo($this->modelName.'/'.'index.php');
     }
 
     public function workAsGenericEdit(){
-        $this->workAsGenericGetForMember('EditForm');
+        $this->workAsGenericGetForMember('editForm');
     }
 
     public function workAsGenericNew(){
-        $this->workAsGenericGetForCollection('NewForm');
+        $this->workAsGenericGetForCollection('newForm');
     }
 
     public function workAsGenericGetForMember($actionName){
@@ -45,10 +45,10 @@ class Dispatcher {
         Pathes::redirectTo($this->modelName.'/'.'index.php');
     }
 
-    public function dispatchIfRequestIs($method, $target, $viewName){
+    public function dispatchIfRequestIs($method, $target, $actionName){
         if($this->request->getVirtualMethod() === $method &&
            $this->request->getTarget() === $target){
-               $this->dispatchTo($viewName);
+               $this->dispatchTo($actionName);
         }
     }    
 
@@ -60,8 +60,11 @@ class Dispatcher {
     }
 
 
-    public function dispatchTo($viewName){
-        Pathes::execApp($this->modelName, $viewName.'View');
+    public function dispatchTo($actionName){
+        $controllerClassName = ucfirst($this->modelName).'Controller';
+        Pathes::loadApp($this->modelName, $controllerClassName);
+        $controller = new $controllerClassName();
+        $controller->$actionName();
         die();
     }
 }

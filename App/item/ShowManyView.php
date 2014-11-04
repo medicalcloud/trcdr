@@ -1,7 +1,8 @@
 <?php
 require_once("ItemController.php");
-$controller = new ItemController;
-$items = $controller->showMany();
+#$controller = new ItemController;
+#$items = $controller->showMany();
+global $ITEMS;
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,7 +14,7 @@ $linksToEdit = new LinksToEdit();
 $buttonsToRemove = new ButtonsToRemove();
 
 $table = new Table();
-foreach ($items as $item) {
+foreach ($ITEMS as $item) {
     $table->tr();
     $table->td();
     ph($item->id);

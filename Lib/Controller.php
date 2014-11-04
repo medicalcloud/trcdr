@@ -47,6 +47,10 @@ class Controller {
         return $this->sess;
     }
 
+    private function render($viewName){
+        Pathes::execApp($this->dirname, $viewName."View");
+    }
+
     public function showAll(){
         $modelclass = $this->modelclass;
         return $modelclass::findAll();
@@ -60,31 +64,36 @@ class Controller {
             $page = 1;
         }
         $modelclass = $this->modelclass;
-        return $modelclass::findMany($page, $this->count_per_page);
+        
+        global $ITEMS;
+        $ITEMS = $modelclass::findMany($page, $this->count_per_page);
+        $this->render("ShowMany");
     }
 
     public function showOne(){
         $id = $_REQUEST['id'];
         $modelclass = $this->modelclass;
-        $object = $modelclass::findOne($id);
-        if(empty($object)){
+        global $ITEM;
+        $ITEM = $modelclass::findOne($id);
+        if(empty($ITEM)){
             Pathes::redirectTo($this->dirname.'/index.php');
         }
-        return $object;
+        $this->render('ShowOne');
     }
 
     public function newForm(){
-        # do nothing
+        $this->render('NewForm');
     }
 
     public function editForm(){
         $id = $_REQUEST['id'];
         $modelclass = $this->modelclass;
-        $object = $modelclass::findOne($id);
-        if(empty($object)){
+        global $ITEM;
+        $ITEM = $modelclass::findOne($id);
+        if(empty($ITEM)){
             Pathes::redirectTo($this->dirname.'/index.php');
         }
-        return $object;
+        $this->render('EditForm');
     }
 
     public function create(){

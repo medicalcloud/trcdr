@@ -1,7 +1,7 @@
 <?php
 require_once("ItemController.php");
-$controller = new ItemController;
-$controller->newForm();
+#$controller = new ItemController;
+#$controller->newForm();
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
