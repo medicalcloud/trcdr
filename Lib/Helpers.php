@@ -57,8 +57,8 @@ class ButtonsToRemove extends Links{
 }
 
 class Buttons extends Links{
-    public function p($label, $target){
-        echo('<form action="'.$target.'" method="post">');
+    public function p($label, $target, $method='post'){
+        echo('<form action="'.$target.'" method="'.$method.'">');
         echo('<input type="submit" id="button'.$this->counter.'" value="'.$label.'">');
         echo('</form>');
         $this->counter++;
