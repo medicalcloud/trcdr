@@ -41,18 +41,14 @@ class Controller {
         return $this->count_per_page;
     }
 
-    private function render($viewName){
+    protected function render($viewName){
         Pathes::execApp($this->dirname, $viewName."View");
-    }
-
-    public function showAll(){
-        $modelclass = $this->modelclass;
-        return $modelclass::findAll();
+        die();
     }
 
     public function showMany(){
         global $SP;
-        $SP = new SharedParams();
+        $SP = SharedParams::instance();
         if(isset($_REQUEST['page'])){
             $page = $_REQUEST['page'];
         } else {
@@ -66,7 +62,7 @@ class Controller {
 
     public function showOne(){
         global $SP;
-        $SP = new SharedParams();
+        $SP = SharedParams::instance();
         $id = $_REQUEST['id'];
         $modelclass = $this->modelclass;
         $item = $modelclass::findOne($id);
@@ -83,7 +79,7 @@ class Controller {
 
     public function editForm(){
         global $SP;
-        $SP = new SharedParams();
+        $SP = SharedParams::instance();
         $id = $_REQUEST['id'];
         $modelclass = $this->modelclass;
         $item = $modelclass::findOne($id);

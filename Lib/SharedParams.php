@@ -10,9 +10,18 @@ class SharedParams {
         return $this->sess;
     }
 
-    public function __construct(){
+    private function __construct(){
         $this->params = array();
     }
+
+    public static function instance(){
+        global $SP;
+            if(empty($SP)){
+                $SP = new SharedParams();
+            }
+        return $SP;
+    }
+
     public function set($name, $value){
         $this->params[$name] = $value;
     }

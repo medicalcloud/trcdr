@@ -6,7 +6,7 @@ class Session {
         $this->start();
         $this->sessionIdIsRegenerated = false;
     }
-
+    
     public function start(){
         if(!$this->sessionStarted){
             session_start();
