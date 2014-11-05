@@ -1,5 +1,6 @@
 <?php
 Pathes::loadLib("Request");
+Pathes::loadLib('SharedParams');
 class Dispatcher {
     
     private $modelName;
@@ -61,6 +62,8 @@ class Dispatcher {
 
 
     public function dispatchTo($actionName){
+        global $SP;
+        $SP = SharedParams::instance();
         $controllerClassName = ucfirst($this->modelName).'Controller';
         Pathes::loadApp($this->modelName, $controllerClassName);
         $controller = new $controllerClassName();
