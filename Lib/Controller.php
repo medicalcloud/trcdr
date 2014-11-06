@@ -3,34 +3,23 @@ Pathes::loadLib("Model");
 Pathes::loadLib("Helpers");
 Pathes::loadLib("SharedParams");
 class Controller {
-    protected $modelclass;
-    protected $dirname;
+    protected $modelName;
     protected $count_per_page = 10;
     private $sess;
 
-    public function __construct($modelclass = "", $dirname = ""){
-        if($modelclass !== ""){
-            $this->modelclass = $modelclass;
-        }
-        if($dirname !== ""){
-            $this->dirname = $dirname;
+    public function __construct($modelName = ""){
+        if($modelName !== ""){
+            $this->dirname = lcfirst($modelName);
+            $this->modelName = $modelName;
         }
     }
 
-    public function setModelClass($modelclass){
-        $this->modelclass = $modelclass;
+    public function setModelName($modelName){
+        $this->modelName = $modelName;
     }
 
-    public function getModelClass(){
-        return $this->modelclass;
-    }
-
-    public function setDirName($dirname){
-        $this->dirname = $dirname;
-    }
-
-    public function getDirName(){
-        return $this->dirname;
+    public function getModelName(){
+        return $this->modelName;
     }
 
     public function setCountPerPage($count_per_page){
@@ -42,7 +31,7 @@ class Controller {
     }
 
     protected function render($viewName){
-        Pathes::execApp($this->dirname, $viewName."View");
+        Pathes::execApp(lcfirst($this->modelName), $viewName."View");
         die();
     }
 
@@ -54,7 +43,7 @@ class Controller {
         } else {
             $page = 1;
         }
-        $modelclass = $this->modelclass;
+        $modelclass = ucfirst($this->modelName).'Model';
         $SP->set('page', $page);
         $SP->set('items', $modelclass::findMany($page, $this->count_per_page));
         $this->render("ShowMany");
@@ -64,10 +53,10 @@ class Controller {
         global $SP;
         $SP = SharedParams::instance();
         $id = $_REQUEST['id'];
-        $modelclass = $this->modelclass;
+        $modelclass = ucfirst($this->modelName).'Model';
         $item = $modelclass::findOne($id);
         if(empty($item)){
-            Pathes::redirectTo($this->dirname.'/index.php');
+            Pathes::redirectTo(lcfirst($this->modelName).'/index.php');
         }
         $SP->set('item', $item);
         $this->render('ShowOne');
@@ -81,10 +70,10 @@ class Controller {
         global $SP;
         $SP = SharedParams::instance();
         $id = $_REQUEST['id'];
-        $modelclass = $this->modelclass;
+        $modelclass = ucfirst($this->modelName).'Model';
         $item = $modelclass::findOne($id);
         if(empty($item)){
-            Pathes::redirectTo($this->dirname.'/index.php');
+            Pathes::redirectTo(lcfirst($this->modelName).'/index.php');
         }
         $SP->set('item', $item);
         $this->render('EditForm');
@@ -92,23 +81,23 @@ class Controller {
 
     public function create(){
         $params = $_REQUEST;
-        $modelclass = $this->modelclass;
+        $modelclass = ucfirst($this->modelName).'Model';
         $modelclass::create($params);
-        Pathes::redirectTo($this->dirname.'/index.php');
+        Pathes::redirectTo(lcfirst($this->modelName).'/index.php');
     }
 
     public function update(){
         $params = $_REQUEST;
-        $modelclass = $this->modelclass;
+        $modelclass = ucfirst($this->modelName).'Model';
         $modelclass::update($params);
-        Pathes::redirectTo($this->dirname.'/index.php');
+        Pathes::redirectTo(lcfirst($this->modelName).'/index.php');
     }
 
     public function remove(){
         $id = $_REQUEST['id'];
-        $modelclass = $this->modelclass;
+        $modelclass = ucfirst($this->modelName).'Model';
         $modelclass::remove($id);
-        Pathes::redirectTo($this->dirname.'/index.php');
+        Pathes::redirectTo(lcfirst($this->modelName).'/index.php');
     }
 }
 

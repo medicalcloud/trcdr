@@ -2,7 +2,6 @@
 require_once("ItemModel.php");
 Pathes::loadLib("Controller");
 class ItemController extends Controller{
-    protected $modelclass = "ItemModel";
+    protected $modelName = 'item';
     protected $count_per_page = 10;
-    protected $dirname = "item";
 }

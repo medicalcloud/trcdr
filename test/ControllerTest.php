@@ -6,12 +6,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase{
         $this->controller = new Controller();
     }
     public function testModelClass(){
-        $this->controller->setModelClass("AModel");
-        $this->assertEquals($this->controller->getModelClass(), "AModel");
-    }
-    public function testDirName(){
-        $this->controller->setDirName("ADir");
-        $this->assertEquals($this->controller->getDirName(), "ADir");
+        $this->controller->setModelName("A");
+        $this->assertEquals($this->controller->getModelName(), "A");
     }
 
    public function testCountPerPage(){
