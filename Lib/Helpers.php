@@ -47,10 +47,10 @@ class LinksToEdit extends Links{
 }
 
 class ButtonsToRemove extends Links{
-    public function p($label, $target){
+    public function p($label, $target, $class = 'pure-button pure-button-active'){
         echo('<form action="index.php?id='.h($target).'" method="post">');
         echo('<input type="hidden" name="_method" value="delete">');
-        echo('<input type="submit" id="buttonToRemove'.$this->counter.'" value="'.$label.'">');
+        echo('<input type="submit" class="'.$class.'" id="buttonToRemove'.$this->counter.'" value="'.$label.'">');
         echo('</form>');
         $this->counter++;
     }
@@ -108,14 +108,14 @@ class Table {
 class Form {
     public function __construct($id=null) {
         if($id === null){
-            echo '<form action="index.php?" method="post">';
+            echo '<form class="pure-form pure-form-stacked" action="index.php?" method="post"><fieldset>';
         }else{
-            echo '<form action="index.php?id='.h($id).'" method="post">';
+            echo '<form class="pure-form pure-form-stacked" action="index.php?id='.h($id).'" method="post">';
             echo '<input type="hidden" name="_method" value="put">';
         }
     }
 
-    public function textbox($name, $value) {
+    public function textbox($name, $value, $placeholder = "") {
         echo '<input type="text" id="'.$name.'" name="'.$name.'" value="'.$value.'">';
     }
 
@@ -124,11 +124,11 @@ class Form {
     }
 
     public function submitButton($buttonLabel) {
-        echo '<input type="submit" id="submitButton" value="'.$buttonLabel.'">';
+        echo '<input type="submit" class="pure-button pure-button-active" id="submitButton" value="'.$buttonLabel.'">';
     }
 
     public function formEnd() {
-        echo('</form>');
+        echo('</fieldset></form>');
     }
 }
 
