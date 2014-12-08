@@ -19,7 +19,7 @@ class Dispatcher {
         $this->modelName = $modelName;
     }
 
-    public function workAsGenericIndex(){
+    public function dispatchAsGenericIndex(){
         $this->dispatchIfRequestIs("GET", "Member", "showOne");
         $this->dispatchIfRequestIs("GET", "Collection", "showMany");
         $this->dispatchIfRequestIs("POST", "Collection", "create");
@@ -28,20 +28,20 @@ class Dispatcher {
         Pathes::redirect($this->modelName.'/'.'index.php');
     }
 
-    public function workAsGenericEdit(){
-        $this->workAsGenericGetForMember('editForm');
+    public function dispatchAsGenericEdit(){
+        $this->dispatchAsGenericGetForMember('editForm');
     }
 
-    public function workAsGenericNew(){
-        $this->workAsGenericGetForCollection('newForm');
+    public function dispatchAsGenericNew(){
+        $this->dispatchAsGenericGetForCollection('newForm');
     }
 
-    public function workAsGenericGetForMember($actionName){
+    public function dispatchAsGenericGetForMember($actionName){
         $this->dispatchIfRequestIs("GET", "Member", $actionName);
         Pathes::redirect($this->modelName.'/'.'index.php');
     }
 
-    public function workAsGenericGetForCollection($actionName){
+    public function dispatchAsGenericGetForCollection($actionName){
         $this->dispatchIfRequestIs("GET", "Collection", $actionName);
         Pathes::redirect($this->modelName.'/'.'index.php');
     }
