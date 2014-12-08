@@ -49,7 +49,7 @@ class Pathes {
         return self::$baseUrl.$path;
     }
 
-    public static function redirectTo($path){
+    public static function redirect($path){
         if(preg_match('/^(https?|ftp):(:\/\/)/', $path)){
             header ('Location: '.$path);
         }else{

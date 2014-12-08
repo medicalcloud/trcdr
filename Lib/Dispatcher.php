@@ -25,7 +25,7 @@ class Dispatcher {
         $this->dispatchIfRequestIs("POST", "Collection", "create");
         $this->dispatchIfRequestIs("PUT", "Member", "update");
         $this->dispatchIfRequestIs("DELETE", "Member", "remove");
-        Pathes::redirectTo($this->modelName.'/'.'index.php');
+        Pathes::redirect($this->modelName.'/'.'index.php');
     }
 
     public function workAsGenericEdit(){
@@ -38,30 +38,30 @@ class Dispatcher {
 
     public function workAsGenericGetForMember($actionName){
         $this->dispatchIfRequestIs("GET", "Member", $actionName);
-        Pathes::redirectTo($this->modelName.'/'.'index.php');
+        Pathes::redirect($this->modelName.'/'.'index.php');
     }
 
     public function workAsGenericGetForCollection($actionName){
         $this->dispatchIfRequestIs("GET", "Collection", $actionName);
-        Pathes::redirectTo($this->modelName.'/'.'index.php');
+        Pathes::redirect($this->modelName.'/'.'index.php');
     }
 
     public function dispatchIfRequestIs($method, $target, $actionName){
         if($this->request->getVirtualMethod() === $method &&
            $this->request->getTarget() === $target){
-               $this->dispatchTo($actionName);
+               $this->dispatch($actionName);
         }
     }    
 
-    public function redirectIfRequestIs($method, $target, $pathName){
-        if($this->request->getVirtualMethod() === $method &&
-           $this->request->getTarget() === $target){
-               Pathes::redirectTo($this->modelName.'/'.$pathName);
-        }
-    }
+//    public function redirectIfRequestIs($method, $target, $pathName){
+//        if($this->request->getVirtualMethod() === $method &&
+//           $this->request->getTarget() === $target){
+//               Pathes::redirect(ucfirst($this->modelName).'/'.$pathName);
+//        }
+//    }
 
 
-    public function dispatchTo($actionName){
+    public function dispatch($actionName){
         global $SP;
         $SP = SharedParams::instance();
         $controllerClassName = ucfirst($this->modelName).'Controller';

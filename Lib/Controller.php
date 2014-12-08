@@ -56,7 +56,7 @@ class Controller {
         $modelclass = ucfirst($this->modelName).'Model';
         $item = $modelclass::findOne($id);
         if(empty($item)){
-            Pathes::redirectTo(lcfirst($this->modelName).'/index.php');
+            Pathes::redirect(lcfirst($this->modelName).'/index.php');
         }
         $SP->set('item', $item);
         $this->render('ShowOne');
@@ -73,7 +73,7 @@ class Controller {
         $modelclass = ucfirst($this->modelName).'Model';
         $item = $modelclass::findOne($id);
         if(empty($item)){
-            Pathes::redirectTo(lcfirst($this->modelName).'/index.php');
+            Pathes::redirect(lcfirst($this->modelName).'/index.php');
         }
         $SP->set('item', $item);
         $this->render('EditForm');
@@ -83,21 +83,21 @@ class Controller {
         $params = $_REQUEST;
         $modelclass = ucfirst($this->modelName).'Model';
         $modelclass::create($params);
-        Pathes::redirectTo(lcfirst($this->modelName).'/index.php');
+        Pathes::redirect(lcfirst($this->modelName).'/index.php');
     }
 
     public function update(){
         $params = $_REQUEST;
         $modelclass = ucfirst($this->modelName).'Model';
         $modelclass::update($params);
-        Pathes::redirectTo(lcfirst($this->modelName).'/index.php');
+        Pathes::redirect(lcfirst($this->modelName).'/index.php');
     }
 
     public function remove(){
         $id = $_REQUEST['id'];
         $modelclass = ucfirst($this->modelName).'Model';
         $modelclass::remove($id);
-        Pathes::redirectTo(lcfirst($this->modelName).'/index.php');
+        Pathes::redirect(lcfirst($this->modelName).'/index.php');
     }
 }
 
