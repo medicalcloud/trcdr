@@ -56,7 +56,7 @@ class Dispatcher {
 //    public function redirectIfRequestIs($method, $target, $pathName){
 //        if($this->request->getVirtualMethod() === $method &&
 //           $this->request->getTarget() === $target){
-//               Pathes::redirect(ucfirst($this->modelName).'/'.$pathName);
+//               Pathes::redirect(lcfirst($this->modelName).'/'.$pathName);
 //        }
 //    }
 

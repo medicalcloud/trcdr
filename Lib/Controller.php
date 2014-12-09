@@ -37,7 +37,6 @@ class Controller {
 
     public function showMany(){
         global $SP;
-        $SP = SharedParams::instance();
         if(isset($_REQUEST['page'])){
             $page = $_REQUEST['page'];
         } else {
@@ -51,7 +50,6 @@ class Controller {
 
     public function showOne(){
         global $SP;
-        $SP = SharedParams::instance();
         $id = $_REQUEST['id'];
         $modelclass = ucfirst($this->modelName).'Model';
         $item = $modelclass::findOne($id);
@@ -68,7 +66,6 @@ class Controller {
 
     public function editForm(){
         global $SP;
-        $SP = SharedParams::instance();
         $id = $_REQUEST['id'];
         $modelclass = ucfirst($this->modelName).'Model';
         $item = $modelclass::findOne($id);
