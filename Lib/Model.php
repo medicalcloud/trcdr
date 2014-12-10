@@ -102,8 +102,8 @@ class Model {
             if(isset($params[$column])) {
                 $stt->bindValue(':'.$column, $params[$column]);
             }else{
-                echo $column.' should be included in $_REQUEST(in Model::bindParams)';
-                die();
+                # defalut is null string
+                $stt->bindValue(':'.$column, '');
             }
         }
         return $stt;
