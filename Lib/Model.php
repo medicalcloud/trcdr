@@ -4,7 +4,6 @@ Pathes::loadLib("DBManager");
 class Model {
     protected static $dbh;
     protected static $tableName = 'tablename';
-    #protected static $columnNames = array();
     protected static $cachedStatements = array();
     public static function setTableName($tableName){
         static::$tableName = $tableName;
@@ -70,15 +69,15 @@ class Model {
     }
 
     public static function create($params){
-        $cn_csv = implode(', ', static::createdColumnNames());
+        $cn_csv = implode(', ', static::columnNames($params));
         $placeholders = array_map(
              function($s){return ':'.$s;},
-             static::createdColumnNames());
+             static::columnNames($params));
         $ph_csv = implode(', ', $placeholders);
         $SQL = 'INSERT INTO '.static::$tableName.' ('.$cn_csv.', created, updated) VALUES ('.$ph_csv.', now(), now())';
  
         $stt = static::buildStt($SQL);
-        $stt = static::bindParams($stt, static::createdColumnNames(), $params);
+        $stt = static::bindParams($stt, static::columnNames($params), $params);
         $stt->execute();
         return null;
     }
@@ -86,12 +85,12 @@ class Model {
     public static function update($params){
         $value_equal_placeholder_list = array_map(
              function($s){return $s.' = :'.$s;},
-             static::updatedColumnNames());
+             static::columnNames($params));
         $piece = implode(', ', $value_equal_placeholder_list);
         $SQL = 'UPDATE '.static::$tableName.' SET '.$piece.', updated = now() WHERE id=:id';
  
         $stt = static::buildStt($SQL);
-        $stt = static::bindParams($stt, static::updatedColumnNames(), $params);
+        $stt = static::bindParams($stt, static::columnNames($params), $params);
         $stt->bindValue(':id', $params['id']);
         $stt->execute();
         return $params['id'];
@@ -102,27 +101,15 @@ class Model {
             if(isset($params[$column])) {
                 $stt->bindValue(':'.$column, $params[$column]);
             }else{
-                # defalut is null string
-                $stt->bindValue(':'.$column, '');
+                # error occured.
+                die();
             }
         }
         return $stt;
     }
 
-    protected static function updatedColumnNames(){
-        if(isset(static::$updatedColumnNames)) {
-            return static::$updatedColumnNames;
-        }else{
-            return static::$columnNames;
-        }
-    }
-
-    protected static function createdColumnNames(){
-        if(isset(static::$createdColumnNames)) {
-            return static::$createdColumnNames;
-        }else{
-            return static::$columnNames;
-        }
+    protected static function columnNames($params){
+        return array_intersect(static::$columnNames, array_keys($params));
     }
 
     public static function remove($id){
