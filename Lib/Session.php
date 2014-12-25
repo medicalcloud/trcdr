@@ -2,6 +2,7 @@
 class Session {
 
     public function __construct(){
+        session_set_cookie_params(0, '/');
         $this->sessionStarted = false;
         $this->start();
         $this->sessionIdIsRegenerated = false;
