@@ -22,5 +22,22 @@ class UserModel extends Model {
         
     }
 
+    public function checkUserData(){
+        //Userに不十分なデータがないかチェックする。
+        if(empty($this->formNeededToCorrectUserData())){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public function formNeededToCorrectUserData(){
+        //Userに不十分なデータがないか、チェックする。
+        //もし、ユーザーデータに不十分な点があれば、
+        //それを入力するために必要なフォームのURLを送る。
+        //異常がなければ、nullを返す
+        return '';
+    }
+
 }
 

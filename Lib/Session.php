@@ -67,7 +67,11 @@ class Session {
     public function getUser(){
         $classname = $this->get('_authenticatedUserClassName');
         $user_id = $this->get('_authenticatedUserId');
-        return $classname::findOne($user_id);
+        if($classname && $user_id){
+            return $classname::findOne($user_id);
+        }else{
+            return null;
+        }
     }
 
     public function isLogedIn(){
@@ -91,5 +95,6 @@ class Session {
     public function getUrlBeforeLogin(){
         return $this->get('_urlBeforeLogin');
     }
+
 }
 
