@@ -5,31 +5,31 @@ class FBManager {
     private static $fbAppId = '';
     private static $fbAppSecret = '';
 
-    public static function getFbAppName(){
+    public static function getAppName(){
         return self::$fbAppName;
     }
 
-    public static function setFbAppName($fbAppName){
+    public static function setAppName($fbAppName){
         self::$fbAppName = $fbAppName;
     }
 
-    public static function getFbAppId(){
+    public static function getAppId(){
         return self::$fbAppId;
     }
 
-    public static function setFbAppId($fbAppId){
+    public static function setAppId($fbAppId){
         self::$fbAppId = $fbAppId;
     }
 
-    public static function getFbAppSecret(){
+    public static function getAppSecret(){
         return self::$fbAppSecret;
     }
 
-    public static function setFbAppSecret($fbAppSecret){
+    public static function setAppSecret($fbAppSecret){
         self::$fbAppSecret = $fbAppSecret;
     }
 
-    public static function redirectToOauthPage($redirect_uri, $scope = 'user_website, friend_website'){
+    public static function redirectToOauthPage($redirect_uri, $scope = 'user_website'){
         global $SP;
         $SP->session()->set('state', sha1(uniqid(mt_rand(), true)));
         $params = array(
@@ -57,10 +57,11 @@ class FBManager {
             'client_secret' => static::getAppSecret(),
             'code' => $code,
             'redirect_uri' => $redirect_uri);
-            $url = 'http://www.facebook.com/oauth/access_token?'.http_build_query($params);
-            parse_str(file_get_contents($url));
+            $url = 'https://graph.facebook.com/oauth/access_token?'.http_build_query($params);
+            $body = file_get_contents($url);
+            parse_str($body, $array);
             // access token is in $access_token
 
-            return $access_token;
+            return $array['access_token'];
     }
 }

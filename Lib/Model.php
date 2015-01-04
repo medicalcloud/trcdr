@@ -88,7 +88,7 @@ class Model {
              static::columnNames($params));
         $piece = implode(', ', $value_equal_placeholder_list);
         $SQL = 'UPDATE '.static::$tableName.' SET '.$piece.', updated = now() WHERE id=:id';
- 
+        
         $stt = static::buildStt($SQL);
         $stt = static::bindParams($stt, static::columnNames($params), $params);
         $stt->bindValue(':id', $params['id']);
