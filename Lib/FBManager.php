@@ -30,7 +30,6 @@ class FBManager {
     }
 
     public static function redirectToOauthPage($redirect_uri, $scope = 'public_profile'){
-   // $scope = 'public_profile, user_friends, user_about_me, user_education_history';
         global $SP;
         $SP->session()->set('state', sha1(uniqid(mt_rand(), true)));
         $params = array(
