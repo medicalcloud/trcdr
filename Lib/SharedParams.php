@@ -3,7 +3,7 @@ class SharedParams {
     private $sess;
     private $params;
     public function session(){
-        if(empty($this->sess)){
+        if(!isset($this->sess)){
             Pathes::loadLib('Session');
             $this->sess = new Session();
         }
@@ -16,7 +16,7 @@ class SharedParams {
 
     public static function instance(){
         global $SP;
-            if(empty($SP)){
+            if(!isset($SP)){
                 $SP = new SharedParams();
             }
         return $SP;

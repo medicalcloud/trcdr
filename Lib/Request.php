@@ -21,7 +21,7 @@ class Request {
     }
 
     public function targetIsCollection() {
-        return !(isset($_REQUEST['id']));
+        return !isset($_REQUEST['id']);
     }
 
     public function getTarget() {
