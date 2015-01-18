@@ -116,7 +116,7 @@ class Form {
     }
 
     public function textbox($name, $value, $placeholder = "") {
-        echo '<input type="text" id="'.$name.'" name="'.$name.'" value="'.$value.'">';
+        echo '<input type="text" id="'.$name.'" name="'.$name.'" value="'.$value.'" placeholder="'.$placeholder.'">';
     }
 
     public function slider($name, $value, $min, $max, $step) {
