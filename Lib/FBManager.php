@@ -97,4 +97,17 @@ class FBManager {
         // friend name: data[n]->name
         return $friends;
     }
+
+    private static function fileGetContents($url){
+        return file_get_contents($url);
+        // if your server is in proxy, write here alternative code.
+        // $proxy = array(
+        //     'http' => array(
+        //         'proxy' => 'http://pcproxy.itakura.toyo.ac.jp:8080/',
+        //         'request_fulluri' => true,
+        //     ),
+        // );
+        // $proxy_content = stream_context_create($proxy);
+        // return file_get_contents($url, false, $proxy_content);
+    }
 }
