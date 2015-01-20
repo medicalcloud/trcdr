@@ -58,7 +58,7 @@ class FBManager {
             'code' => $code,
             'redirect_uri' => $redirect_uri);
             $url = 'https://graph.facebook.com/oauth/access_token?'.http_build_query($params);
-            $body = file_get_contents($url);
+            $body = static::fileGetContents($url);
             parse_str($body, $array);
             // access token is in $array['access_token']
 
@@ -68,7 +68,7 @@ class FBManager {
     public static function getMe($access_token){
         $fields = "name,picture";
         $url = 'https://graph.facebook.com/me?access_token='.$access_token.'&fields='.$fields;
-        $me = json_decode(file_get_contents($url));
+        $me = json_decode(static::fileGetContents($url));
         // fb user id: $me->id
         // fb user name: $me->name
         // fb icon: $me->picture->data->url
@@ -78,20 +78,20 @@ class FBManager {
     public static function getWork($access_token){
         $fields = "name,work";
         $url = 'https://graph.facebook.com/me?access_token='.$access_token.'&fields='.$fields;
-        $me = json_decode(file_get_contents($url));
+        $me = json_decode(static::fileGetContents($url));
         return $me->work;
     }
 
     public static function getEducation($access_token){
         $fields = "name,education";
         $url = 'https://graph.facebook.com/me?access_token='.$access_token.'&fields='.$fields;
-        $me = json_decode(file_get_contents($url));
+        $me = json_decode(static::fileGetContents($url));
         return $me->education;
     }
 
     public static function getFriends($access_token){
         $url = 'https://graph.facebook.com/me/friends?access_token='.$access_token;
-        $friends = json_decode(file_get_contents($url));
+        $friends = json_decode(static::fileGetContents($url));
         // $friends->data is array
         // friend id: data[n]->id
         // friend name: data[n]->name
