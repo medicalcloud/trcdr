@@ -42,8 +42,7 @@ class Model {
 
     public static function findMany($page, $count_per_page, $where = ''){
         $from = ($page - 1) * $count_per_page;
-        $to = $page * $count_per_page;
-        $SQL = 'SELECT * FROM '.static::$tableName.' LIMIT '.$from.', '.$to;
+        $SQL = 'SELECT * FROM '.static::$tableName.' LIMIT '.$from.', '.$count_per_page;
         if($where != ''){
             $SQL = $SQL.' WHERE '.$where;
         }
