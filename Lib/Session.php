@@ -62,22 +62,34 @@ class Session {
     }
 
     public function getUserId(){
-        return $this->get('_authenticatedUserId');
+        if(!empty($this->get('_authenticatedUserClassName'))){
+            return $this->get('_authenticatedUserId');
+        }else{
+            return null;
+        }
     }
     public function getUser(){
         $classname = $this->get('_authenticatedUserClassName');
         $user_id = $this->get('_authenticatedUserId');
         if($classname && $user_id){
-            return $classname::findOne($user_id);
-        }else{
-            return null;
+            $user = $classname::findOne($user_id);
+            if(!empty($user)){
+                return $user;
+            }
         }
+        return null;
     }
 
     public function isLogedIn(){
-        return (null !== $this->get('_authenticatedUserId'));
+        if(!empty($this->get('_authenticatedUserId')) &&
+           !empty($this->get('_authenticatedUserClassName'))
+        ){
+           return true;
+        }else{
+           return false;
+        }
     }
-
+   
     public function logedInOrRedirect($path){
         if(!($this->isLogedIn())){
             $this->set('_urlBeforeLogin', $_SERVER['REQUEST_URI']);
