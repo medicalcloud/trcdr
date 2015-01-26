@@ -62,8 +62,10 @@ class Session {
     }
 
     public function getUserId(){
-        if(!empty($this->get('_authenticatedUserClassName'))){
-            return $this->get('_authenticatedUserId');
+        $classname = $this->get('_authenticatedUserClassName');
+        $user_id = $this->get('_authenticatedUserId');
+        if($classname && $user_id){
+            return $user_id;
         }else{
             return null;
         }
@@ -81,9 +83,9 @@ class Session {
     }
 
     public function isLogedIn(){
-        if(!empty($this->get('_authenticatedUserId')) &&
-           !empty($this->get('_authenticatedUserClassName'))
-        ){
+        $classname = $this->get('_authenticatedUserId');
+        $user_id = $this->get('_authenticatedUserClassName');
+        if($classname && $user_id){
            return true;
         }else{
            return false;
