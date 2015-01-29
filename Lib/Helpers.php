@@ -145,7 +145,7 @@ function loginToggleLink($session, $userModelName, $login = 'login', $logout = '
     }
 }
 
-function backPage($value, $path = "index.php?"){
+function prevPage($value, $path = "index.php?"){
     global $SP;
     $page = $SP->get('page');
     if($page > 1){
@@ -155,6 +155,13 @@ function backPage($value, $path = "index.php?"){
 
 function nextPage($value, $path = "index.php?"){
     global $SP;
+    if($SP->get('count_per_page')){
+        $count_per_page = $SP->get('count_per_page');
+    }else{
+        $count_per_page = 12;
+    }
     $page = $SP->get('page');
-    echo '<a href="'.$path.'page='.((int)$page + 1).'">'.$value.'</a>';
+    if(count($SP->get('items')) === $count_per_page){
+        echo '<a href="'.$path.'page='.((int)$page + 1).'">'.$value.'</a>';
+    }
 }

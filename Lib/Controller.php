@@ -4,7 +4,7 @@ Pathes::loadLib("Helpers");
 Pathes::loadLib("SharedParams");
 class Controller {
     protected $modelName;
-    protected $count_per_page = 10;
+    protected $count_per_page = 12;
     private $sess;
 
     public function __construct($modelName = ""){
