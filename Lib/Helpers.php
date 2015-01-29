@@ -145,16 +145,16 @@ function loginToggleLink($session, $userModelName, $login = 'login', $logout = '
     }
 }
 
-function backPage($value){
+function backPage($value, $path = "index.php?"){
     global $SP;
     $page = $SP->get('page');
     if($page > 1){
-        echo '<a href="index.php?page='.((int)$page - 1).'">'.$value.'</a>';
+        echo '<a href="'.$path.'page='.((int)$page - 1).'">'.$value.'</a>';
     }
 }
 
-function nextPage($value){
+function nextPage($value, $path = "index.php?"){
     global $SP;
     $page = $SP->get('page');
-    echo '<a href="index.php?page='.((int)$page + 1).'">'.$value.'</a>';
+    echo '<a href="'.$path.'page='.((int)$page + 1).'">'.$value.'</a>';
 }
