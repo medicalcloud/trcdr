@@ -1,4 +1,5 @@
 vendor/
 phantomjsdriver.log
 *.php.swp
+.php-version
 
