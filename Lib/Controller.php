@@ -1,7 +1,7 @@
 <?php
 Pathes::loadLib("Model");
 Pathes::loadLib("Helpers");
-Pathes::loadLib("SharedParams");
+Pathes::loadLib("SharedObjects");
 class Controller {
     protected $modelName;
     protected $count_per_page = 12;
@@ -36,27 +36,27 @@ class Controller {
     }
 
     public function showMany(){
-        global $SP;
+        global $SO;
         if(isset($_REQUEST['page'])){
             $page = $_REQUEST['page'];
         } else {
             $page = 1;
         }
         $modelclass = ucfirst($this->modelName).'Model';
-        $SP->set('page', $page);
-        $SP->set('items', $modelclass::findMany($page, $this->count_per_page));
+        $SO->set('page', $page);
+        $SO->set('items', $modelclass::findMany($page, $this->count_per_page));
         $this->render("ShowMany");
     }
 
     public function showOne(){
-        global $SP;
-        $id = $_REQUEST['id'];
+        global $SO;
+        $id = $SO->request()->params('id');
         $modelclass = ucfirst($this->modelName).'Model';
         $item = $modelclass::findOne($id);
         if(empty($item)){
-            Pathes::redirect(lcfirst($this->modelName).'/index.php');
+            $SO->redirect(lcfirst($this->modelName).'/index.php');
         }
-        $SP->set('item', $item);
+        $SO->set('item', $item);
         $this->render('ShowOne');
     }
 
@@ -65,14 +65,14 @@ class Controller {
     }
 
     public function editForm(){
-        global $SP;
-        $id = $_REQUEST['id'];
+        global $SO;
+        $id = $SO->request()->params('id');
         $modelclass = ucfirst($this->modelName).'Model';
         $item = $modelclass::findOne($id);
         if(empty($item)){
-            Pathes::redirect(lcfirst($this->modelName).'/index.php');
+            $SO->redirect(lcfirst($this->modelName).'/index.php');
         }
-        $SP->set('item', $item);
+        $SO->set('item', $item);
         $this->render('EditForm');
     }
 
@@ -80,21 +80,24 @@ class Controller {
         $params = $_REQUEST;
         $modelclass = ucfirst($this->modelName).'Model';
         $modelclass::create($params);
-        Pathes::redirect(lcfirst($this->modelName).'/index.php');
+        global $SO;
+        $SO->redirect(lcfirst($this->modelName).'/index.php');
     }
 
     public function update(){
         $params = $_REQUEST;
         $modelclass = ucfirst($this->modelName).'Model';
         $modelclass::update($params);
-        Pathes::redirect(lcfirst($this->modelName).'/index.php');
+        global $SO;
+        $SO->redirect(lcfirst($this->modelName).'/index.php');
     }
 
     public function remove(){
-        $id = $_REQUEST['id'];
+        $id = $SO->request()->params('id');
         $modelclass = ucfirst($this->modelName).'Model';
         $modelclass::remove($id);
-        Pathes::redirect(lcfirst($this->modelName).'/index.php');
+        global $SO;
+        $SO->redirect(lcfirst($this->modelName).'/index.php');
     }
 }
 

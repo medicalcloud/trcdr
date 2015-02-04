@@ -44,6 +44,23 @@ class Request {
             return $request_method;
         }
     }
+
+    public function params($name){
+        if (empty($name)){
+            return $_REQUEST;
+        }else{
+            return $_REQUEST[$name];
+        }
+    }
+
+    public function redirect($path){
+        if(preg_match('/^(https?|ftp):(:\/\/)/', $path)){
+            header ('Location: '.$path);
+        }else{
+            header ('Location: '.Pathes::buildUrl($path));
+        }
+        die();
+    }
 }
 
 

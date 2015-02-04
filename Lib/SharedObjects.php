@@ -1,6 +1,7 @@
 <?php
-class SharedParams {
+class SharedObjects {
     private $sess;
+    private $request;
     private $params;
     public function session(){
         if(!isset($this->sess)){
@@ -10,16 +11,24 @@ class SharedParams {
         return $this->sess;
     }
 
+    public function request(){
+        if(!isset($this->request)){
+            Pathes::loadLib('Request');
+            $this->request = new Request();
+        }
+        return $this->request;
+    }
+
     private function __construct(){
         $this->params = array();
     }
 
     public static function instance(){
-        global $SP;
-            if(!isset($SP)){
-                $SP = new SharedParams();
+        global $SO;
+            if(!isset($SO)){
+                $SO = new SharedObjects();
             }
-        return $SP;
+        return $SO;
     }
 
     public function set($name, $value){
@@ -31,6 +40,15 @@ class SharedParams {
             return $this->params[$name];
         }
         return null;
+    }
+
+    public function redirect($path){
+        if(preg_match('/^(https?|ftp):(:\/\/)/', $path)){
+            header ('Location: '.$path);
+        }else{
+            header ('Location: '.Pathes::buildUrl($path));
+        }
+        die();
     }
 }
 

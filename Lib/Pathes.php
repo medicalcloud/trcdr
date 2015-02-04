@@ -48,15 +48,5 @@ class Pathes {
     public static function buildUrl($path){
         return self::$baseUrl.$path;
     }
-
-    public static function redirect($path){
-        if(preg_match('/^(https?|ftp):(:\/\/)/', $path)){
-            header ('Location: '.$path);
-        }else{
-            header ('Location: '.Pathes::buildUrl($path));
-        }
-        die();
-    }
-
 }
 

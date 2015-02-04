@@ -1,6 +1,6 @@
 <?php
-global $SP;
-$item = $SP->get('item');
+global $SO;
+$item = $SO->get('item');
 ?>
 <?php echo $item->id; ?>
 

@@ -1,5 +1,5 @@
 <?php
-global $SP;
+global $SO;
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,7 +11,7 @@ $linksToEdit = new LinksToEdit();
 $buttonsToRemove = new ButtonsToRemove();
 
 $table = new Table();
-foreach ($SP->get('items') as $item) {
+foreach ($SO->get('items') as $item) {
     $table->tr();
     $table->td();
     ph($item->id);

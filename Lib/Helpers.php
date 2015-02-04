@@ -146,22 +146,22 @@ function loginToggleLink($session, $userModelName, $login = 'login', $logout = '
 }
 
 function prevPage($value, $path = "index.php?"){
-    global $SP;
-    $page = $SP->get('page');
+    global $SO;
+    $page = $SO->get('page');
     if($page > 1){
         echo '<a href="'.$path.'page='.((int)$page - 1).'">'.$value.'</a>';
     }
 }
 
 function nextPage($value, $path = "index.php?"){
-    global $SP;
-    if($SP->get('count_per_page')){
-        $count_per_page = $SP->get('count_per_page');
+    global $SO;
+    if($SO->get('count_per_page')){
+        $count_per_page = $SO->get('count_per_page');
     }else{
         $count_per_page = 12;
     }
-    $page = $SP->get('page');
-    if(count($SP->get('items')) === $count_per_page){
+    $page = $SO->get('page');
+    if(count($SO->get('items')) === $count_per_page){
         echo '<a href="'.$path.'page='.((int)$page + 1).'">'.$value.'</a>';
     }
 }

@@ -109,6 +109,5 @@ class Session {
     public function getUrlBeforeLogin(){
         return $this->get('_urlBeforeLogin');
     }
-
 }
 

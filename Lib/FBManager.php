@@ -30,22 +30,22 @@ class FBManager {
     }
 
     public static function redirectToOauthPage($redirect_uri, $scope = 'public_profile'){
-        global $SP;
-        $SP->session()->set('state', sha1(uniqid(mt_rand(), true)));
+        global $SO;
+        $SO->session()->set('state', sha1(uniqid(mt_rand(), true)));
         $params = array(
             'client_id' => static::getAppId(),
             'redirect_uri' => $redirect_uri,
-            'state' => $SP->session()->get('state'),
+            'state' => $SO->session()->get('state'),
             'scope' => $scope,
         );
         $url = 'http://www.facebook.com/dialog/oauth?'.http_build_query($params);
-        header('Location: '.$url);
+        $SO->redirect($url);
         die();
     }
 
     public static function checkCSRF(){
-        global $SP;
-        if($SP->session()->get('state') != $_GET['state']){
+        global $SO;
+        if($SO->session()->get('state') != $_GET['state']){
             echo 'state error';
             die();
         }
