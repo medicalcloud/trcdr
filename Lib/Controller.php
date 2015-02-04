@@ -5,7 +5,6 @@ Pathes::loadLib("SharedObjects");
 class Controller {
     protected $modelName;
     protected $count_per_page = 12;
-    private $sess;
 
     public function __construct($modelName = ""){
         if($modelName !== ""){
@@ -37,9 +36,8 @@ class Controller {
 
     public function showMany(){
         global $SO;
-        if(isset($_REQUEST['page'])){
-            $page = $_REQUEST['page'];
-        } else {
+        $page = $SO->request()->params('page');
+        if(empty($page)){
             $page = 1;
         }
         $modelclass = ucfirst($this->modelName).'Model';
@@ -77,7 +75,8 @@ class Controller {
     }
 
     public function create(){
-        $params = $_REQUEST;
+        global $SO;
+        $params = $SO->request()->params();
         $modelclass = ucfirst($this->modelName).'Model';
         $modelclass::create($params);
         global $SO;
@@ -85,18 +84,18 @@ class Controller {
     }
 
     public function update(){
-        $params = $_REQUEST;
+        global $SO;
+        $params = $SO->request()->params();
         $modelclass = ucfirst($this->modelName).'Model';
         $modelclass::update($params);
-        global $SO;
         $SO->redirect(lcfirst($this->modelName).'/index.php');
     }
 
     public function remove(){
+        global $SO;
         $id = $SO->request()->params('id');
         $modelclass = ucfirst($this->modelName).'Model';
         $modelclass::remove($id);
-        global $SO;
         $SO->redirect(lcfirst($this->modelName).'/index.php');
     }
 }

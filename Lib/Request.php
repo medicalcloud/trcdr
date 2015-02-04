@@ -45,11 +45,15 @@ class Request {
         }
     }
 
-    public function params($name){
+    public function params($name = null){
         if (empty($name)){
             return $_REQUEST;
         }else{
-            return $_REQUEST[$name];
+            if(empty($_REQUEST[$name])){
+                return null;
+            }else{
+                return $_REQUEST[$name];
+            }
         }
     }
 
