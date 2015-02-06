@@ -46,15 +46,15 @@ class Request {
     }
 
     public function params($name = null){
-        if (empty($name)){
-            return $_REQUEST;
+        if (isset($name) && isset($_REQUEST[$name])){
+            return $_REQUEST[$name];
         }else{
-            if(empty($_REQUEST[$name])){
-                return null;
-            }else{
-                return $_REQUEST[$name];
-            }
+            return null;
         }
+    }
+
+    public function p($name = null){
+        return $this->params($name);
     }
 
     public function redirect($path){
