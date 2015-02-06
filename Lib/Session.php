@@ -93,16 +93,18 @@ class Session {
     }
    
     public function logedInOrRedirect($path){
+        global $SO;
         if(!($this->isLogedIn())){
             $this->set('_urlBeforeLogin', $_SERVER['REQUEST_URI']);
-            Pathes::redirect($path);
+            $SO->redirect($path);
         }
     }
 
     public function redirectToUrlBeforeLogin(){
+        global $SO;
         $urlBeforeLogin = $this->get('_urlBeforeLogin');
         if(isset($urlBeforeLogin)){
-            Pathes::redirect($urlBeforeLogin);
+            $SO->redirect($urlBeforeLogin);
         }
     }
 
