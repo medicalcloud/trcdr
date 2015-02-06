@@ -1,5 +1,6 @@
 <?php
 Pathes::loadLib('Controller');
+Pathes::loadLib('SharedObjects');
 
 class ControllerTest extends PHPUnit_Framework_TestCase{
     public function setUp(){
