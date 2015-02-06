@@ -11,12 +11,20 @@ class SharedObjects {
         return $this->sess;
     }
 
+    public function s(){
+        return $this->session();
+    }
+
     public function request(){
         if(!isset($this->request)){
             Pathes::loadLib('Request');
             $this->request = new Request();
         }
         return $this->request;
+    }
+
+    public function r(){
+        return $this->request();
     }
 
     private function __construct(){
