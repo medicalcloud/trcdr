@@ -15,6 +15,11 @@ class SharedObjects {
         return $this->session();
     }
 
+    public function setSession($session){
+        // this method is for test to set MockObject insted of Session
+        $this->sess = $session;
+    }
+
     public function request(){
         if(!isset($this->request)){
             Pathes::loadLib('Request');
@@ -25,6 +30,11 @@ class SharedObjects {
 
     public function r(){
         return $this->request();
+    }
+
+    public function setRequest($request){
+        // this method is for test to set MockObject insted of Request
+        $this->request = $request;
     }
 
     private function __construct(){
