@@ -14,17 +14,18 @@ class DBManager {
     }
 
     public static function getDbh(){
-        if(!isset(self::$dbh[static::$DSN])) {
+        if(!isset(static::$dbh[static::$DSN])) {
             try {
                 static::$dbh[static::$DSN] = new PDO(static::$DSN, static::$username, static::$password);
             } catch(PDOException $e) {
                 die('Error:'.$e->getMessage());
             }
-            return static::$dbh[static::$DSN];
         }
+        return static::$dbh[static::$DSN];
     }
 
-    public function closeDbh($DSN = null){
+    public static function closeDbh($DSN = null){
+
         if($DSN === null) {
             static::$dbh = array();
         }else{

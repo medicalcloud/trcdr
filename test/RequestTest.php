@@ -10,18 +10,21 @@ class RequestTest extends PHPUnit_Framework_TestCase{
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $this->assertTrue($this->request->isGet());
         $this->assertFalse($this->request->isPost());
+        $this->assertEquals($this->request->getVirtualMethod(), 'GET');
     }
 
     public function testForPost(){
         $_SERVER['REQUEST_METHOD'] = 'POST';
         $this->assertFalse($this->request->isGet());
         $this->assertTrue($this->request->isPost());
+        $this->assertEquals($this->request->getVirtualMethod(), 'POST');
     }
 
     public function testForPut(){
         $_SERVER['REQUEST_METHOD'] = 'PUT';
         $this->assertFalse($this->request->isGet());
         $this->assertTrue($this->request->isPut());
+        $this->assertEquals($this->request->getVirtualMethod(), 'PUT');
     }
 
 
@@ -29,6 +32,7 @@ class RequestTest extends PHPUnit_Framework_TestCase{
         $_SERVER['REQUEST_METHOD'] = 'DELETE';
         $this->assertFalse($this->request->isGet());
         $this->assertTrue($this->request->isDelete());
+        $this->assertEquals($this->request->getVirtualMethod(), 'DELETE');
     }
 
 
@@ -38,6 +42,7 @@ class RequestTest extends PHPUnit_Framework_TestCase{
         $this->assertFalse($this->request->isGet());
         $this->assertFalse($this->request->isPost());
         $this->assertTrue($this->request->isPut());
+        $this->assertEquals($this->request->getVirtualMethod(), 'PUT');
     }
 
     public function testForVertualDelete(){
@@ -46,6 +51,7 @@ class RequestTest extends PHPUnit_Framework_TestCase{
         $this->assertFalse($this->request->isGet());
         $this->assertFalse($this->request->isPost());
         $this->assertTrue($this->request->isDelete());
+        $this->assertEquals($this->request->getVirtualMethod(), 'DELETE');
     }
 
     public function testForMember(){
@@ -60,4 +66,13 @@ class RequestTest extends PHPUnit_Framework_TestCase{
         $this->assertFalse($this->request->targetIsMember());
         $this->assertTrue($this->request->targetIsCollection());
     }
+
+    public function testGetTarget(){
+        $_REQUEST['id'] = null;
+        $this->assertEquals($this->request->getTarget(), 'Collection');
+        $_REQUEST['id'] = '1';
+        $this->assertEquals($this->request->getTarget(), 'Member');
+
+    }
+
 }
