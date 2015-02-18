@@ -31,6 +31,7 @@ class Controller {
 
     protected function render($viewName){
         Pathes::execApp(lcfirst($this->modelName), $viewName."View");
+        die();
     }
 
     public function showMany(){
@@ -76,6 +77,7 @@ class Controller {
     public function create(){
         global $SO;
         $params = $SO->request()->params();
+
         $modelclass = ucfirst($this->modelName).'Model';
         $modelclass::create($params);
         global $SO;

@@ -46,10 +46,14 @@ class Request {
     }
 
     public function params($name = null){
-        if (isset($name) && isset($_REQUEST[$name])){
-            return $_REQUEST[$name];
+        if(isset($name)){
+            if(isset($_REQUEST[$name])){
+                return $_REQUEST[$name];
+            }else{
+                return null;
+            }
         }else{
-            return null;
+            return $_REQUEST;
         }
     }
 

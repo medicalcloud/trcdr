@@ -61,7 +61,7 @@ class SharedObjects {
     }
 
     public function redirect($path){
-        if(preg_match('/^(https?|ftp):(:\/\/)/', $path)){
+        if(preg_match('/^(https?|ftp)(:\/\/)/', $path)){
             header ('Location: '.$path);
         }else{
             header ('Location: '.Pathes::buildUrl($path));

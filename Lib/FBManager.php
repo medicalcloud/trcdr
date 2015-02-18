@@ -30,6 +30,7 @@ class FBManager {
     }
 
     public static function redirectToOauthPage($redirect_uri, $scope = 'public_profile'){
+        //redirect to FB and return to redirect_uri with code
         global $SO;
         $SO->session()->set('state', sha1(uniqid(mt_rand(), true)));
         $params = array(
@@ -99,8 +100,23 @@ class FBManager {
     }
 
     private static function fileGetContents($url){
-        return file_get_contents($url);
-        // if your server is in proxy, write here alternative code.
+        $context = stream_context_create(array(
+            'http' => array('ignore_errors' => true)
+        
+        ));
+
+        $file = file_get_contents($url, false, $context);
+        
+        preg_match('/HTTP\/1\.[0|1|x] ([0-9]{3})/', $http_response_header[0], $matches);
+        $status_code = $matches[1];
+
+        if($status_code === '200'){
+            return $file;
+        }else{
+            echo 'エラーが発生しました。('.$status_code.')';
+            // あとで、きちんとビューにする。
+            die();
+        }
         // $proxy = array(
         //     'http' => array(
         //         'proxy' => 'http://pcproxy.itakura.toyo.ac.jp:8080/',

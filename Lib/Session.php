@@ -103,6 +103,7 @@ class Session {
     public function redirectToUrlBeforeLogin(){
         global $SO;
         $urlBeforeLogin = $this->get('_urlBeforeLogin');
+        $this->removeUrlBeforeLogin();
         if(isset($urlBeforeLogin)){
             $SO->redirect($urlBeforeLogin);
         }
@@ -110,6 +111,10 @@ class Session {
 
     public function getUrlBeforeLogin(){
         return $this->get('_urlBeforeLogin');
+    }
+
+    public function removeUrlBeforeLogin(){
+        $this->remove('_urlBeforeLogin');
     }
 }
 
