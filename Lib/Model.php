@@ -35,6 +35,7 @@ class Model {
         if($where != ''){
             $SQL = $SQL.' WHERE '.$where;
         }
+        $SQL = $SQL.' ORDER BY created DESC';
         $stt = static::buildStt($SQL);
         $stt->execute();
         return $stt->fetchAll(PDO::FETCH_CLASS, get_called_class());
@@ -46,6 +47,7 @@ class Model {
         if($where != ''){
             $SQL = $SQL.' WHERE '.$where;
         }
+        $SQL = $SQL.' ORDER BY created DESC';
         $SQL = $SQL.' LIMIT '.$from.', '.$count_per_page;
 
         $stt = static::buildStt($SQL);
