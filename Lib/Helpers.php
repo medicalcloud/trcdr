@@ -171,6 +171,6 @@ function write_factors($string){
     foreach($array as $factor){
         echo '<a href="'.Pathes::getBaseUrl().'assessment/search.php?q='.$factor.'">';
         ph($factor);
-        echo '</a>';
+        echo '</a> ';
     }
 }
