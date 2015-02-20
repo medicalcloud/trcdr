@@ -2,7 +2,6 @@
 global $SO;
 $item = $SO->get('item');
 ?>
-<?php echo $item->id; ?>
 
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

@@ -24,20 +24,20 @@ class ItemControllerTest extends PHPUnit_Framework_TestCase{
         $this->expectOutputRegex('/Show Item/');
         $controller->showOne();
     }
-
+ 
     public function testNewForm(){
         $controller = new ItemController();
         $this->expectOutputRegex('/New Item/');
         $controller->newForm();
     }
-    
+  
     public function testEditForm(){
         $controller = new ItemController();
         $_REQUEST['id'] = '2';
         $this->expectOutputRegex('/Edit Item/');
         $controller->editForm();
     }
-
+ 
     public function create(){
         $controller = new ItemController();
         $controller->create();

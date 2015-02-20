@@ -31,7 +31,6 @@ class Controller {
 
     protected function render($viewName){
         Pathes::execApp(lcfirst($this->modelName), $viewName."View");
-        die();
     }
 
     public function showMany(){
