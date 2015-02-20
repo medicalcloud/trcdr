@@ -165,3 +165,12 @@ function nextPage($value, $path = "index.php?"){
         echo '<a href="'.$path.'page='.((int)$page + 1).'">'.$value.'</a>';
     }
 }
+
+function write_factors($string){
+    $array = explode(' ',$string);
+    foreach($array as $factor){
+        echo '<a href="'.Pathes::getBaseUrl().'assessment/search.php?q='.$factor.'">';
+        ph($factor);
+        echo '</a>';
+    }
+}
