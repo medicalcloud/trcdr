@@ -2,6 +2,7 @@
 class SharedObjects {
     private $sess;
     private $request;
+    private $mailer;
     private $params;
     public function session(){
         if(!isset($this->sess)){
@@ -35,6 +36,18 @@ class SharedObjects {
     public function setRequest($request){
         // this method is for test to set MockObject insted of Request
         $this->request = $request;
+    }
+
+    public function mailer(){
+        if(!isset($this->mailer)){
+            Pathes::loadLib('Mailer');
+            $this->mailer = new Mailer();
+        }
+        return $this->mailer;
+    }
+
+    public function mail($to, $title, $message, $from){
+        return $this->mailer()->mail($to, $title, $message, $from);
     }
 
     private function __construct(){
