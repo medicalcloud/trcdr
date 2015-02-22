@@ -132,10 +132,6 @@ class Form {
     }
 }
 
-function renderPart($partname) {
-    Pathes::renderPart($partname);
-}
-
 function loginToggleLink($session, $userModelName, $login = 'login', $logout = 'logout'){
     $pDir = Pathes::getBaseUrl().'/'.$userModelName.'/';
     if($session->isLogedIn()){
@@ -174,3 +170,8 @@ function write_factors($string){
         echo '</a> ';
     }
 }
+
+function renderPart($partname){
+    Pathes::execApp("layouts", $partname);
+}
+

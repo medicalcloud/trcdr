@@ -41,8 +41,12 @@ class Pathes {
         require(self::$appPath.$modelName.'/'.$className.'.php');
     }
 
-    public static function renderPart($partname){
-        Pathes::execApp("layouts", $partname);
+    public static function renderPart($partname){ 
+        #NOT RECOMMENDED
+        #instead of this method,
+        #use Helper#renderPart();
+        Pathes::loadLib('Helper');
+        renderPart($partname);
     }
 
     public static function buildUrl($path){

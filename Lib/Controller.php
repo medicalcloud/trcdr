@@ -32,7 +32,7 @@ class Controller {
     protected function render($viewName){
         Pathes::execApp(lcfirst($this->modelName), $viewName."View");
     }
-
+    
     public function showMany(){
         global $SO;
         $page = $SO->request()->params('page');
