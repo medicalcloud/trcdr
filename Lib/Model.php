@@ -104,8 +104,7 @@ class Model {
             if(isset($params[$column])) {
                 $stt->bindValue(':'.$column, $params[$column]);
             }else{
-                # error occured.
-                die();
+                throw new Exception('value of params["'.$column.'"] is null.');
             }
         }
         return $stt;
