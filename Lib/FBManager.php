@@ -47,8 +47,7 @@ class FBManager {
     public static function checkCSRF(){
         global $SO;
         if($SO->session()->get('state') != $_GET['state']){
-            echo 'state error';
-            die();
+            throw new Exception('security error, suspect of CSRF');
         }
     }
 
@@ -113,9 +112,7 @@ class FBManager {
         if($status_code === '200'){
             return $file;
         }else{
-            echo 'エラーが発生しました。('.$status_code.')';
-            // あとで、きちんとビューにする。
-            die();
+            throw new Exception('external site return code:'.$status_code);
         }
         // $proxy = array(
         //     'http' => array(
