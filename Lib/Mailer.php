@@ -7,7 +7,9 @@ class Mailer {
 
     public function mail($to, $title, $message, $from){
         $result = mb_send_mail($to, $title, $message, 'From: '.$from);
-        return $result; #if result of sending mail is success, return true
-                        #if failed, return false
+        #if result of sending mail is failed, return false
+        if(!$result){
+            throw new Exception('mail could not send');
+        }
     }
 }
