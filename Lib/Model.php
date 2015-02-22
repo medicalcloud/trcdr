@@ -130,6 +130,34 @@ class Model {
         $stt->execute();
         return $id;
     }
+    
+    public static function checkEmail($email){
+        if(!(preg_match(
+            '/^([a-z0-9_]|\-|\.|\+)+@(([a-z0-9_]|\-)+\.)+[a-z]{2,6}$/i',
+            $email))) {
+            throw new Exception("Wrong email address format");    
+        }
+        return $email;
+    }
 
+    public static function checkUrl($url){
+        if(!(preg_match(
+            '/^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/',
+            $url))){
+            throw new Exception("Wrong url format");
+        }
+        return $url;
+    }
+
+    public static function checkOneLine($string){
+        $string = str_replace('\0', '', $string);
+        $string = preg_replace('/\s+/', ' ', $string);
+        $string = mb_convert_kana($string, 'asKV', 'UTF-8');
+        return $string;
+    }
+    public static function checkMultiLine($string){
+        $string = str_replace('\0', '', $string);
+        return $string;
+    }
 }
 
