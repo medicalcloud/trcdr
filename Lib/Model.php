@@ -104,7 +104,7 @@ class Model {
             if(isset($params[$column])) {
                 $stt->bindValue(':'.$column, $params[$column]);
             }else{
-                throw new Exception('value of params["'.$column.'"] is null.');
+                throw new TModelDataException('value of params['.$column.'] is null.');
             }
         }
         return $stt;
@@ -135,7 +135,7 @@ class Model {
         if(!(preg_match(
             '/^([a-z0-9_]|\-|\.|\+)+@(([a-z0-9_]|\-)+\.)+[a-z]{2,6}$/i',
             $email))) {
-            throw new Exception("Wrong email address format");    
+            throw new TModelDataException("wrong email address format");    
         }
         return $email;
     }
@@ -144,7 +144,7 @@ class Model {
         if(!(preg_match(
             '/^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/',
             $url))){
-            throw new Exception("Wrong url format");
+            throw new TModelDataException("wrong url format");
         }
         return $url;
     }
@@ -161,3 +161,5 @@ class Model {
     }
 }
 
+class TModelDataException extends Exception{
+}

@@ -9,7 +9,10 @@ class Mailer {
         $result = mb_send_mail($to, $title, $message, 'From: '.$from);
         #if result of sending mail is failed, return false
         if(!$result){
-            throw new Exception('mail could not send');
+            throw new TMailException('send mail failed');
         }
     }
+}
+
+class TMailException extends Exception{
 }

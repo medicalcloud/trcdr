@@ -112,7 +112,7 @@ class FBManager {
         if($status_code === '200'){
             return $file;
         }else{
-            throw new Exception('external site return code:'.$status_code);
+            throw new ExternalServerException('Url"'.$url.'" return code"'.$status_code.'"');
         }
         // $proxy = array(
         //     'http' => array(
@@ -123,4 +123,7 @@ class FBManager {
         // $proxy_content = stream_context_create($proxy);
         // return file_get_contents($url, false, $proxy_content);
     }
+}
+
+class ExternalServerException extends Exception{
 }
