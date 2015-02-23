@@ -16,7 +16,8 @@ class DBManager {
     public static function getDbh(){
         if(!isset(static::$dbh[static::$DSN])) {
             try {
-                static::$dbh[static::$DSN] = new PDO(static::$DSN, static::$username, static::$password);
+                static::$dbh[static::$DSN] = new PDO(static::$DSN, static::$username,
+                    static::$password);
             } catch(PDOException $e) {
                 die('Error:'.$e->getMessage());
             }
