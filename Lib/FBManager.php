@@ -34,10 +34,10 @@ class FBManager {
         global $SO;
         $SO->session()->set('state', sha1(uniqid(mt_rand(), true)));
         $params = array(
-            'client_id' => static::getAppId(),
-            'redirect_uri' => $redirect_uri,
-            'state' => $SO->session()->get('state'),
-            'scope' => $scope,
+            'client_id' => static::getAppId()
+            , 'redirect_uri' => $redirect_uri
+            , 'state' => $SO->session()->get('state')
+            , 'scope' => $scope
         );
         $url = 'http://www.facebook.com/dialog/oauth?'.http_build_query($params);
         $SO->redirect($url);
@@ -53,21 +53,23 @@ class FBManager {
 
     public static function getAccessToken($code, $redirect_uri){
         $params = array(
-            'client_id' => static::getAppId(),
-            'client_secret' => static::getAppSecret(),
-            'code' => $code,
-            'redirect_uri' => $redirect_uri);
-            $url = 'https://graph.facebook.com/oauth/access_token?'.http_build_query($params);
-            $body = static::fileGetContents($url);
-            parse_str($body, $array);
-            // access token is in $array['access_token']
+            'client_id' => static::getAppId()
+            , 'client_secret' => static::getAppSecret()
+            , 'code' => $code
+            , 'redirect_uri' => $redirect_uri
+        );
+        $url = 'https://graph.facebook.com/oauth/access_token?'.http_build_query($params);
+        $body = static::fileGetContents($url);
+        parse_str($body, $array);
+        // access token is in $array['access_token']
 
-            return $array['access_token'];
+        return $array['access_token'];
     }
 
     public static function getMe($access_token){
         $fields = "name,picture";
-        $url = 'https://graph.facebook.com/me?access_token='.$access_token.'&fields='.$fields;
+        $url = 'https://graph.facebook.com/me?access_token='
+            .$access_token.'&fields='.$fields;
         $me = json_decode(static::fileGetContents($url));
         // fb user id: $me->id
         // fb user name: $me->name
@@ -77,14 +79,16 @@ class FBManager {
 
     public static function getWork($access_token){
         $fields = "name,work";
-        $url = 'https://graph.facebook.com/me?access_token='.$access_token.'&fields='.$fields;
+        $url = 'https://graph.facebook.com/me?access_token='
+            .$access_token.'&fields='.$fields;
         $me = json_decode(static::fileGetContents($url));
         return $me->work;
     }
 
     public static function getEducation($access_token){
         $fields = "name,education";
-        $url = 'https://graph.facebook.com/me?access_token='.$access_token.'&fields='.$fields;
+        $url = 'https://graph.facebook.com/me?access_token='
+            .$access_token.'&fields='.$fields;
         $me = json_decode(static::fileGetContents($url));
         return $me->education;
     }

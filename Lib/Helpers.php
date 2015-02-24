@@ -34,14 +34,16 @@ class LinksToUrl extends Links{
 
 class LinksToShowOne extends Links{
     public function p($label, $target){
-        echo('<a href="index.php?id='.$target.'" id="linkToShow'.$this->counter.'">'.h($label).'</a>');
+        echo('<a href="index.php?id='.$target.'" id="linkToShow'
+            .$this->counter.'">'.h($label).'</a>');
         $this->counter++;
     }
 }
         
 class LinksToEdit extends Links{
     public function p($label, $target){
-        echo('<a href="edit.php?id='.$target.'" id="linkToEdit'.$this->counter.'">'.h($label).'</a>');
+        echo('<a href="edit.php?id='.$target.'" id="linkToEdit'
+            .$this->counter.'">'.h($label).'</a>');
         $this->counter++;
     }
 }
@@ -50,7 +52,8 @@ class ButtonsToRemove extends Links{
     public function p($label, $target, $class = 'pure-button pure-button-active'){
         echo('<form action="index.php?id='.h($target).'" method="post">');
         echo('<input type="hidden" name="_method" value="delete">');
-        echo('<input type="submit" class="'.$class.'" id="buttonToRemove'.$this->counter.'" value="'.$label.'">');
+        echo('<input type="submit" class="'.$class.'" id="buttonToRemove'
+            .$this->counter.'" value="'.$label.'">');
         echo('</form>');
         $this->counter++;
     }
@@ -108,23 +111,28 @@ class Table {
 class Form {
     public function __construct($id=null) {
         if($id === null){
-            echo '<form class="pure-form pure-form-stacked" action="index.php?" method="post"><fieldset>';
+            echo '<form class="pure-form pure-form-stacked" action="index.php?"'
+                .' method="post"><fieldset>';
         }else{
-            echo '<form class="pure-form pure-form-stacked" action="index.php?id='.h($id).'" method="post">';
+            echo '<form class="pure-form pure-form-stacked" action="index.php?id='
+                .h($id).'" method="post">';
             echo '<input type="hidden" name="_method" value="put">';
         }
     }
 
     public function textbox($name, $value, $placeholder = "") {
-        echo '<input type="text" id="'.$name.'" name="'.$name.'" value="'.$value.'" placeholder="'.$placeholder.'">';
+        echo '<input type="text" id="'.$name.'" name="'.$name
+            .'" value="'.$value.'" placeholder="'.$placeholder.'">';
     }
 
     public function slider($name, $value, $min, $max, $step) {
-        echo '<input type="range" id="'.$name.'" name="'.$name.'" value="'.$value.'" min="'.$min.'" max="'.$max.'" step="'.$step.'">';
+        echo '<input type="range" id="'.$name.'" name="'.$name
+            .'" value="'.$value.'" min="'.$min.'" max="'.$max.'" step="'.$step.'">';
     }
 
     public function submitButton($buttonLabel) {
-        echo '<input type="submit" class="pure-button pure-button-active" id="submitButton" value="'.$buttonLabel.'">';
+        echo '<input type="submit" class="pure-button pure-button-active"'
+            .' id="submitButton" value="'.$buttonLabel.'">';
     }
 
     public function formEnd() {

@@ -77,7 +77,8 @@ class Model {
              function($s){return ':'.$s;},
              static::columnNames($params));
         $ph_csv = implode(', ', $placeholders);
-        $SQL = 'INSERT INTO '.static::$tableName.' ('.$cn_csv.', created, updated) VALUES ('.$ph_csv.', now(), now())';
+        $SQL = 'INSERT INTO '.static::$tableName
+            .' ('.$cn_csv.', created, updated) VALUES ('.$ph_csv.', now(), now())';
  
         $stt = static::buildStt($SQL);
         $stt = static::bindParams($stt, static::columnNames($params), $params);
@@ -90,7 +91,8 @@ class Model {
              function($s){return $s.' = :'.$s;},
              static::columnNames($params));
         $piece = implode(', ', $value_equal_placeholder_list);
-        $SQL = 'UPDATE '.static::$tableName.' SET '.$piece.', updated = now() WHERE id=:id';
+        $SQL = 'UPDATE '.static::$tableName
+            .' SET '.$piece.', updated = now() WHERE id=:id';
         
         $stt = static::buildStt($SQL);
         $stt = static::bindParams($stt, static::columnNames($params), $params);
