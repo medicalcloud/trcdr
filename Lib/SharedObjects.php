@@ -4,6 +4,7 @@ class SharedObjects {
     private $request;
     private $mailer;
     private $params;
+    private $servers;
     public function session(){
         if(!isset($this->sess)){
             Pathes::loadLib('Session');
@@ -44,6 +45,14 @@ class SharedObjects {
             $this->mailer = new Mailer();
         }
         return $this->mailer;
+    }
+
+    public function servers(){
+        if(!isset($this->servers)){
+            Pathes::loadLib('Servers');
+            $this->servers = new Servers();
+        }
+        return $this->servers;
     }
 
     public function mail($to, $title, $message, $from){

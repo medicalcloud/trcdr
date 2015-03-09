@@ -103,31 +103,8 @@ class FBManager {
     }
 
     private static function fileGetContents($url){
-        $context = stream_context_create(array(
-            'http' => array('ignore_errors' => true)
-        
-        ));
-
-        $file = file_get_contents($url, false, $context);
-        
-        preg_match('/HTTP\/1\.[0|1|x] ([0-9]{3})/', $http_response_header[0], $matches);
-        $status_code = $matches[1];
-
-        if($status_code === '200'){
-            return $file;
-        }else{
-            throw new ExternalServerException('Url"'.$url.'" return code"'.$status_code.'"');
-        }
-        // $proxy = array(
-        //     'http' => array(
-        //         'proxy' => 'http://pcproxy.itakura.toyo.ac.jp:8080/',
-        //         'request_fulluri' => true,
-        //     ),
-        // );
-        // $proxy_content = stream_context_create($proxy);
-        // return file_get_contents($url, false, $proxy_content);
+        global $SO;
+        return $SO->servers()->getFile($url);
     }
 }
 
-class ExternalServerException extends Exception{
-}

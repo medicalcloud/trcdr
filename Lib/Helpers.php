@@ -170,22 +170,6 @@ function nextPage($value, $path = "index.php?"){
     }
 }
 
-function write_factors_with_link($string){
-    $array = explode(' ',$string);
-    foreach($array as $factor){
-        echo '<a href="'.Pathes::getBaseUrl().'assessment/search.php?q='.$factor.'">';
-        ph($factor);
-        echo '</a> ';
-    }
-}
-
-function write_factors($string){
-    $array = explode(' ',$string);
-    foreach($array as $factor){
-        ph(' '.$factor);
-    }
-}
-
 function renderPart($partname){
     Pathes::execApp("layouts", $partname);
 }
