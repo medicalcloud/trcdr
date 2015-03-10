@@ -2,6 +2,7 @@
 
 function strict_error_handler($eNo, $eStr, $eFile, $eLine){
     echo("STRICT WARNING: {$eNo} {$eStr} {$eFile} {$eLine}".PHP_EOL);
+    die();
     //本当は、logfileに出力するほうが望ましい。
 }
 
