@@ -5,6 +5,8 @@ class SharedObjects {
     private $mailer;
     private $params;
     private $servers;
+
+    #session method
     public function session(){
         if(!isset($this->sess)){
             Pathes::loadLib('Session');
@@ -20,6 +22,23 @@ class SharedObjects {
     public function setSession($session){
         // this method is for test to set MockObject insted of Session
         $this->sess = $session;
+    }
+    
+    #call session method from SO, even if session object is not created. 
+    public function isLogedIn(){
+        if($this->sess){
+            return $this->sess->isLogedIn();
+        }else{
+            return false;
+        }
+    }
+
+    public function logedInOrRedirect($path){
+        if($this->sess){
+            $this->sess->logedInOrReqirect();
+        }else{
+            $this->redirect($path);
+        }
     }
 
     public function request(){
