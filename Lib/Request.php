@@ -57,12 +57,18 @@ class Request {
         }
     }
 
+    public function url(){
+        return $_SERVER['REQUEST_URI'];
+    }
+
     public function p($name = null){
         return $this->params($name);
     }
 
     public function redirect($path){
         if(preg_match('/^(https?|ftp):(:\/\/)/', $path)){
+            header ('Location: '.$path);
+        }elseif(preg_match('/^\//', $path)){  #start with slash
             header ('Location: '.$path);
         }else{
             header ('Location: '.Pathes::buildUrl($path));

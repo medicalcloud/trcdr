@@ -79,7 +79,6 @@ class Model {
         $ph_csv = implode(', ', $placeholders);
         $SQL = 'INSERT INTO '.static::$tableName
             .' ('.$cn_csv.', created, updated) VALUES ('.$ph_csv.', now(), now())';
- 
         $stt = static::buildStt($SQL);
         $stt = static::bindParams($stt, static::columnNames($params), $params);
         $stt->execute();

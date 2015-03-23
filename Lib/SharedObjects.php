@@ -24,23 +24,6 @@ class SharedObjects {
         $this->sess = $session;
     }
     
-    #call session method from SO, even if session object is not created. 
-    public function isLogedIn(){
-        if($this->sess){
-            return $this->sess->isLogedIn();
-        }else{
-            return false;
-        }
-    }
-
-    public function logedInOrRedirect($path){
-        if($this->sess){
-            $this->sess->logedInOrReqirect();
-        }else{
-            $this->redirect($path);
-        }
-    }
-
     public function request(){
         if(!isset($this->request)){
             Pathes::loadLib('Request');
@@ -103,6 +86,8 @@ class SharedObjects {
 
     public function redirect($path){
         if(preg_match('/^(https?|ftp)(:\/\/)/', $path)){
+            header ('Location: '.$path);
+        }elseif(preg_match('/^\/trcdr/', $path)){  #start with /trcdr
             header ('Location: '.$path);
         }else{
             header ('Location: '.Pathes::buildUrl($path));
