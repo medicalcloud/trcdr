@@ -110,7 +110,12 @@ class Session {
     }
 
     public function getUrlBeforeLogin(){
-        return $this->get('_urlBeforeLogin');
+        $urlBeforeLogin = $this->get('_urlBeforeLogin');
+        if(strpos($urlBeforeLogin, 'ajax')){
+            return null;
+        }else{
+            return $urlBeforeLogin;
+        }
     }
 
     public function removeUrlBeforeLogin(){
