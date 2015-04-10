@@ -16,7 +16,7 @@ class CathegoryModel extends Model {
         return static::findOneByParam('code', $code);
     }
 
-    public static function create_from_array(){
+    public static function createFromArray($array){
         $default_data_array = static::default_data_array();
         foreach($default_data_array as $cathegory_data){
             $code = $cathegory_data['code'];
@@ -26,13 +26,5 @@ class CathegoryModel extends Model {
                 static::create($cathegory_data);
             }
         }
-    }
-
-    public static function default_data_array(){
-        $default_data_array = array(
-            array('code' => 'vac/mr', 'jp' => 'MR', 'en' => 'MR')
-            ,array('code' => 'vac/mumps', 'jp' => 'おたふくかぜ', 'en' => 'mumps')
-        );
-        return $default_data_array;
     }
 }
