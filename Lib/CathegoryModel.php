@@ -4,16 +4,23 @@ class CathegoryModel extends Model {
     protected static $tableName = 'cathegory';
     protected static $columnNames = array('code', 'jp', 'en');
 
-    public static function findByJp($jp){
-        return static::findOneByParam('jp', $jp);
-    }
-
-    public static function findByEn($en){
-        return static::findOneByParam('en', $en);
+    public static function findByName($name, $lang = 'jp'){
+        switch($lang) {
+        case 'jp':
+            return static::findOneByParam('jp', $jp);
+            break;
+        default:
+            return static::findOneByParam('en', $en);
+            break;
+        }
     }
 
     public static function findByCode($code){
         return static::findOneByParam('code', $code);
+    }
+
+    public static function findAllUnder($codepart){
+        return static::findAll('code LIKE "'.$codepart.'%"');
     }
 
     public static function createFromArray($array){
@@ -26,5 +33,35 @@ class CathegoryModel extends Model {
                 static::create($cathegory_data);
             }
         }
+    }
+
+    public function shortName($lang = 'jp'){
+        switch($lang) {
+        case 'jp':
+            return end(explode('/', $this->jp));
+            break;
+        default:
+            return end(explode('/', $this->en));
+            break;
+        }
+    }
+
+    public function fullName($lang = 'ja'){
+        switch($lang) {
+        case 'jp':
+            return $this->jp;
+            break;
+        default:
+            return $this->en;
+            break;
+        }
+   }
+
+    public function shortCode(){
+        return end(explode('/', $this->code));
+    }
+
+    public function fullCode(){
+        return $this->code;
     }
 }
