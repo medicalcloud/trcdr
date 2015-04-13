@@ -38,10 +38,12 @@ class CathegoryModel extends Model {
     public function shortName($lang = 'jp'){
         switch($lang) {
         case 'jp':
-            return end(explode('/', $this->jp));
+            $names = explode('/', $this->jp);
+            return end($names);
             break;
         default:
-            return end(explode('/', $this->en));
+            $names = explode('/', $this->en);
+            return end($names);
             break;
         }
     }
@@ -58,7 +60,8 @@ class CathegoryModel extends Model {
    }
 
     public function shortCode(){
-        return end(explode('/', $this->code));
+        $names = explode('/', $this->code);
+        return end($names);
     }
 
     public function fullCode(){
