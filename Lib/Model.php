@@ -30,24 +30,32 @@ class Model {
         }
     }
 
-    public static function findAll($where = ''){
+    public static function findAll($where = '', $option = ''){
         $SQL = 'SELECT * FROM '.static::$tableName;
         if($where != ''){
             $SQL = $SQL.' WHERE '.$where;
         }
-        $SQL = $SQL.' ORDER BY created DESC';
+        if($option != ''){
+            $SQL = $SQL.' '.$option;
+        }else{
+            $SQL = $SQL.' ORDER BY created DESC';
+        }
         $stt = static::buildStt($SQL);
         $stt->execute();
         return $stt->fetchAll(PDO::FETCH_CLASS, get_called_class());
     }
 
-    public static function findMany($page, $count_per_page, $where = ''){
+    public static function findMany($page, $count_per_page, $where = '', $option = ''){
         $from = ($page - 1) * $count_per_page;
         $SQL = 'SELECT * FROM '.static::$tableName;
         if($where != ''){
             $SQL = $SQL.' WHERE '.$where;
         }
-        $SQL = $SQL.' ORDER BY created DESC';
+        if($option != ''){
+            $SQL = $SQL.' '.$option;
+        }else{
+            $SQL = $SQL.' ORDER BY created DESC';
+        }
         $SQL = $SQL.' LIMIT '.$from.', '.$count_per_page;
 
         $stt = static::buildStt($SQL);
