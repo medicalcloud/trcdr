@@ -67,16 +67,4 @@ class CathegoryModel extends Model {
     public function fullCode(){
         return $this->code;
     }
-
-    public function getDefaultRecommendedEpisodesFor($patient_id){
-        ////return standard plan sorted from near future to far future
-
-        $spec = ExceptionalImplementationFor($code);
-        if($spec !== null){
-            $episodes = $spec->getDefaultRecommendedEpisodesFor($patient_id);
-        }else{
-            $episodes = null;
-        }
-        return $episodes;
-    }
 }
