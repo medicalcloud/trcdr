@@ -5,25 +5,28 @@ class Pathes {
     private static $libPath = "";
     private static $baseUrl = "";
 
-    public static function getAppPath(){
+    public static function appPath(){
         return self::$appPath;
     }
+    public static function getAppPath(){ return static::appPath(); }
 
     public static function setAppPath($appPath){
         self::$appPath = $appPath;
     }
 
-    public static function getLibPath(){
+    public static function libPath(){
         return self::$libPath;
     }
+    public static function getLibPath(){ return static::libPath(); }
 
     public static function setLibPath($libPath){
         self::$libPath = $libPath;
     }
 
-    public static function getBaseUrl(){
+    public static function baseUrl(){
         return self::$baseUrl;
     }
+    public static function getBaseUrl(){ return static::baseUrl(); }
 
     public static function setBaseUrl($baseUrl){
         self::$baseUrl = $baseUrl;

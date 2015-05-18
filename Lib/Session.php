@@ -61,7 +61,7 @@ class Session {
         $this->stop();
     }
 
-    public function getUserId(){
+    public function userId(){
         $classname = $this->get('_authenticatedUserClassName');
         $user_id = $this->get('_authenticatedUserId');
         if($classname && $user_id){
@@ -70,7 +70,9 @@ class Session {
             return null;
         }
     }
-    public function getUser(){
+    public function getUserId(){ return $this->userId(); }
+
+    public function user(){
         $classname = $this->get('_authenticatedUserClassName');
         $user_id = $this->get('_authenticatedUserId');
         if($classname && $user_id){
@@ -81,6 +83,7 @@ class Session {
         }
         return null;
     }
+    public function getUser(){ return $this->user(); }
 
     public function isLogedIn(){
         $classname = $this->get('_authenticatedUserId');
@@ -109,7 +112,7 @@ class Session {
         }
     }
 
-    public function getUrlBeforeLogin(){
+    public function urlBeforeLogin(){
         $urlBeforeLogin = $this->get('_urlBeforeLogin');
         if(strpos($urlBeforeLogin, 'ajax')){
             return null;
@@ -117,6 +120,7 @@ class Session {
             return $urlBeforeLogin;
         }
     }
+    public function getUrlBeforeLogin(){ return urlBeforeLogin(); }
 
     public function removeUrlBeforeLogin(){
         $this->remove('_urlBeforeLogin');

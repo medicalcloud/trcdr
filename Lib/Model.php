@@ -9,7 +9,7 @@ class Model {
         static::$tableName = $tableName;
     }
     
-    public static function getDbh(){
+    public static function dbh(){
         #if this model data exist on default DB
         #use default database handler
         #if this model data exist on other DB
@@ -19,12 +19,13 @@ class Model {
         }
         return static::$dbh;
     }
+    public static function getDbh(){ return static::dbh(); }
 
     public static function buildStt($SQL){
         if(isset(static::$cachedStatements[$SQL])) {
             return static::$cachedStatements[$SQL];
         } else {
-            $dbh = static::getDbh();
+            $dbh = static::dbh();
             static::$cachedStatements[$SQL] = $dbh->prepare($SQL);
             return static::$cachedStatements[$SQL];
         }

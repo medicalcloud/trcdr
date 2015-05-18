@@ -12,9 +12,10 @@ class Dispatcher {
         $SO = SharedObjects::instance();
     }
 
-    public function getModelName(){
+    public function modelName(){
         return $this->modelName;
     }
+    public function getModelName(){ return $this->modelName(); }
 
     public function setModelName($modelName){
         $this->modelName = $modelName;

@@ -13,7 +13,7 @@ class DBManager {
         static::$password = $password;
     }
 
-    public static function getDbh(){
+    public static function dbh(){
         if(!isset(static::$dbh[static::$DSN])) {
             try {
                 static::$dbh[static::$DSN] = new PDO(static::$DSN, static::$username,
@@ -24,6 +24,7 @@ class DBManager {
         }
         return static::$dbh[static::$DSN];
     }
+    public static function getDbh(){ return static::dbh(); }
 
     public static function closeDbh($DSN = null){
 

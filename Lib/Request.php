@@ -19,6 +19,7 @@ class Request {
     public function targetIsMember() {
         return isset($_REQUEST['id']);
     }
+    
 
     public function targetIsCollection() {
         return !isset($_REQUEST['id']);
@@ -32,7 +33,7 @@ class Request {
         }
     }
 
-    public function getVirtualMethod() {
+    public function virtualMethod() {
         $request_method = strtoupper($_SERVER['REQUEST_METHOD']);
         if($request_method === 'POST') {
             if(isset($_POST['_method'])){
@@ -44,6 +45,7 @@ class Request {
             return $request_method;
         }
     }
+    public function getVirtualMethod() { return $this->virtualMethod(); }
 
     public function params($name = null){
         if(isset($name)){

@@ -17,17 +17,19 @@ class Controller {
         $this->modelName = $modelName;
     }
 
-    public function getModelName(){
+    public function modelName(){
         return $this->modelName;
     }
+    public function getModelName(){ return $this->modelName(); }
 
     public function setCountPerPage($count_per_page){
         $this->count_per_page = $count_per_page;
     }
 
-    public function getCountPerPage(){
+    public function countPerPage(){
         return $this->count_per_page;
     }
+    public function getCountPerPage(){ return $this->countPerPage(); }
 
     protected function render($viewName){
         Pathes::execApp(lcfirst($this->modelName), $viewName."View");
