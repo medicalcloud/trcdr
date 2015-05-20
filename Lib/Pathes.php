@@ -31,6 +31,7 @@ class Pathes {
     public static function basePath(){
         //self::baseUrl()には、'http://dev.trcdr.com/vac/'のような文字列が入っている。
         //ここから、vacのような文字列だけを抜き出す。
+        return end(explode(self::baseUrl()));
     }
 
     public static function setBaseUrl($baseUrl){
