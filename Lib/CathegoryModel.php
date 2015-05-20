@@ -67,4 +67,9 @@ class CathegoryModel extends Model {
     public function fullCode(){
         return $this->code;
     }
+
+    public function dir(){
+        $pos = strrpos($this->code, '/');
+        return substr($this->code, 0, $pos + 1);
+    }
 }
