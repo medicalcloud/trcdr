@@ -15,6 +15,14 @@ class SharedObjects {
         return $this->sess;
     }
 
+    public function sessionStarted(){
+        if($this->sess){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function s(){
         return $this->session();
     }
