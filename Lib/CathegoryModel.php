@@ -72,4 +72,20 @@ class CathegoryModel extends Model {
         $pos = strrpos($this->code, '/');
         return substr($this->code, 0, $pos + 1);
     }
+
+    public static function cathegorize($episodes){
+        //convert array of episodes to array string(cathegory_code) -> array of episodes 
+    }
+
+    public function equal($other){
+        if($other instanceOf CathegoryModel){
+            return $other->code === $thie->code;
+        }elseif(is_string($other)){
+            return $other === $this->code;
+        }
+    }
+
+    public function toString(){
+        return $this->code;
+    }
 }
