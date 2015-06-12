@@ -122,10 +122,14 @@ class RbArray{
         return $mem;
     }
 
-    public function addPair($key, $value){
+    protected function toStr($key){
         if(isobject($key)){
-            $key = $key->toString();
+            return $key->toString();
         }
+    }
+
+    public function addPair($key, $value){
+        $this->toStr($key);
         $this->array[$key] = $value;
         return $this;
     }
@@ -156,16 +160,19 @@ class RbArray{
     }
 
     public function get($key){
+        $key = $this->toStr($key);
         return $this->array[$key];
     }
 
     public function set($key, $value){
+        $key = $this->toStr($key);
         $this->addPair($key, $value);
         return $this;
     }
 
     public function keyExist($key){
-        return array_key_exist($this->array);
+        $key = $this->toStr($key);
+        return array_key_exist($key, $this->array);
     }
 
 }
