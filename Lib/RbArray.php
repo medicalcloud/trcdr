@@ -8,7 +8,7 @@ $rr->each(function($i) { echo $i*$i."\n"; });
  
  */
 
-class RbArray{
+class RbArray implements ArrayAccess{
     protected $array;
 
     public function __construct(array $a){
@@ -17,6 +17,22 @@ class RbArray{
 
     public function toArray(){
         return $this->array;
+    }
+
+    public function offsetExists($offset){
+        return $this->keyExist;
+    }
+
+    public function offsetGet($offset){
+        return $this->get($offset);
+    }
+
+    public function offsetSet($offset, $value){
+        $this->addPair($offset, $value);
+    }
+
+    public function offsetUnset($offset){
+        $this->remove($offset);
     }
 
     public function eachPair($body){
@@ -124,13 +140,21 @@ class RbArray{
 
     protected function toStr($key){
         if(isobject($key)){
-            return $key->toString();
+            return $key->__toString();
+        }elseif(isstring($key)){
+            return $key;
+        }else{
+            return null;
         }
     }
 
     public function addPair($key, $value){
         $this->toStr($key);
-        $this->array[$key] = $value;
+        if(is_null($key)){
+            $this->array[] = $value;
+        }else{
+            $this->array[$key] = $value;
+        }
         return $this;
     }
 
@@ -161,12 +185,21 @@ class RbArray{
 
     public function get($key){
         $key = $this->toStr($key);
-        return $this->array[$key];
+        if(isset($this->array[$key])){
+            return $this->array[$key];
+        }else{
+            return null;
+        }
     }
 
     public function set($key, $value){
-        $key = $this->toStr($key);
         $this->addPair($key, $value);
+        return $this;
+    }
+
+    public function remove($key){
+        $key = $this->toStr($key);
+        unset($this->array[$key]);
         return $this;
     }
 

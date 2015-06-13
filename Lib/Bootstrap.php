@@ -4,7 +4,6 @@ class Bootstrap {
     public static function start(){
         Pathes::setLibPath(__DIR__.'/');
         Pathes::loadLib('RbArray');
-        Pathes::loadLib('RbString');
         Pathes::loadLib('DBManager');
         Pathes::loadLib('Dispatcher');
     }

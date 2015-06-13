@@ -85,7 +85,7 @@ class CathegoryModel extends Model {
         }
     }
 
-    public function toString(){
+    public function __toString(){
         return $this->code;
     }
 }

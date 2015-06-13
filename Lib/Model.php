@@ -165,9 +165,18 @@ class Model {
         $string = mb_convert_kana($string, 'asKV', 'UTF-8');
         return $string;
     }
+
     public static function checkMultiLine($string){
         $string = str_replace('\0', '', $string);
         return $string;
+    }
+
+    public function toString(){
+        return $this->__toString();
+    }
+
+    public function __toString(){
+        return $this->id;
     }
 }
 
