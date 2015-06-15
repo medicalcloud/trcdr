@@ -176,7 +176,7 @@ class Model {
     }
 
     public function __toString(){
-        return $this->id;
+        return static::$tableName.'-'.$this->id;
     }
 }
 

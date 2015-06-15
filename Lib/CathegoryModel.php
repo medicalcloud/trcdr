@@ -84,8 +84,4 @@ class CathegoryModel extends Model {
             return $other === $this->code;
         }
     }
-
-    public function __toString(){
-        return $this->code;
-    }
 }
