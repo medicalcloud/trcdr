@@ -132,13 +132,17 @@ class Model {
         return $id;
     }
 
-    public static function changeTo($id, $column, $value){
-        $SQL = 'UPDATE '.static::$tableName.' SET '.$column.'=:placeholder WHERE id=:id';
+    // Is changeOneColumn better name?
+    public static function changeOneColumn($id, $column, $value){
+        $SQL = 'UPDATE '.static::$tableName.' SET '.$column.'=:value WHERE id=:id';
         $stt = static::buildStt($SQL);
-        $stt->bindValue(':placeholder', $value);
+        $stt->bindValue(':value', $value);
         $stt->bindValue(':id', $id);
         $stt->execute();
         return $id;
+    }
+    public static function changeTo($id, $column, $value){
+        return static::changeOneColumn($id, $column, $value);
     }
     
     public static function checkEmail($email){
@@ -159,6 +163,7 @@ class Model {
         return $url;
     }
 
+    // varidation
     public static function checkOneLine($string){
         $string = str_replace('\0', '', $string);
         $string = preg_replace('/\s+/', ' ', $string);
