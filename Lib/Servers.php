@@ -1,4 +1,7 @@
 <?php
+// 要するに、外部ネットにアクセスするためのクラス。
+// このクラス名いい？
+// Outernetとかどうよ？
 class Servers {
     public function getFile($url){
         $context = stream_context_create(array(
