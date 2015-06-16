@@ -1,8 +1,11 @@
 <?php
+
+// wraper function, use instead of htmlspecialchar
 function h($string) {
     return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');  
 }
 
+// wrapper of echo, use less for performance
 function ph($string) {
     echo(h($string));
 }
@@ -10,6 +13,8 @@ function ph($string) {
 function p($string) {
     echo($string);
 }
+
+// function to make tag
 function tag($string) {
     echo('<'.h($string).'>');
 }
@@ -18,6 +23,10 @@ function tagEnd($string) {
     echo('</'.h($string).'>');
 }
 
+
+// Links and subclasses, for webtest counter number of link is needed.
+// these class is for this reason.
+// use this is not recommended
 class Links{
     public function __construct(){
         $this->counter = 0;
@@ -82,6 +91,7 @@ class LinksToShowMany extends Links{
     }
 }
 
+// table class
 class Table {
     public function __construct() {
         echo('<table>');
@@ -108,6 +118,12 @@ class Table {
     }
 }
 
+
+// form class
+// 使っているところを確認した上で、
+// コンストラクタでフォーム開始 >>> $form->start
+// formEndでフォーム終了        >>> $form->end
+// にしては？
 class Form {
     public function __construct($id=null) {
         if($id === null){
@@ -140,6 +156,8 @@ class Form {
     }
 }
 
+
+// after here is for trcdr application
 function loginToggleLink($session, $userModelName, $login = 'login', $logout = 'logout'){
     $pDir = Pathes::getBaseUrl().'/'.$userModelName.'/';
     if($session->isLogedIn()){
