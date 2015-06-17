@@ -4,7 +4,7 @@ class SharedObjects {
     private $request;
     private $mailer;
     private $params;
-    private $servers;
+    private $outerweb;
 
     #session method
     public function session(){
@@ -57,13 +57,14 @@ class SharedObjects {
         return $this->mailer;
     }
 
-    public function servers(){
-        if(!isset($this->servers)){
-            Pathes::loadLib('Servers');
-            $this->servers = new Servers();
+    public function outerWeb(){
+        if(!isset($this->outerweb)){
+            Pathes::loadLib('OuterWeb');
+            $this->outerweb = new OuterWeb();
         }
-        return $this->servers;
+        return $this->outerweb;
     }
+    public function servers(){ $this->outerWeb(); }
 
     public function mail($to, $title, $message, $from){
         return $this->mailer()->mail($to, $title, $message, $from);

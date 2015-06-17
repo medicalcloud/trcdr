@@ -104,7 +104,7 @@ class FBManager {
 
     private static function fileGetContents($url){
         global $SO;
-        return $SO->servers()->getFile($url);
+        return $SO->outerWeb()->getFile($url);
     }
 }
 

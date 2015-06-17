@@ -1,8 +1,7 @@
 <?php
 // 要するに、外部ネットにアクセスするためのクラス。
-// このクラス名いい？
-// Outernetとかどうよ？
-class Servers {
+// もともと、Serversという名前だった。
+class OuterWeb {
     public function getFile($url){
         $context = stream_context_create(array(
             'http' => array('ignore_errors' => false
