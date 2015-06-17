@@ -141,6 +141,8 @@ class Model {
         $stt->execute();
         return $id;
     }
+
+    //wrapper for regacy 
     public static function changeTo($id, $column, $value){
         return static::changeOneColumn($id, $column, $value);
     }

@@ -1,5 +1,5 @@
 <?php
-class Session {
+class Session implements ArrayAccess{
 
     public function __construct(){
         session_set_cookie_params(0, '/');
@@ -23,24 +23,48 @@ class Session {
  
     }
 
-    public function set($name, $value){
-        $_SESSION[$name] = $value;
+    public function set($key, $value){
+        $_SESSION[$key] = $value;
+        return $this;
     }
 
-    public function get($name){
-        if (isset($_SESSION[$name])) {
-            return $_SESSION[$name];
+    public function get($key){
+        if (isset($_SESSION[$key])) {
+            return $_SESSION[$key];
         }
         return null;
     }
 
-    public function remove($name){
-        unset($_SESSION[$name]);
+    public function remove($key){
+        unset($_SESSION[$key]);
     }
 
     public function clear(){
         $_SESSION = array();
     }
+
+    // Method for ArrayAccess
+    //
+    public function torray(){
+        return $_SESSION;
+    }
+
+    public function offsetExists($offset){
+        return isset($_SESSION[$offset]);
+    }
+
+    public function offsetGet($offset){
+        return $this->get($offset);
+    }
+
+    public function offsetSet($offset, $value){
+        $this->set($offset, $value);
+    }
+
+    public function offsetUnset($offset){
+        $this->remove($offset);
+    }
+
 
     public function regenerate($destroy = true){
         if (!$this->sessionIdIsRegenerated) {

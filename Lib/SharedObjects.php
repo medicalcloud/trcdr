@@ -1,22 +1,22 @@
 <?php
-class SharedObjects {
-    private $sess;
-    private $request;
-    private $mailer;
+class SharedObjects implements ArrayAccess{
+    //private $sess;
+    //private $request;
+    //private $mailer;
     private $params;
-    private $outerweb;
+    //private $outerweb;
 
     #session method
     public function session(){
-        if(!isset($this->sess)){
+        if(!isset($this->params['session'])){
             Pathes::loadLib('Session');
-            $this->sess = new Session();
+            $this->params['session'] = new Session();
         }
-        return $this->sess;
+        return $this->params['session'];
     }
 
     public function sessionStarted(){
-        if($this->sess){
+        if(isset($this->params['session'])){
             return true;
         }else{
             return false;
@@ -29,15 +29,15 @@ class SharedObjects {
 
     public function setSession($session){
         // this method is for test to set MockObject insted of Session
-        $this->sess = $session;
+        $this->params['session'] = $session;
     }
     
     public function request(){
-        if(!isset($this->request)){
+        if(!isset($this->params['request'])){
             Pathes::loadLib('Request');
-            $this->request = new Request();
+            $this->params['request'] = new Request();
         }
-        return $this->request;
+        return $this->params['request'];
     }
 
     public function r(){
@@ -46,24 +46,26 @@ class SharedObjects {
 
     public function setRequest($request){
         // this method is for test to set MockObject insted of Request
-        $this->request = $request;
+        $this->params['request'] = $request;
     }
 
     public function mailer(){
-        if(!isset($this->mailer)){
+        if(!isset($this->params['mailer'])){
             Pathes::loadLib('Mailer');
-            $this->mailer = new Mailer();
+            $this->params['mailer'] = new Mailer();
         }
-        return $this->mailer;
+        return $this->params['mailer'];
     }
 
     public function outerWeb(){
-        if(!isset($this->outerweb)){
+        if(!isset($this->params['outerweb'])){
             Pathes::loadLib('OuterWeb');
-            $this->outerweb = new OuterWeb();
+            $this->params['outerweb'] = new OuterWeb();
         }
-        return $this->outerweb;
+        return $this->params['outerweb'];
     }
+
+    // wrapper for legacy
     public function servers(){ $this->outerWeb(); }
 
     public function mail($to, $title, $message, $from){
@@ -82,16 +84,51 @@ class SharedObjects {
         return $SO;
     }
 
-    public function set($name, $value){
-        $this->params[$name] = $value;
+    public function set($key, $value){
+        $this->params[$key] = $value;
     }
 
-    public function get($name){
-        if (isset($this->params[$name])) {
-            return $this->params[$name];
+    public function get($key){
+        if (isset($this->params[$key])) {
+            return $this->params[$key];
+        }elseif($key === 'session'){
+            return $this->session();
+        }elseif($key === 'request'){
+            return $this->request();
+        }elseif($key === 'outerweb'){
+            return $this->outerweb();
+        }elseif($key === 'mailer'){
+            return $this->mailer();
+        }else{
+            return null;
         }
-        return null;
     }
+
+    public function remove($key){
+        unset($this->params[$key]);
+    }
+
+    // Method for ArrayAccess
+    public function toArray(){
+        return $this->params;
+    }
+
+    public function offsetExists($offset){
+        return isset($this->params[$offset]);
+    }
+
+    public function offsetGet($offset){
+        return $this->get($offset);
+    }
+
+    public function offsetSet($offset, $value){
+        $this->set($offset, $value);
+    }
+
+    public function offsetUnset($offset){
+        $this->remove($offset);
+    }
+
 
     public function redirect($path){
         if(preg_match('/^(https?|ftp)(:\/\/)/', $path)){
