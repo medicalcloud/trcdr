@@ -26,7 +26,7 @@ class RbArray implements ArrayAccess{
 
     // methods to work as array
     public function offsetExists($offset){
-        return $this->keyExist;
+        return $this->keyExist($offset);
     }
 
     public function offsetGet($offset){
@@ -45,7 +45,7 @@ class RbArray implements ArrayAccess{
     public function eachPair($body){
         $iter = new RbIterator($body);
         foreach($this->array as $key => $value){
-            $iter->yield($key, $value);
+            $iter->yieldBlock($key, $value);
         }
         return $this;
     }
@@ -53,7 +53,7 @@ class RbArray implements ArrayAccess{
     public function eachValue($body){
         $iter = new RbIterator($body);
         foreach($this->array as $value){
-            $iter->yield($value);
+            $iter->yieldBlock($value);
         }
         return $this;
     }
@@ -61,7 +61,7 @@ class RbArray implements ArrayAccess{
     public function eachKey($body){
         $iter = new RbIterator($body);
         foreach($this->array as $key => $value){
-            $iter->yield($key);
+            $iter->yieldBlock($key);
         }
         return $this;
     }
@@ -70,7 +70,7 @@ class RbArray implements ArrayAccess{
         $newArray = [];
         $iter = new RbIterator($body);
         foreach($this->array as $key => $value){
-            $key_and_value = $iter->yield($key, $value);
+            $key_and_value = $iter->yieldBlock($key, $value);
             $newArray[$key_and_value[0]] = $key_and_value[1];
         }
         return new RbArray($newArray);
@@ -80,7 +80,7 @@ class RbArray implements ArrayAccess{
         $newArray = [];
         $iter = new RbIterator($body);
         foreach($this->array as $key => $value){
-            $newvalue = $iter->yield($key, $value);
+            $newvalue = $iter->yieldBlock($key, $value);
             $newArray[] = $newvalue;
         }
         return new RbArray($newArray);
@@ -90,7 +90,7 @@ class RbArray implements ArrayAccess{
         $newArray = [];
         $iter = new RbIterator($body);
         foreach($this->array as $value){
-            $newkey = $iter->yield($value);
+            $newkey = $iter->yieldBlock($value);
             if(isset($newArray[$newkey])){
                 $newArray[$newkey]->addValue($value);
             }else{
@@ -104,7 +104,7 @@ class RbArray implements ArrayAccess{
         $newArray = [];
         $iter = new RbIterator($body);
         foreach($this->array as $key => $value){
-            $newkey = $iter->yield($key, $value);
+            $newkey = $iter->yieldBlock($key, $value);
             if(isset($newArray[$newkey])){
                 $newArray[$newkey]->addValue($value);
             }else{
@@ -118,7 +118,7 @@ class RbArray implements ArrayAccess{
         $newArray = [];
         $iter = new RbIterator($body);
         foreach($this->array as $key => $value){
-            if($iter->yield($key, $value)){
+            if($iter->yieldBlock($key, $value)){
                 $newArray[$key] = $value;
             }
         }
@@ -129,7 +129,7 @@ class RbArray implements ArrayAccess{
         $newArray = [];
         $iter = new RbIterator($body);
         foreach($this->array as $value){
-            if($iter->yield($value)){
+            if($iter->yieldBlock($value)){
                 $newArray[] = $value;
             }
         }
@@ -140,13 +140,13 @@ class RbArray implements ArrayAccess{
         $iter = new RbIterator($body);
         $mem = $init;
         foreach($this->array as $value){
-            $mem = $iter->yield($mem, $value);
+            $mem = $iter->yieldBlock($mem, $value);
         }
         return $mem;
     }
 
     protected function makeKeyableFrom($key){
-        if(isobject($key)){
+        if(is_object($key)){
             if(method_exist($key, '__toString')){
                 return $key->__toString();
             }else{
@@ -234,7 +234,7 @@ class RbIterator{
         $this->body = $body;
     }
 
-    public function yield(){
+    public function yieldBlock(){
         $args = func_get_args();
         return call_user_func_array($this->body, $args);
     }
