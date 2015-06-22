@@ -1,25 +1,27 @@
 <?php
 
 class Calendar {
-    private $episodes;
+    private $episodes; #array from date to episode
     public function __construct($episodes){
         #constructed by array of episodes
-        $this->episodes = $episodes;
+        $this->setEpisodes($episodes);
     }
 
-    public function oneMonth($year, $month){
-        #return array representing one month calendar
-        #with this method, write monthly calendar html
+    public function EpisodesInPeriod($startDay, $endDay){
+        #範囲に含まれるepisodeの配列を返す
+        #episodeにはinPeriodがあるので、Viewでこれを順にコールして
+        #カレンダーを書く。
+        $episodesInPeriod = [];
+        foreach($this->episodes as $episode){
+            if($startDay <= $episode->dateTo() && $episode->dateFrom() <= $endDay){
+                $episodesInPeriod[] = $epidode;
+            }
+        }
+        return $episodesInPeriod;
     }
 
-    public function oneYear($year){
-        #return array representing one year calendar
-        #with this method, write yearly calendar html
-    }
-
-    public function years($fromYear, $toYear){
-        #return array representing years calendar
-        #with this method, write long calendar html
+    public function oneMonth($month){
+        #week毎に区切った配列を返す
     }
 
     public function addEpisode($episode){
@@ -33,7 +35,7 @@ class Calendar {
         return $this->episodes;
     }
 
-    public function setEspideos($episodes){
+    public function setEpisodes($episodes){
         $this->episodes = $episodes;
         return $this;
     }
