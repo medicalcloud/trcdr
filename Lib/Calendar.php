@@ -13,7 +13,7 @@ class Calendar {
         #カレンダーを書く。
         $episodesInPeriod = [];
         foreach($this->episodes as $episode){
-            if($startDay <= $episode->dateTo() && $episode->dateFrom() <= $endDay){
+            if($episode->inPeriod($startDay, $endDay)){
                 $episodesInPeriod[] = $epidode;
             }
         }
