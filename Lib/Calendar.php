@@ -14,7 +14,7 @@ class Calendar {
         $episodesOnCalendar = [];
         foreach($this->episodes as $episode){
             if($episode->onCalendar($startDay, $endDay)){
-                $episodesOnCalendar[] = $epidode;
+                $episodesOnCalendar[] = $episode;
             }
         }
         return $episodesOnCalendar;
@@ -30,7 +30,7 @@ class Calendar {
         }
         $calendar = [];
         $header = [];$header[] = '';
-        for($day = clone $startDay; $day->modify('+1 day'); $endDay <= $day){
+        for($day = clone $startDay; $day <= $endDay; $day->modify('+1 day')){
                 $header[] = clone $day;
         }
         $calendar[] = $header;
@@ -46,7 +46,7 @@ class Calendar {
         return $calendar;
     }
     
-    public function monthes($startDay, $endDay){
+    public function months($startDay, $endDay){
         #二重配列返す
         if(is_string($startDay)){
             $startDay = new DateTime($startDay);
@@ -56,18 +56,18 @@ class Calendar {
         }
         $calendar = [];
         $header = [];$header[] = '';
-        for($day = clone $startDay, $day->modify('twelfth day of this month')
-            ; $day->modify('+1 month'); $endDay <= $day){
-                $copiedDay = clone $day;
+        for($day = new DateTime($startDay->format('Y-m-4'))
+            ; $day <$endDay; $day->modify('+1 month')){
+                $header[] = clone $day;
             }
         $calendar[] = $header;
 
         $episodes = $this->episodesOnCalendar($startDay, $endDay);
         foreach($episodes as $episode){
             $line = []; $line[] = $episode;
-            for($day = clone $startDay, $day->modify('twelfth day of this month')
+            for($day = new DateTime($startDay->format('Y-m-4'))
                 ; $day->modify('+1 month'); $endDay <= $day){
-                $firstDay = clone $day; $firstDay->modify('first day of this month');
+                $firstDay = new DateTime($day->format('Y-m-1'));
                 $lastDay = clone $day; $lastDay->modify('last day of this month');
                 $header[] = $episode->onCalendar($firstDay, $lastDay);
             }
@@ -86,20 +86,20 @@ class Calendar {
         }
         $calendar = [];
         $header = [];$header[] = '';
-        for($day = clone $startDay, $day->modify('twelfth day of this year')
-            ; $day->modify('+1 year'); $endDay <= $day){
-                $copiedDay = clone $day;
+        for($day = new DateTime($startDay->format('Y-m-4'))
+            ; $day < $endDay; $day->modify('+1 year')){
+                $header[] = clone $day;
             }
         $calendar[] = $header;
 
         $episodes = $this->episodesOnCalendar($startDay, $endDay);
         foreach($episodes as $episode){
             $line = []; $line[] = $episode;
-            for($day = clone $startDay, $day->modify('twelfth day of this year')
-                ; $day->modify('+1 year'); $endDay <= $day){
-                $firstDay = clone $day; $firstDay->modify('first day of this year');
-                $lastDay = clone $day; $lastDay->modify('last day of this year');
-                $header[] = $episode->onCalendar($firstDay, $lastDay);
+            for($day = new DateTime($startDay->format('Y-1-4'))
+                ; $day < $endDay; $day->modify('+1 year')){
+                $firstDay = new DateTime($day->format('Y-1-1'));
+                $lastDay = new DateTime($day->format('Y-12-31'));
+                $line[] = $episode->onCalendar($firstDay, $lastDay);
             }
             $calendar[] = $line;
         }
