@@ -27,8 +27,7 @@ class Dispatcher {
         $this->dispatchIfRequestIs("POST", "Collection", "create");
         $this->dispatchIfRequestIs("PUT", "Member", "update");
         $this->dispatchIfRequestIs("DELETE", "Member", "remove");
-        global $SO;
-        $SO->redirect($this->modelName.'/'.'index.php');
+        $this->redirect($this->modelName.'/'.'index.php');
     }
 
     public function dispatchAsGenericEdit(){
@@ -41,16 +40,12 @@ class Dispatcher {
 
     public function dispatchAsGenericGetForMember($actionName){
         $this->dispatchIfRequestIs("GET", "Member", $actionName);
-        
-        global $SO;
-        $SO->redirect($this->modelName.'/'.'index.php');
+        $this->redirect($this->modelName.'/'.'index.php');
     }
 
     public function dispatchAsGenericGetForCollection($actionName){
         $this->dispatchIfRequestIs("GET", "Collection", $actionName);
-         
-        global $SO;
-        $SO->redirect($this->modelName.'/'.'index.php');
+        $this->redirect($this->modelName.'/'.'index.php');
     }
 
     public function dispatchIfRequestIs($method, $target, $actionName){
@@ -67,6 +62,11 @@ class Dispatcher {
         $controller = new $controllerClassName();
         $controller->$actionName();
         die();
+    }
+
+    public function redirect($path){
+        global $SO;
+        $SO->redirect($path);
     }
 }
 
