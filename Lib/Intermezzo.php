@@ -1,6 +1,6 @@
 <?php
 
-class Operetta{
+class Intermezzo{
     private $speeches = [];
 
     public function __construct(){
