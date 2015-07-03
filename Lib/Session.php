@@ -118,6 +118,10 @@ class Session implements ArrayAccess{
            return false;
         }
     }
+
+    public function isNotLogedIn(){
+        return !($this->isLogedIn());
+    }
    
     public function logedInOrRedirect($path){
         global $SO;
