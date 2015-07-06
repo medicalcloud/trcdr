@@ -6,7 +6,7 @@ class Intermezzo{
     public function __construct(){
     }
 
-    public function addSpeech($actor, $words, $angle = '140', $distance = '20'){
+    public function addSpeech($actor, $words, $angle = '180', $distance = '20'){
         $this->speeches[] = new Speech($actor, $words, $angle, $distance);
         return $this;
     }
