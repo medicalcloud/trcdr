@@ -223,6 +223,11 @@ class RbArray implements ArrayAccess{
         return '['.join(',', $this->array).']';
     }
 
+// array function wrapper
+    public function sortByKey(){
+        ksort($this->array);
+        return $this;
+    }
 }
 
 class RbIterator{
