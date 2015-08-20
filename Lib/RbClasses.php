@@ -269,7 +269,29 @@ class RbStr{
         $this->string = $string;
     }
 
+    public function toString(){
+        return $string;
+    }
+
     public function __toString(){
         return $string;
+    }
+
+    public function equal($compared){
+        return StrMan::equal($this->string, $compared);
+    }
+
+    public function sub($start, $end){
+        return StrMan::sub($this->string, $start, $end);
+    }
+}
+
+class StrMan{
+    public static function equal($str_a, $str_b){
+        return $str_a === $str_b;
+    }
+
+    public static function sub($string, $start, $end){
+        //return substring from $start to $end 
     }
 }
