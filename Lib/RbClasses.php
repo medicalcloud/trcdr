@@ -292,6 +292,6 @@ class StrMan{
     }
 
     public static function sub($string, $start, $end){
-        //return substring from $start to $end 
+        return substr($string, $start, $end); 
     }
 }
