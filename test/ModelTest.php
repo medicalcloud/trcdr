@@ -1,7 +1,7 @@
-<?php
+<?php namespace trcdr;
 Pathes::loadLib("Model");
 
-class ModelTest extends PHPUnit_Framework_TestCase{
+class ModelTest extends \PHPUnit_Framework_TestCase{
     private $model;
     public function setUp(){
         $this->model = new Model();

@@ -1,10 +1,10 @@
 <?php
-Pathes::loadLib('Controller');
-Pathes::loadLib('SharedObjects');
+trcdr\Pathes::loadLib('Controller');
+trcdr\Pathes::loadLib('SharedObjects');
 
 class ControllerTest extends PHPUnit_Framework_TestCase{
     public function setUp(){
-        $this->controller = new Controller();
+        $this->controller = new trcdr\Controller();
     }
     public function testModelClass(){
         $this->controller->setModelName("A");

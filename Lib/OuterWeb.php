@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 // 要するに、外部ネットにアクセスするためのクラス。
 // もともと、Serversという名前だった。
 class OuterWeb {

@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 require_once('Pathes.php');
 class Bootstrap {
     public static function start(){

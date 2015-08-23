@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 global $SO;
 $item = $SO->get('item');
 ?>

@@ -1,6 +1,6 @@
-<?php
+<?php namespace trcdr;
 Pathes::loadLib("Pathes");
-class PathesTest extends PHPUnit_Framework_TestCase{
+class PathesTest extends \PHPUnit_Framework_TestCase{
     public function setup(){
     }
     

@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 
 class DBManager {
     protected static $dbh = array();
@@ -16,7 +16,7 @@ class DBManager {
     public static function dbh(){
         if(!isset(static::$dbh[static::$DSN])) {
             try {
-                static::$dbh[static::$DSN] = new PDO(static::$DSN, static::$username,
+                static::$dbh[static::$DSN] = new \PDO(static::$DSN, static::$username,
                     static::$password);
             } catch(PDOException $e) {
                 die('Error:'.$e->getMessage());

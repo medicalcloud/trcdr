@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 
 // wraper function, use instead of htmlspecialchar
 function h($string) {

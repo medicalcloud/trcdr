@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 
 class FBManager {
     private static $fbAppName = '';

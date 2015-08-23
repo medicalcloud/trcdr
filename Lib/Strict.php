@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 function strict_error_handler($eNo, $eStr, $eFile, $eLine){
     echo("STRICT: {$eNo} {$eStr} {$eFile} {$eLine}".PHP_EOL);

@@ -1,8 +1,8 @@
-<?php
-Pathes::loadLib('Bootstrap');
+<?php 
+trcdr\Pathes::loadLib('Bootstrap');
 
 class BootstrapTest extends PHPUnit_Framework_TestCase{
     public function testStart(){
-        Bootstrap::start();
+        trcdr\Bootstrap::start();
     }
 }

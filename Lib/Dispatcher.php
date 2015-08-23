@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 Pathes::loadLib("Request");
 Pathes::loadLib('SharedObjects');
 class Dispatcher {
@@ -57,8 +57,9 @@ class Dispatcher {
     }    
 
     public function dispatch($actionName){
-        $controllerClassName = ucfirst($this->modelName).'Controller';
-        Pathes::loadApp($this->modelName, $controllerClassName);
+        $controllerFileName = ucfirst($this->modelName).'Controller';
+        $controllerClassName = '\trcdr\\'.$controllerFileName;
+        Pathes::loadApp($this->modelName, $controllerFileName);
         $controller = new $controllerClassName();
         $controller->$actionName();
         die();

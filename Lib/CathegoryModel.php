@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 Pathes::loadLib('Model');
 class CathegoryModel extends Model {
     protected static $tableName = 'cathegory';

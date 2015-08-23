@@ -1,5 +1,5 @@
-<?php
-class Session implements ArrayAccess{
+<?php namespace trcdr;
+class Session implements \ArrayAccess{
 
     public function __construct(){
         session_set_cookie_params(0, '/');

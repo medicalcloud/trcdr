@@ -1,5 +1,5 @@
-<?php
-class SharedObjects implements ArrayAccess{
+<?php namespace trcdr;
+class SharedObjects implements \ArrayAccess{
     //private $sess;
     //private $request;
     //private $mailer;

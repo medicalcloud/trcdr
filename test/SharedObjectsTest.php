@@ -1,8 +1,8 @@
-<?php
+<?php namespace trcdr;
 Pathes::loadLib("SharedObjects");
 Pathes::loadLib("Request");
 Pathes::loadLib("Session");
-class SharedObjectsTest extends PHPUnit_Framework_TestCase{
+class SharedObjectsTest extends \PHPUnit_Framework_TestCase{
     private $so;
     public function setup(){
         $this->so = SharedObjects::instance();

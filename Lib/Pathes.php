@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 
 class Pathes {
     private static $appPath = "";

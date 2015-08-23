@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 Pathes::loadLib('Model');
 class FlagModel extends Model {
     // for baloon talking and bouncing user interface,

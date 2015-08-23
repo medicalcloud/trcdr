@@ -1,6 +1,6 @@
-<?php
+<?php namespace trcdr;
 Pathes::loadLib("Dispatcher");
-class DispatcherTest extends PHPUnit_Framework_TestCase{
+class DispatcherTest extends \PHPUnit_Framework_TestCase{
     private $dispatcher;
     
     public function setUp(){

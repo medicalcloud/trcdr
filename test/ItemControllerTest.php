@@ -1,8 +1,8 @@
-<?php
+<?php namespace trcdr;
 
 Pathes::loadApp("item","ItemController");
 Pathes::loadLib('SharedObjects');
-class ItemControllerTest extends PHPUnit_Framework_TestCase{
+class ItemControllerTest extends \PHPUnit_Framework_TestCase{
     public function setUp(){
         global $SO;
         $SO = SharedObjects::instance();

@@ -1,6 +1,6 @@
-<?php
+<?php namespace trcdr;
 Pathes::loadLib("Request");
-class RequestTest extends PHPUnit_Framework_TestCase{
+class RequestTest extends \PHPUnit_Framework_TestCase{
     private $request;
     public function setUp(){
         $this->request = new Request();

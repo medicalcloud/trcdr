@@ -1,6 +1,6 @@
-<?php
+<?php namespace trcdr;
 Pathes::loadLib("DBManager");
-class DBManagerTest extends PHPUnit_Framework_TestCase{
+class DBManagerTest extends \PHPUnit_Framework_TestCase{
     private $dbman;
     public function setUp(){
         $this->dbman = new DBManager();

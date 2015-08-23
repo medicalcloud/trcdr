@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 
 /*
 
@@ -13,7 +13,7 @@ $rr->each(function($i) { echo $i*$i."\n"; });
 $str = new RbStr('string');
  */
 
-class RbArray implements ArrayAccess{
+class RbArray implements \ArrayAccess{
     protected $array;
 
     public function __construct(array $a){

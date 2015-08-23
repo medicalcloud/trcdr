@@ -1,6 +1,6 @@
-<?php
+<?php namespace trcdr;
 Pathes::loadLib("FBManager");
-class FBManagerTest extends PHPUnit_Framework_TestCase{
+class FBManagerTest extends \PHPUnit_Framework_TestCase{
     public function setup(){
     }
     

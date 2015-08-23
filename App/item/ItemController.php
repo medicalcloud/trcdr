@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 require_once("ItemModel.php");
 Pathes::loadLib("Controller");
 class ItemController extends Controller{

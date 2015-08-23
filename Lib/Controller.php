@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 Pathes::loadLib("Model");
 Pathes::loadLib("Helpers");
 Pathes::loadLib("SharedObjects");
@@ -41,7 +41,7 @@ class Controller {
         if(empty($page)){
             $page = 1;
         }
-        $modelclass = ucfirst($this->modelName).'Model';
+        $modelclass = '\trcdr\\'.ucfirst($this->modelName).'Model';
         $SO->set('page', $page);
         $SO->set('items', $modelclass::findMany($page, $this->count_per_page));
         $this->render("ShowMany");
@@ -50,7 +50,7 @@ class Controller {
     public function showOne(){
         global $SO;
         $id = $SO->request()->params('id');
-        $modelclass = ucfirst($this->modelName).'Model';
+        $modelclass = '\trcdr\\'.ucfirst($this->modelName).'Model';
         $item = $modelclass::findOne($id);
         if(empty($item)){
             $SO->redirect(lcfirst($this->modelName).'/index.php');
@@ -66,7 +66,7 @@ class Controller {
     public function editForm(){
         global $SO;
         $id = $SO->request()->params('id');
-        $modelclass = ucfirst($this->modelName).'Model';
+        $modelclass = '\trcdr\\'.ucfirst($this->modelName).'Model';
         $item = $modelclass::findOne($id);
         if(empty($item)){
             $SO->redirect(lcfirst($this->modelName).'/index.php');
@@ -79,7 +79,7 @@ class Controller {
         global $SO;
         $params = $SO->request()->params();
 
-        $modelclass = ucfirst($this->modelName).'Model';
+        $modelclass = '\trcdr\\'.ucfirst($this->modelName).'Model';
         $modelclass::create($params);
         global $SO;
         $SO->redirect(lcfirst($this->modelName).'/index.php');
@@ -88,7 +88,7 @@ class Controller {
     public function update(){
         global $SO;
         $params = $SO->request()->params();
-        $modelclass = ucfirst($this->modelName).'Model';
+        $modelclass = '\trcdr\\'.ucfirst($this->modelName).'Model';
         $modelclass::update($params);
         $SO->redirect(lcfirst($this->modelName).'/index.php');
     }
@@ -96,7 +96,7 @@ class Controller {
     public function remove(){
         global $SO;
         $id = $SO->request()->params('id');
-        $modelclass = ucfirst($this->modelName).'Model';
+        $modelclass = '\trcdr\\'.ucfirst($this->modelName).'Model';
         $modelclass::remove($id);
         $SO->redirect(lcfirst($this->modelName).'/index.php');
     }

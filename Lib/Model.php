@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 Pathes::loadLib("DBManager");
 
 class Model {
@@ -61,7 +61,7 @@ class Model {
 
         $stt = static::buildStt($SQL);
         $stt->execute();
-        return $stt->fetchAll(PDO::FETCH_CLASS, get_called_class());
+        return $stt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
     }
 
     public static function findOne($id){
@@ -187,5 +187,5 @@ class Model {
     }
 }
 
-class TModelDataException extends Exception{
+class TModelDataException extends \Exception{
 }

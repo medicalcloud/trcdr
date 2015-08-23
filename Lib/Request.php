@@ -1,4 +1,4 @@
-<?php
+<?php namespace trcdr;
 class Request {
     public function isGet() {
         return $this->getVirtualMethod() === 'GET';
