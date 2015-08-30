@@ -148,7 +148,7 @@ class Session implements \ArrayAccess{
             return $urlBeforeLogin;
         }
     }
-    public function getUrlBeforeLogin(){ return urlBeforeLogin(); }
+    public function getUrlBeforeLogin(){ return $this->urlBeforeLogin(); }
 
     public function removeUrlBeforeLogin(){
         $this->remove('_urlBeforeLogin');

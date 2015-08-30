@@ -20,5 +20,5 @@ class Mailer {
     }
 }
 
-class TMailException extends Exception{
+class TMailException extends \Exception{
 }
