@@ -5,6 +5,15 @@ class Model {
     protected static $dbh;
     protected static $tableName = 'tablename';
     protected static $cachedStatements = array();
+
+    public function __construct($params = null){
+        if(isset($params)){
+            foreach(static::columnName($params) as $columnName){
+                $this[$column] = $params[$columnName];
+            }
+        }
+    }
+
     public static function setTableName($tableName){
         static::$tableName = $tableName;
     }
@@ -43,7 +52,7 @@ class Model {
         }
         $stt = static::buildStt($SQL);
         $stt->execute();
-        return $stt->fetchAll(PDO::FETCH_CLASS, get_called_class());
+        return $stt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
     }
 
     public static function findMany($page, $count_per_page, $where = '', $option = ''){
