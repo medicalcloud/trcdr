@@ -68,5 +68,22 @@ class Pathes {
     public static function buildUrl($path){
         return self::$baseUrl.$path;
     }
+
+    public static function addAutoloadPath($libOrApp, $path){
+        switch($libOrApp){
+        case 'lib':
+            spl_autoload_register(function($class){
+                require(self::$libPath.$path.$class.'.php');
+            });
+            break;
+        case 'app':
+            spl_autoload_register(function($class){
+                require(self::$appPath.$path.$class.'.php');
+            });
+            break;
+        default:
+            // do nothing
+        }
+    }
 }
 
