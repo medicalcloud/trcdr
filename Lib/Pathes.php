@@ -72,12 +72,12 @@ class Pathes {
     public static function addAutoloadPath($libOrApp, $path){
         switch($libOrApp){
         case 'lib':
-            spl_autoload_register(function($class){
+            spl_autoload_register(function($class) use($path){
                 require(self::$libPath.$path.$class.'.php');
             });
             break;
         case 'app':
-            spl_autoload_register(function($class){
+            spl_autoload_register(function($class) use($path){
                 require(self::$appPath.$path.$class.'.php');
             });
             break;
