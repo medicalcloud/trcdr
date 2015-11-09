@@ -12,6 +12,10 @@ class Dispatcher {
         $SO = SharedObjects::instance();
     }
 
+    public static function instance($modelName){
+        return new Dispatcher($modelName);
+    }
+
     public function modelName(){
         return $this->modelName;
     }
@@ -22,12 +26,12 @@ class Dispatcher {
     }
 
     public function dispatchAsGenericIndex(){
-        $this->dispatchIfRequestIs("GET", "Member", "showOne");
-        $this->dispatchIfRequestIs("GET", "Collection", "showMany");
-        $this->dispatchIfRequestIs("POST", "Collection", "create");
-        $this->dispatchIfRequestIs("PUT", "Member", "update");
-        $this->dispatchIfRequestIs("DELETE", "Member", "remove");
-        $this->redirect($this->modelName.'/'.'index.php');
+        if($this->requestIs("GET", "Member")){ $this->dispatch("showOne"); }
+        else if($this->requestIs("GET", "Collection")){ $this->dispatch("showMany"); }
+        else if($this->requestIs("POST", "Collection")){ $this->dispatch("create"); }
+        else if($this->requestIs("PUT", "Member")){ $this->dispatch("update"); }
+        else if($this->requestIs("DELETE", "Member")){ $this->dispatch("remove"); }
+        else{ $this->redirect($this->modelName.'/'.'index.php');}
     }
 
     public function dispatchAsGenericEdit(){
@@ -39,22 +43,26 @@ class Dispatcher {
     }
 
     public function dispatchAsGenericGetForMember($actionName){
-        $this->dispatchIfRequestIs("GET", "Member", $actionName);
-        $this->redirect($this->modelName.'/'.'index.php');
+        if($this->requestIs("GET", "Member")){ $this->dispatch($actionName);}
+        else{ $this->redirect($this->modelName.'/'.'index.php');}
     }
 
     public function dispatchAsGenericGetForCollection($actionName){
-        $this->dispatchIfRequestIs("GET", "Collection", $actionName);
-        $this->redirect($this->modelName.'/'.'index.php');
+        if($this->requestIs("GET", "Collection")){ $this->dispatch($actionName);}
+        else{ $this->redirect($this->modelName.'/'.'index.php');}
     }
 
     public function dispatchIfRequestIs($method, $target, $actionName){
-        global $SO;
-        if($SO->request()->getVirtualMethod() === $method &&
-           $SO->request()->getTarget() === $target){
+        if($this->requestIs($method, $target)){
                $this->dispatch($actionName);
         }
-    }    
+    }
+
+    public function requestIs($method, $target){
+        global $SO;
+        return ($SO->request()->getVirtualMethod() === $method &&
+                $SO->request()->getTarget() === $target);
+    }
 
     public function dispatch($actionName){
         $controllerFileName = ucfirst($this->modelName).'Controller';
@@ -62,7 +70,6 @@ class Dispatcher {
         Pathes::loadApp($this->modelName, $controllerFileName);
         $controller = new $controllerClassName();
         $controller->$actionName();
-        die();
     }
 
     public function redirect($path){
