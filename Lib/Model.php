@@ -141,6 +141,23 @@ class Model {
         return $id;
     }
 
+    public static function putOutTrash($id){
+        return static::trashFlag($id, '0');
+    }
+
+    public static function putInTrash($id){
+        return static::trashFlag($id, '1');
+    }
+
+    public static function trashFlag($id, $flag = '1'){
+        try{
+            return static::update(array('id' =>$id, 'trash' => $flag));
+        }catch(Exception $e){
+            //do nothing
+            //return static::remove($id);
+        }
+    }
+
     // Is changeOneColumn better name?
     public static function changeOneColumn($id, $column, $value){
         $SQL = 'UPDATE '.static::$tableName.' SET '.$column.'=:value WHERE id=:id';
