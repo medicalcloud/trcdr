@@ -73,11 +73,17 @@ class Pathes {
         switch($libOrApp){
         case 'lib':
             spl_autoload_register(function($class) use($path){
+                if(false !== ($lastSeparator = strripos($class, '\\'))){
+                    $class = substr($className, $lastSeparator + 1);
+                }
                 require(self::$libPath.$path.$class.'.php');
             });
             break;
         case 'app':
             spl_autoload_register(function($class) use($path){
+                if(false !== ($lastSeparator = strripos($class, '\\'))){
+                    $class = substr($class, $lastSeparator + 1);
+                }
                 require(self::$appPath.$path.$class.'.php');
             });
             break;

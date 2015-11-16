@@ -141,6 +141,9 @@ class Model {
         return $id;
     }
 
+
+    // if you use trashbox(recycle bin) use these method
+    // add column 'trash' to model. 
     public static function putOutTrash($id){
         return static::trashFlag($id, '0');
     }

@@ -129,17 +129,21 @@ class SharedObjects implements \ArrayAccess{
         $this->remove($offset);
     }
 
+    public function URLManager(){
+        if(!isset($this->params['URLManager'])){
+            Pathes::loadLib('URLManager');
+            $this->params['URLManager'] = new URLManager();
+        }
+        return $this->params['URLManager'];
+    }
+
+    public function setURLManager($URLManager){
+        $this->params['URLManager'] = $URLManager;
+    }
+
 
     public function redirect($path){
-        if(preg_match('/^(https?|ftp)(:\/\/)/', $path)){
-            header ('Location: '.$path);
-        }elseif(preg_match('/^\/'.Pathes::basePath().'/', $path)){  #start with /trcdr 
-            #ここで、Pathes::basePath()をコールする変更を
-            header ('Location: '.$path);
-        }else{
-            header ('Location: '.Pathes::buildUrl($path));
-        }
-        die();
+        $this->URLManager()->redirect($path);
     }
 }
 

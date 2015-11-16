@@ -68,14 +68,8 @@ class Request {
     }
 
     public function redirect($path){
-        if(preg_match('/^(https?|ftp):(:\/\/)/', $path)){
-            header ('Location: '.$path);
-        }elseif(preg_match('/^\//', $path)){  #start with slash
-            header ('Location: '.$path);
-        }else{
-            header ('Location: '.Pathes::buildUrl($path));
-        }
-        die();
+        global $SO;
+        $SO->redirect($path);
     }
 }
 
