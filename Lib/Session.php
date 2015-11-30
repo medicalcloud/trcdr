@@ -45,7 +45,7 @@ class Session implements \ArrayAccess{
 
     // Method for ArrayAccess
     //
-    public function torray(){
+    public function toArray(){
         return $_SESSION;
     }
 

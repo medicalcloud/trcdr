@@ -22,6 +22,7 @@ class UserModel extends Model {
         
     }
 
+    //汚い。
     public function checkUserData(){
         //Userに不十分なデータがないかチェックする。
         $neededForm = $this->formNeededToCorrectUserData();
@@ -33,7 +34,6 @@ class UserModel extends Model {
     }
 
     public function formNeededToCorrectUserData(){
-        //Userに不十分なデータがないか、チェックする。
         //もし、ユーザーデータに不十分な点があれば、
         //それを入力するために必要なフォームのURLを送る。
         //異常がなければ、nullを返す

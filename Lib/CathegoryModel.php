@@ -7,10 +7,10 @@ class CathegoryModel extends Model {
     public static function findByName($name, $lang = 'jp'){
         switch($lang) {
         case 'jp':
-            return static::findOneByParam('jp', $jp);
+            return static::findOneByParam('jp', $name);
             break;
         default:
-            return static::findOneByParam('en', $en);
+            return static::findOneByParam('en', $name);
             break;
         }
     }
@@ -23,9 +23,8 @@ class CathegoryModel extends Model {
         return static::findAll('code LIKE "'.$codepart.'%"');
     }
 
-    public static function createFromArray($array){
-        $default_data_array = static::default_data_array();
-        foreach($default_data_array as $cathegory_data){
+/*    public static function createFromArray($array){
+        foreach($array as $cathegory_data){
             $code = $cathegory_data['code'];
             if(static::findByCode($code)){
                 #do nothing
@@ -34,18 +33,20 @@ class CathegoryModel extends Model {
             }
         }
     }
+ */
 
+    // すこしリファクタリング、あとで動作確認
     public function shortName($lang = 'jp'){
         switch($lang) {
         case 'jp':
-            $names = explode('/', $this->jp);
-            return end($names);
+            $name = $this->jp;
             break;
         default:
-            $names = explode('/', $this->en);
-            return end($names);
+            $name = $this->en;
             break;
         }
+        $shortName = mb_substr($name, mb_strpos($name, '/') + 1);
+        return $shortName;
     }
 
     public function fullName($lang = 'jp'){

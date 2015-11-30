@@ -20,7 +20,7 @@ class Controller {
     public function modelName(){
         return $this->modelName;
     }
-    public function getModelName(){ return $this->modelName(); }
+//    public function getModelName(){ return $this->modelName(); }
 
     public function setCountPerPage($count_per_page){
         $this->count_per_page = $count_per_page;

@@ -1,6 +1,8 @@
 <?php namespace trcdr;
 Pathes::loadLib('Model');
 class FlagModel extends Model {
+    // コード汚い。本当に必要？必要になったら、一旦、書き直し。
+    // FlagModel->findByName()->yet()みたいな使い方がわかりやすいんじゃない？
     // for baloon talking and bouncing user interface,
     // define flag in here
     // ui movement(talking or bouncing)is defined in view,
@@ -21,6 +23,9 @@ class FlagModel extends Model {
     }
 
     public static function yet($name, $user_id = null){
+        if(empty($user_id)){
+            $user_id = $SO->session()->user_id();
+        }
         // return true, if name is not exist.
         $already = static::already($name, $user_id);
         return empty($already);
